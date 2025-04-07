@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/main-colors.css">
+    <link rel="stylesheet" href="./css/navstyle.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+
+    <title>Responsive Navbar</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- تحسين النافبار ليكون ريسبونسيف باستخدام Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid">
+        <div class="container-fluid">
+            <!-- الشعار -->
+            <a class="navbar-brand" href="home.html" style="font-weight: 100;">
+                Joe's Store
+            </a>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item d-flex align-items-center">
+                    <i class="fa-solid fa-location-dot ms-3 me-1"></i>
+                    <!-- <i class="fa-solid fa-eye" style="color:white"></i> -->
+                    <span class="delivery-location">Deliver to - Minya</span>
+                </li>
+            </ul>
+            <!-- زر القائمة للشاشات الصغيرة -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- مربع البحث -->
+                <form class="d-flex flex-grow-1">
+                    <input class="me-4 ms-4 flex-grow-1" id="search-box" type="search"
+                        placeholder="What are you looking for?" aria-label="Search">
+                    <button class="btn btn-outline-light search-btn" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+                <!-- معلومات المستخدم -->
+                <div class="d-flex align-items-center">
+
+                    <span class="me-3 hello-span">Hello, User</span>
+
+
+                    <!-- القائمة المنسدلة للإعدادات -->
+                    <div class="dropdown me-3 admin-dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            Settings
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-start">
+                            <li><a class="dropdown-item" href="./admins/wishlists.html">Manage Orders</a></li>
+                            <li><a class="dropdown-item" href="./admins/orders.html">Manage Warehouse</a></li>
+                            <li><a class="dropdown-item" href="./admins/AdminDashboard.html">Manage Admins</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger login-btn" href="#" onclick="toggleSingedIn()">Sign
+                                    In</a></li>
+                        </ul>
+                    </div>
+
+
+                    <!-- القائمة المنسدلة للإعدادات -->
+                    <div class="dropdown me-3 user-dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            Settings
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-start">
+                            <li><a class="dropdown-item" href="./users/orders.html">Orders</a></li>
+                            <li><a class="dropdown-item" href="./users/wishlists.html">Wish List</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger login-btn" href="#" onclick="toggleSingedIn()">Sign
+                                    In</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Shopping Cart Icon -->
+                    <a onclick="goToCartIfSignedIn()" class="shopping-cart-link text-white position-relative me-2"
+                        href="#">
+                        <i class="fa-solid fa-cart-shopping fs-4"></i>
+                        <span
+                            class="position-absolute  translate-middle badge rounded-pill bg-danger products-count me-5">
+                            0
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- تضمين Bootstrap -->
+
+    <!-- Load Boostrap JS -->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="./navbar.js"></script> -->
+
+    <!-- Load Boostrap JS -->
+
+    <script src="./navbar.js"></script>
+
+
+</body>
+
+</html>
