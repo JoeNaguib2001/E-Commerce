@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shopping cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="./css/navbar.css"> -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        a {
+            text-decoration: none !important;
+        }
+
+        .action {
+            color: #2162A1;
+            border-left: 1px solid black;
+            padding: 10px 20px;
+            transition: .3s;
+        }
+
+        @media (max-width: 768px) {
+            .action {
+                padding: 5px 4px;
+                font-size: 12px;
+            }
+        }
+
+        .action:nth-of-type(1) {
+            border-left: none;
+        }
+
+
+        .action:nth-of-type(1):hover {
+            background-color: red;
+            color: white;
+        }
+
+        .action:hover {
+            background-color: #2162A1;
+            color: white;
+            cursor: pointer;
+        }
+
+        .product-quantity {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 30px;
+            border: 5px solid gold;
+            margin-top: 10px auto;
+            gap: 15px;
+            padding: 5px;
+            transition: .3s;
+            min-width: 30%;
+            max-width: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .product-quantity {
+                max-width: 100%;
+            }
+        }
+
+        .product-quantity span::before,
+        .product-quantity span::after {
+            content: "|";
+            /* إضافة الفاصل */
+            color: black;
+            /* لون الفاصل */
+            font-weight: bold;
+            position: absolute;
+        }
+
+        .product-quantity span::before {
+            left: -6px;
+            /* تحريك الفاصل قبل الرقم */
+        }
+
+        .product-quantity span::after {
+            right: -6px;
+            /* تحريك الفاصل بعد الرقم */
+        }
+
+
+
+
+        .product-quantity i {
+            cursor: pointer;
+        }
+
+        .product-quantity i:hover {
+            color: gold;
+        }
+
+        @media (max-width: 768px) {
+            .product-quantity {
+                min-width: 15%;
+                padding: 5px 5px;
+            }
+        }
+
+        .product-quantity span {
+            position: relative;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 0 12px;
+            /* مسافة حول الرقم */
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .product-details {
+            padding-top: 5%;
+        }
+
+
+        @media (max-width: 768px) {
+            .product-details {
+                margin: 0;
+                padding: 5% 5% 20px 15% !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+
+
+        }
+
+        .product-image {
+            border: 1px solid black;
+        }
+
+        .row img {
+            height: 400px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .row img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+        p,
+        h5 {
+            font-weight: 500;
+        }
+
+        @media (max-width: 990px) {
+
+            p,
+            span,
+            i,
+            button {
+                font-size: 10px !important;
+            }
+
+            h5 {
+                font-size: 15px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- Toast Container -->
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div id="bootstrapToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto" id="toastTitle">Notification</strong>
+                    <small>Just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" id="toastMessage">
+                    Message goes here.
+                </div>
+            </div>
+        </div>
+        <!-- End Toast Container -->
+
+        <div class="row m-5 main-container">
+            <div class="col-12 col-md-9" style=" padding:0; margin:0; border:2px solid black;">
+                <div class="cart-items" style="margin: 0; padding: 0;">
+
+                </div>
+            </div>
+            <div class="col-12 col-md-3" style="padding: 20px; margin: 0; border:2px solid black;">
+                <div class=" cart-summary"
+                    style=" padding:20px 5px; display: flex; flex-direction: column; align-items: center;">
+                    <h5 style="border: 2px solid black; width: 100%; text-align: center; padding: 10px;">Cart Summary
+                    </h5>
+                    <p class="cart-summary-total m-3">Total Items: 1</p>
+                    <p id="subtotal" class="m-3">Subtotal = $10.00</p>
+                    <p id="tax" class="m-3">Tax = $1.00</p>
+                    <p id="total" class="m-3">Total = $11.00</p>
+                    <button class="btn btn-primary checkout-btn m-3" style="min-width: 60%;">Checkout</button>
+                </div>
+            </div>
+            <!-- Repeat for other products -->
+        </div>
+    </div>
+    <script type="module" src="./navbar/navbar.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+         // Import the functions you need from the SDKs you need
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getDatabase, ref,set, push } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+        import * as navbar from "./navbar/navbar.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBCDfTghFj89jNnYM3oz0LSGZU_FEi5s3c",
+          authDomain: "iti-2025-e-commerce.firebaseapp.com",
+          projectId: "iti-2025-e-commerce",
+          storageBucket: "https://iti-2025-e-commerce-default-rtdb.firebaseio.com",
+          messagingSenderId: "90149751365",
+          appId: "1:90149751365:web:839d4d987cbcafd36b712c"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        console.log("Firebase App:", app);
+
+        const db = getDatabase();
+
+        let cartItems;
+        function getCurrentLoggedInUserCartOrderedItems() {
+            let username = localStorage.getItem("username");
+            let carts = JSON.parse(localStorage.getItem("carts")) || [];
+            let userCart = carts.find(cart => cart.username === username);
+            let cartItems = userCart ? userCart.order : [];
+            return cartItems;
+        }
+
+        function loadCartItems() {
+            cartItems = getCurrentLoggedInUserCartOrderedItems(); // استرجاع العناصر من السلة
+            const cartContainer = document.querySelector(".cart-items");
+            cartContainer.innerHTML = ""; // مسح المحتويات القديمة
+
+            if (cartItems.length === 0) {
+                cartContainer.style.height = "100%";
+                cartContainer.style.display = "flex";
+                cartContainer.style.alignItems = "center";
+                cartContainer.innerHTML = '<div style="width:100%;" class="inner-container"><h2>The Cart Is Empty 🛒</h2></div>';
+                cartContainer.style.textAlign = "center";
+                return;
+            }
+
+            cartItems.forEach((item, index) => {
+                const cartItemDiv = document.createElement("div");
+                cartItemDiv.classList.add("cart-item");
+
+                cartItemDiv.innerHTML = `
+                                <div class="cart-item row" data-index="0" style="padding: 20px 40px;">
+                                    <div class="product-image col-6 col-md-4">
+                                        <img src="${item.image}" alt="Product 1" >
+                                    </div>
+                                    <div class="product-details col-6 col-md-8">
+                                        <p style="text-align: center;">${item.title}</p>
+                                        <p style="text-align: center;"class="price">Price: $${item.price}</p>
+                                        <p style="text-align: center;"class="real-quantity">In Stock</p>
+                                        <div class="d-flex justify-content-center align-items-center">
+                                        <div class="product-quantity">
+                                            <i class="fa-solid fa-minus decrease-quantity" data-index="${index}"></i>
+                                            <span>${item.quantity}</span>
+                                            <i class="fa-solid fa-plus increase-quantity" data-index="${index}"></i>
+                                    </div>
+                                </div>
+                            <div class="product-actions">
+                                <a class="action remove-item" href="#" data-index="${index}">Delete</a>
+                                <a class="action save-later" href="#">Save</a>
+                                <a class="action share" href="#">Share</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="height: 5px; background-color: black; border: none;">
+                            `;
+
+                cartContainer.appendChild(cartItemDiv);
+            });
+
+            setupCartActions();
+        }
+
+        function setupCartActions() {
+            document.querySelectorAll(".decrease-quantity").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    let index = this.dataset.index;
+                    decreaseQuantity(index);
+                });
+            });
+
+            document.querySelectorAll(".increase-quantity").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    let index = this.dataset.index;
+                    increaseQuantity(index);
+                });
+            });
+
+            document.querySelectorAll(".remove-item").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    let index = this.dataset.index;
+                    deleteItem(index);
+                });
+            });
+        }
+
+        function increaseQuantity(index) {
+            let cartItems = getCurrentLoggedInUserCartOrderedItems(); // استرجاع العناصر من السلة
+
+            cartItems[index].quantity += 1; // زيادة الكمية بمقدار 1
+
+            let username = localStorage.getItem("username");
+            let carts = JSON.parse(localStorage.getItem("carts")) || [];
+            let userCart = carts.find(cart => cart.username === username);
+
+            if (userCart) {
+                userCart.order = cartItems; // تحديث الطلب الخاص بالمستخدم
+            } else {
+                carts.push({ username: username, order: cartItems }); // إضافة مستخدم جديد إذا لم يكن موجودًا
+            }
+
+            localStorage.setItem("carts", JSON.stringify(carts));
+            loadCartItems();
+            updateOrderSummary(); // تحديث ملخص الطلب بعد التعديل
+            navbar.updateCartCount();
+        }
+
+
+        function decreaseQuantity(index) {
+            let cartItems = getCurrentLoggedInUserCartOrderedItems(); // استرجاع العناصر من السلة
+
+            if (cartItems[index].quantity > 1) {
+                cartItems[index].quantity -= 1; // تقليل الكمية بمقدار 1
+            } else {
+                cartItems.splice(index, 1); // حذف العنصر إذا وصلت الكمية إلى 0
+            }
+
+            let username = localStorage.getItem("username");
+            let carts = JSON.parse(localStorage.getItem("carts")) || [];
+            let userCart = carts.find(cart => cart.username === username);
+
+            if (userCart) {
+                userCart.order = cartItems; // تحديث الطلب الخاص بالمستخدم
+            } else {
+                carts.push({ username: username, order: cartItems }); // إضافة مستخدم جديد إذا لم يكن موجودًا
+            }
+
+            localStorage.setItem("carts", JSON.stringify(carts));
+            loadCartItems();
+            updateOrderSummary(); // تحديث ملخص الطلب بعد التعديل
+            navbar.updateCartCount();
+        }
+
+        function deleteItem(index) {
+            let cartItems = getCurrentLoggedInUserCartOrderedItems(); // استرجاع العناصر من السلة
+
+            cartItems.splice(index, 1); // حذف العنصر بناءً على الفهرس
+
+            let username = localStorage.getItem("username");
+            let carts = JSON.parse(localStorage.getItem("carts")) || [];
+            let userCart = carts.find(cart => cart.username === username);
+
+            if (userCart) {
+                userCart.order = cartItems; // تحديث الطلب الخاص بالمستخدم
+            } else {
+                carts.push({ username: username, order: cartItems }); // إضافة مستخدم جديد إذا لم يكن موجودًا
+            }
+
+            localStorage.setItem("carts", JSON.stringify(carts));
+            loadCartItems();
+            updateOrderSummary(); // تحديث ملخص الطلب بعد التعديل
+            navbar.updateCartCount();
+        }
+
+        function clearCart() {
+            localStorage.removeItem("cart");
+            loadCartItems();
+        }
+
+        function updateOrderSummary() {
+            updateCartSummary(); // تحديث ملخص السلة عند تحميل الصفحة
+            let cartItems = getCurrentLoggedInUserCartOrderedItems(); // استرجاع العناصر من السلة
+            let subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let tax = subtotal * 0.1; // نفترض 10% ضريبة
+            let total = subtotal + tax;
+
+            document.getElementById("subtotal").textContent = `Subtotal = $${subtotal.toFixed(2)}`;
+            document.getElementById("tax").textContent = `Tax = $${tax.toFixed(2)}`;
+            document.getElementById("total").textContent = `Total = $${total.toFixed(2)}`;
+        }
+
+
+        function getCurrentLoggedInuserCartItemsCount() {
+            let cart = getCurrentLoggedInUserCartOrderedItems();
+            let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            return totalItems;
+        }
+
+        function updateCartSummary() {
+            let cartSummaryTotal = document.querySelector(".cart-summary-total");
+            cartSummaryTotal.innerHTML = "Total Items Count: " + getCurrentLoggedInuserCartItemsCount(); // تحديث عدد العناصر في السلة
+        }
+
+        loadCartItems();
+        updateOrderSummary();
+
+
+        document.querySelector(".checkout-btn").addEventListener("click", (event) => {
+            Checkout();
+        });
+
+        async function Checkout() {
+            let cartItems = getCurrentLoggedInUserCartOrderedItems(); // استرجاع العناصر من السلة
+            if (cartItems.length === 0) {
+                alert("Your cart is empty. Please add items to your cart before checking out.");
+                return;
+            }
+
+            let username = localStorage.getItem("username");
+            if (!username) {
+                ShowBootstrapToast("❌ يجب تسجيل الدخول أولاً!", "danger");
+                return;
+            }
+
+
+            let orderData = {
+                orderId: Date.now(),
+                userName: username,
+                orderDate: new Date().toISOString().split('T')[0], // تاريخ اليوم
+                estimatedDelivery: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // +3 أيام
+                order: cartItems,
+                orderStatus: "Waiting",
+                totalPrice: cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2),
+                paymentMethod: "Credit Card",
+            };
+
+            const ordersRef = ref(db, "orders/");
+            const newOrderRef = push(ordersRef);
+
+            set(newOrderRef, orderData)
+            .then(() => {
+                alert("✅ Order placed successfully!");
+                // You can redirect or clear cart here
+            })
+            .catch((error) => {
+                alert("❌ Error placing order: " + error.message);
+            });
+            const userOrdersRef = ref(db, `users/${username}/orders/`);
+            const newUserOrderRef = push(userOrdersRef);
+            set(newUserOrderRef, orderData);
+
+            // Clear the cart from local storage
+            let carts = JSON.parse(localStorage.getItem("carts")) || [];
+            let userCartIndex = carts.findIndex(cart => cart.username === localStorage.getItem("username"));
+
+            if (userCartIndex !== -1) {
+                carts[userCartIndex].order = []; // Clear the order for the current user
+                localStorage.setItem("carts", JSON.stringify(carts));
+            }
+            
+            debugger;
+            loadCartItems();
+
+            // Wait for 3 seconds before redirecting
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            // Pass order details to the next page
+            let total = orderData.order.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const params = new URLSearchParams({
+                total: total.toFixed(2),
+                orderId: orderData.orderId,
+                estimatedDelivery: orderData.estimatedDelivery
+            });
+            window.location.href = `order-confirmation.html?${params.toString()}`;
+        }
+
+
+    </script>
+</body>
+
+</html>
+<!-- <i class="fa-solid fa-minus decrease-quantity" data-index="${index}"></i>
+<i class="fa-solid fa-plus increase-quantity" data-index="${index}"></i> -->

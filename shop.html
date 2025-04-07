@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main-colors.css">
+    <link rel="stylesheet" href="./css/shopstyle.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <title>Store</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <!-- Nav -->
+    <div class="container-fluid px-0">
+        <div id="navbar"></div>
+        <!-- Toast Container -->
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div id="bootstrapToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto" id="toastTitle">Notification</strong>
+                    <small>Just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body text-dark" id="toastMessage">Message goes here.</div>
+            </div>
+        </div>
+        <!-- End Toast Container -->
+        <!-- Categories Nav -->
+        <div class="d-flex categories-container-nav" id="categories-container-nav">
+            <ul id="categories-container-nav-id"
+                style="list-style-type: none; padding-left: 10px; margin: 0; display: flex;"></ul>
+        </div>
+        <!-- Categories Cards -->
+        <div class="d-flex flex-wrap justify-content-center categories-container" id="categories-container"
+            style="display: none !important;">
+            Categories will be dynamically rendered here
+        </div>
+        <!-- First Carousel with Promo Text -->
+        <!-- Products Section -->
+        <div class="container-fluid random-products-container" style="padding: 0;">
+            <section class="shopping-row">
+                <div class="sort-by-container d-flex justify-content-end" style="padding: 20px 20px;">
+                    <label for="sort-by" style="font-size: 1.2rem; font-weight: bold; margin-right: 10px;"
+                        class="text-white">Sort
+                        by:</label>
+                    <select id="sort-by" class="form-select"
+                        style="width: 200px; display: inline-block; font-size: 1rem; padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
+                        onchange="fetchProducts()">
+                        <option value="default" selected>Default</option>
+                        <option value="price-low-to-high">Price: Low to High</option>
+                        <option value="price-high-to-low">Price: High to Low</option>
+                        <option value="rating-low-to-high">Rating: Low to High</option>
+                        <option value="rating-high-to-low">Rating: High to Low</option>
+                    </select>
+                </div>
+
+                <div class="row" id="product-container" style="padding:0px;"></div>
+            </section>
+        </div>
+    </div>
+    <!-- Pagination -->
+    <div class="pagination-container d-flex justify-content-center mt-5 pt-3 pb-3" style="background-color: black;">
+        <nav aria-label="Page navigation" style="background-color: black;">
+            <ul class="pagination" style="background-color: black;">
+                <li class="page-item disabled" id="prev-page">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                Page numbers will be dynamically added here
+                <li class="page-item" id="next-page">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    </div>
+
+    <!-- firebase configration (the following two tags) -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBCDfTghFj89jNnYM3oz0LSGZU_FEi5s3c",
+            authDomain: "iti-2025-e-commerce.firebaseapp.com",
+            projectId: "iti-2025-e-commerce",
+            storageBucket: "https://iti-2025-e-commerce-default-rtdb.firebaseio.com",
+            messagingSenderId: "90149751365",
+            appId: "1:90149751365:web:839d4d987cbcafd36b712c"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        console.log("Firebase App:", app);
+
+        import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+        const db = getDatabase();
+        window.db = db;
+
+
+
+    </script>
+    <script  src="./js/utilities.js"></script>
+
+    <!-- Load NavBar -->
+    <script type="module" src="./navbar/navbar.js"></script>
+
+    <!-- Load Boostrap JS -->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+
+    <script type="module" src="./js/shop.js">
+
+    </script>
+
+
+</body>
+
+</html>

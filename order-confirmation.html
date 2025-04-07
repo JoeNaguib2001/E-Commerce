@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shopping cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        h2,
+        h4 {
+            text-align: center;
+            margin-top: 20px !important;
+        }
+
+        .row,
+        body {
+            background-image: url("./images/black-brick-wall-textured-background.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+        }
+
+        .row {
+            height: 60vh;
+            color: white;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center align-content-center">
+            <h2>Your Order Has Been Confirmed 👌✌</h2>
+            <h4 id="order-id"></h4>
+            <h4 id="total-paid"></h4>
+            <h4>Thank you for shopping with us!</h4>
+            <h4>We hope to see you again soon!</h4>
+        </div>
+    </div>
+
+    <script type="module" src="./navbar/navbar.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Get the order details from the URL parameters and display them
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get("orderId");
+        const totalPaid = urlParams.get("total");
+        const estimatedDelivery = urlParams.get("estimatedDelivery");
+
+        if (orderId) {
+            document.getElementById("order-id").innerHTML = `Order ID: ${orderId}`;
+        }
+
+        if (totalPaid) {
+            document.getElementById("total-paid").innerHTML = `You Paid a Total Of $${totalPaid}`;
+        }
+
+        if (estimatedDelivery) {
+            const deliveryElement = document.createElement("h4");
+            deliveryElement.innerHTML = `Estimated Delivery: ${estimatedDelivery}`;
+            document.querySelector(".row").appendChild(deliveryElement);
+        }
+
+
+    </script>
+</body>
+
+
+</html>

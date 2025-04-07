@@ -1,0 +1,125 @@
+<!-- Joe1 -->
+<!-- Joe2 -->
+
+<!-- Joe3 -->
+<!-- Joe4 -->
+
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Dropdown RTL & LTR</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .custom-navbar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-items {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-items li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-items li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Collapse Mode */
+        .custom-navbar.collapsed {
+            left: auto;
+            right: 50px;
+            transform: none;
+            padding: 10px;
+            width: 60px;
+        }
+
+        .custom-navbar.collapsed .nav-items li {
+            display: none;
+        }
+
+        .custom-navbar.collapsed .nav-items .toggle-btn {
+            display: block;
+        }
+
+        /* Always show toggle */
+        .toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .toggle-btn i {
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="custom-navbar">
+        <ul class="nav-items">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#new">New Collection</a></li>
+            <li><a href="#trending">Trending</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#signin">Sign In</a></li>
+            <li><a href="#about">About</a></li>
+            <li class="toggle-btn">
+                <i class="fa-solid fa-arrow-right" onclick="toggleNav()"></i>
+            </li>
+        </ul>
+    </nav>
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleNav() {
+            const navbar = document.querySelector('.custom-navbar');
+            const icon = navbar.querySelector('.toggle-btn i');
+
+            navbar.classList.toggle('collapsed');
+
+            if (navbar.classList.contains('collapsed')) {
+                icon.classList.remove('fa-arrow-right');
+                icon.classList.add('fa-arrow-left');
+            } else {
+                icon.classList.remove('fa-arrow-left');
+                icon.classList.add('fa-arrow-right');
+            }
+        }
+
+    </script>
+</body>
+
+</html>
