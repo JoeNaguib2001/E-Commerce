@@ -1,0 +1,58 @@
+[
+  {
+    "id":1,
+    "productName": "Proc#1",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_2/blonde_1.png"
+  },
+  {
+    "id":29,
+    "productName": "Proc#2",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_2/blonde_2.png"
+  },
+  {
+    "id":30,
+    "productName": "Proc#3",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_2/blonde_3.png"
+  },
+  {
+    "id":31,
+    "productName": "Proc#4",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_2/blonde_4.png"
+  },
+  {
+    "id":32,
+    "productName": "Proc#5",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_2/blonde_1.png"
+  },
+  {
+    "id":33,
+    "productName": "Proc#6",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_2/blonde_2.png"
+  },
+  {
+    "id":34,
+    "productName": "Proc#7",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_2/blonde_3.png"
+  },
+  {
+    "id":35,
+    "productName": "Proc#8",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_2/blonde_4.png"
+  }
+]

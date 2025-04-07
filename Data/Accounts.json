@@ -1,0 +1,30 @@
+[
+  {
+    "fullName": "Youssef Mohsen",
+    "email": "mohsenyoussef233@gmail.com",
+    "userName": "Joe2024",
+    "password": "123456Yy####",
+    "userType": "user"
+  },
+  {
+    "fullName": "Youssef Mohsen",
+    "email": "mohsenyoussef233@gmail.com",
+    "userName": "1234",
+    "password": "1234",
+    "userType": "admin"
+  },
+  {
+    "fullName": "jojo",
+    "userName": "123456",
+    "password": "123456",
+    "email": "jojo@jij.com",
+    "userType": "user"
+  },
+  {
+    "fullName": "asdasd",
+    "userName": "asdasd",
+    "password": "asd123",
+    "email": "asdasd@asdas.css",
+    "userType": "user"
+  }
+]

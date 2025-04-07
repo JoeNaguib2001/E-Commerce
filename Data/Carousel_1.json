@@ -1,0 +1,30 @@
+[
+  {
+    "id": 21,
+    "productName": "Proc#1",
+    "price": 200,
+    "quantity": 60,
+    "image": "../Images/carousel_1/blonde1.png"
+  },
+  {
+    "id": 22,
+    "productName": "Proc#2",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_1/blonde2.png"
+  },
+  {
+    "id": 23,
+    "productName": "Proc#3",
+    "price": 400,
+    "quantity": 60,
+    "image": "../Images/carousel_1/blonde3.png"
+  },
+  {
+    "id": 24,
+    "productName": "Proc#4",
+    "price": 450,
+    "quantity": 60,
+    "image": "../Images/carousel_1/blonde4.png"
+  }
+]

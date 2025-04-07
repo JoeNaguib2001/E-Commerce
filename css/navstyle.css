@@ -1,0 +1,337 @@
+:root {
+    /* --main-color: #5A4634; */
+    /* --main-color: #ff5733; */
+    --main-color: black;
+    --main-color-hover: #392c1e;
+    --secondary-color: #f0c14b;
+    --background-color: #fff;
+    --text-color: #000;
+}
+
+nav {
+    min-height: 50px !important;
+    border-bottom: 3px solid var(--main-color);
+}
+
+.fa-location-dot {
+    color: var(--main-color) !important;
+}
+
+.delivery-location {
+    /* font-family: "Roboto", sans-serif !important; */
+    color: var(--main-color) !important;
+    font-weight: 100;
+}
+
+
+input {
+    font-family: "Roboto", sans-serif !important;
+    padding: 0 10px !important;
+    border: 1px solid var(--main-color) !important;
+    color: var(--main-color);
+}
+
+.fa-magnifying-glass {
+    color: var(--main-color) !important;
+    font-size: 20px !important;
+    padding: 5px;
+}
+
+input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* تعديل سلوك القائمة المنسدلة */
+
+.dropdown-menu {
+    display: none;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dropdown-toggle {
+    /* background-color: var(--main-color) !important; */
+    background-color: white !important;
+    color: black !important;
+}
+
+.dropdown-menu {
+    /* background-color: var(--main-color) !important; */
+    color: var(--background-color) !important;
+}
+
+.dropdown-item {
+    /* background-color: var(--main-color) !important;
+    color: var(--background-color) !important; */
+}
+
+
+.dropdown:hover .dropdown-menu,
+.dropdown-menu.show {
+    display: block;
+    transform: translateY(0);
+}
+
+.dropdown-item:hover {
+    /* background-color: var(--main-color-hover) !important; */
+    /* color: white !important; */
+    transition: .1s;
+}
+
+.login-btn:hover {
+    /* background-color: var(--main-color-hover) !important; */
+    color: red !important;
+    transition: .1s;
+}
+
+.hello-span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    max-width: 200px;
+    margin: 0 10px;
+    color: var(--main-color) !important;
+    font-size: 20px !important;
+    font-weight: 200;
+    /* font-family: "Roboto", sans-serif !important; */
+}
+
+
+/* تحسين شكل الزر في الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    /* تكبير حجم زر القائمة */
+    .navbar-toggler {
+        border: none;
+        font-size: 1.5rem;
+        padding: 8px;
+    }
+
+    /* جعل عناصر القائمة تأخذ حجم كامل */
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .nav-item {
+        margin: 5px 0;
+    }
+}
+
+@media (min-width: 990px) and (max-width: 1200px) {
+    .products-count {
+        top: 20px;
+        right: -50px;
+    }
+}
+
+@media (max-width: 990px) {
+    .products-count {
+        padding: 3px !important;
+        top: 20px;
+        right: -40px;
+    }
+
+    .search-btn {
+        display: block !important;
+        width: 60px !important;
+        margin-top: 5px !important;
+    }
+
+    /* تأكد من ظهور زر التوجّل دائمًا */
+    .navbar-toggler {
+        display: block !important;
+        position: absolute;
+        right: 10px;
+        /* تحريكه لليمين */
+        top: 10px;
+        z-index: 1050;
+        /* اجعله فوق العناصر الأخرى */
+    }
+
+    /* تعديل عرض القائمة عند الفتح */
+    .navbar-collapse {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        /* ترتيب العناصر بشكل عمودي عند الفتح */
+        align-items: flex-start;
+        background: #fff;
+        /* خلفية داكنة عند الفتح */
+        padding: 10px;
+        /* position: absolute; */
+        top: 50px;
+        /* تفادي تغطية الهيدر */
+        left: 0;
+        right: 0;
+        z-index: 1040;
+        border-bottom: 3px solid var(--main-color);
+    }
+
+    /* ضبط البحث ليبقى في صف واحد */
+    .navbar .d-flex {
+        flex-wrap: nowrap !important;
+    }
+
+    /* تصغير عرض مربع البحث */
+    #search-box {
+        min-width: 300px !important;
+        font-size: 14px;
+    }
+
+    /* تقليل المسافات بين العناصر */
+    .navbar .me-3 {
+        margin-right: 5px !important;
+    }
+
+    .navbar .ms-4,
+    .navbar .me-4 {
+        margin: 0 5px !important;
+    }
+}
+
+@media (max-width:680px) {
+
+    /* تأكد من ظهور زر التوجّل دائمًا */
+    .navbar-toggler {
+        display: block !important;
+        position: absolute;
+        right: 10px;
+        /* تحريكه لليمين */
+        top: 10px;
+        z-index: 1050;
+        /* اجعله فوق العناصر الأخرى */
+    }
+
+    /* تعديل عرض القائمة عند الفتح */
+    .navbar-collapse {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        /* ترتيب العناصر بشكل عمودي عند الفتح */
+        align-items: flex-start;
+        /* خلفية داكنة عند الفتح */
+        padding: 10px;
+        top: 50px;
+        /* تفادي تغطية الهيدر */
+        left: 0;
+        right: 0;
+        z-index: 1040;
+    }
+
+    /* ضبط البحث ليبقى في صف واحد */
+    .navbar .d-flex {
+        flex-wrap: nowrap !important;
+    }
+
+    /* تصغير عرض مربع البحث */
+    #search-box {
+        min-width: 300px !important;
+        font-size: 14px;
+    }
+
+    /* تقليل المسافات بين العناصر */
+    .navbar .me-3 {
+        margin-right: 5px !important;
+    }
+
+    .navbar .ms-4,
+    .navbar .me-4 {
+        margin: 0 5px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .products-count {
+        padding: 3px !important;
+        top: 20px;
+        right: -45px;
+    }
+}
+
+
+
+.fa-solid.fa-cart-shopping {
+    color: var(--main-color);
+    font-size: 30px;
+    margin: 20px;
+}
+
+.fa-solid.fa-cart-shopping:hover {
+    color: var(--main-color-hover);
+    transition: .3s;
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto;
+        padding: 10px;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+    }
+
+    .location-info {
+        font-size: 20px;
+        width: auto;
+        gap: 10px;
+    }
+
+    .search-div {
+        min-width: 100%;
+        max-width: 100%;
+        margin: 10px 0;
+    }
+
+    .user-info {
+        position: static;
+        justify-content: center;
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .shopping-cart-link {
+        margin-right: 0;
+        font-size: 18px;
+    }
+
+    .products-count {
+        font-size: 16px;
+        padding: 8px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .menu-list {
+        left: 0;
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .location-info {
+        font-size: 18px;
+    }
+
+    .search-div input {
+        font-size: 16px;
+        padding: 8px 35px 8px 8px;
+    }
+
+    .menu-button {
+        font-size: 16px;
+    }
+
+    .menu-list a {
+        font-size: 18px;
+    }
+}

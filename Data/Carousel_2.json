@@ -1,0 +1,30 @@
+[
+  {
+    "id": 25,
+    "productName": "Proc#1",
+    "price": 100,
+    "quantity": 60,
+    "image": "../Images/carousel_2/product_1.png"
+  },
+  {
+    "id": 26,
+    "productName": "Proc#2",
+    "price": 200,
+    "quantity": 60,
+    "image": "../Images/carousel_2/product_2.jpg"
+  },
+  {
+    "id": 27,
+    "productName": "Proc#3",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_2/product_3.jpg"
+  },
+  {
+    "id": 28,
+    "productName": "Proc#4",
+    "price": 400,
+    "quantity": 60,
+    "image": "../Images/carousel_2/product_4.png"
+  }
+]
