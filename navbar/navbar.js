@@ -41,9 +41,12 @@ async function loadNavbar() {
         }
 
         setupSearchFunctionality();
-        goToCartIfSignedIn();
 
 
+        let shoppingCart = document.querySelector(".shopping-cart-link");
+        if (shoppingCart) {
+            shoppingCart.addEventListener("click", goToCartIfSignedIn);
+        }
 
     } catch (error) {
         ShowBootstrapToast("Error Loading Navbar", "error");
@@ -51,6 +54,8 @@ async function loadNavbar() {
 
 
 }
+loadNavbar();
+
 
 export function updateCartCount() {
     if (localStorage.getItem("isSignedIn") == "false") {
@@ -71,7 +76,6 @@ export function updateCartCount() {
     }
 }
 
-
 function setupSearchFunctionality() {
     let searchBar = document.getElementById("search-box");
 
@@ -89,10 +93,6 @@ function setupSearchFunctionality() {
     });
 }
 
-
-
-
-
 function updateSignButton() {
     let signButton = document.querySelectorAll(".login-btn");
     signButton.forEach(button => {
@@ -109,8 +109,6 @@ function updateSignButton() {
     }
 }
 
-
-
 function updateHelloCustomerName(name) {
     if (name == null) {
         name = "User";
@@ -118,9 +116,6 @@ function updateHelloCustomerName(name) {
     let span = document.querySelector("span.hello-span");
     if (span) span.innerHTML = `Hello, ${name}`;
 }
-
-loadNavbar();
-
 
 function toggleSingedIn() {
     if (localStorage.getItem("isSignedIn") == "true") {
@@ -132,19 +127,15 @@ function toggleSingedIn() {
 }
 
 function goToCartIfSignedIn() {
-    let link = document.querySelector(".shopping-cart-link");
-    if (!link) return;
-    link.addEventListener("click", function (event) {
-        if (localStorage.getItem("isSignedIn") == "true") {
-            window.location.href = "shopping-cart.html";
-        }
-        else {
-            ShowBootstrapToast("You have To Sign In First To Show Your Shopping Cart", "error");
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 3000);
-        }
-    });
+    if (localStorage.getItem("isSignedIn") == "true") {
+        window.location.href = "shopping-cart.html";
+    }
+    else {
+        ShowBootstrapToast("You have To Sign In First To Show Your Shopping Cart", "error");
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 3000);
+    }
 }
 
 
@@ -192,7 +183,6 @@ function showOrder() {
         }, 3000);
         window.location.href = "login.html";
     }
-
 }
 
 
