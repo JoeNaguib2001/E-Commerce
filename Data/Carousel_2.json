@@ -7,7 +7,7 @@
     "image": "../Images/carousel_2/product_1.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "men's clothing"
+    "category": "mens clothing"
   },
   {
     "id": 26,
@@ -17,7 +17,7 @@
     "image": "../Images/carousel_2/product_2.jpg",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "men's clothing"
+    "category": "mens clothing"
   },
   {
     "id": 27,
@@ -27,7 +27,7 @@
     "image": "../Images/carousel_2/product_3.jpg",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "men's clothing"
+    "category": "mens clothing"
   },
   {
     "id": 28,
@@ -37,6 +37,6 @@
     "image": "../Images/carousel_2/product_4.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "men's clothing"
+    "category": "mens clothing"
   }
 ]

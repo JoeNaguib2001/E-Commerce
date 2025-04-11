@@ -152,6 +152,8 @@ function loadSecondCarousel() {
                     </div>
                     </div>` : ''}
                 </div>`;
+            console.log(carouselItem);
+
 
             // Add event listeners to the buttons
             const buttons = carouselItem.querySelectorAll('.add-to-cart-btn');

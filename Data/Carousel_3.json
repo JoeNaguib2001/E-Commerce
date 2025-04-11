@@ -7,7 +7,7 @@
     "image": "../Images/carousel_2/blonde_1.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "women's clothing"
+    "category": "womens clothing"
   },
   {
     "id": 29,
@@ -17,7 +17,7 @@
     "image": "../Images/carousel_2/blonde_2.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "women's clothing"
+    "category": "womens clothing"
   },
   {
     "id": 30,
@@ -27,7 +27,7 @@
     "image": "../Images/carousel_2/blonde_3.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "women's clothing"
+    "category": "womens clothing"
   },
   {
     "id": 31,
@@ -37,7 +37,7 @@
     "image": "../Images/carousel_2/blonde_4.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "women's clothing"
+    "category": "womens clothing"
   },
   {
     "id": 32,
@@ -47,7 +47,7 @@
     "image": "../Images/carousel_2/blonde_1.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "women's clothing"
+    "category": "womens clothing"
   },
   {
     "id": 33,
@@ -57,7 +57,7 @@
     "image": "../Images/carousel_2/blonde_2.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "women's clothing"
+    "category": "womens clothing"
   },
   {
     "id": 34,
@@ -67,7 +67,7 @@
     "image": "../Images/carousel_2/blonde_3.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "women's clothing"
+    "category": "womens clothing"
   },
   {
     "id": 35,
@@ -77,6 +77,6 @@
     "image": "../Images/carousel_2/blonde_4.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "women's clothing"
+    "category": "womens clothing"
   }
 ]
