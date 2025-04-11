@@ -145,7 +145,7 @@
         @media (max-width: 768px) {
             .row img {
                 width: 100%;
-                height: 200px;
+                height: 100%;
             }
         }
 
@@ -195,6 +195,15 @@
             color: white;
             cursor: pointer;
         }
+
+        body {
+            background-color: black !important;
+        }
+
+        * {
+            color: white;
+            border-color: white !important;
+        }
     </style>
 </head>
 
@@ -214,15 +223,18 @@
             </div>
         </div>
         <!-- End Toast Container -->
-        <div class="row m-5 main-container">
-            <div class="col-12 col-md-9" style=" padding:0; margin:0; border:2px solid black;">
+        <div class="row m-5 main-container" style="gap:8%">
+            <!-- Cart Products -->
+            <div class="col-12 col-md-8"
+                style=" padding:0; margin:0; border:2px solid black; border-radius: 10px;  margin-top: 5px;">
                 <div class="cart-items" style="margin: 0; padding: 0;">
                 </div>
             </div>
-            <div class="col-12 col-md-3" style="padding: 20px; margin: 0; border:2px solid black;">
+            <!-- Cart Summary -->
+            <div class="col-12 col-md-3"
+                style="padding: 20px; margin: 0; border:2px solid black; border-radius: 10px; margin-top: 5px; height: fit-content;">
                 <div class="cart-summary position-relative"
                     style=" padding:20px 5px; display: flex; flex-direction: column; align-items: center;">
-                    <!-- <i class="fa-solid fa-trash position-absolute top-0"></i> -->
                     <h5
                         style="border: 2px solid black; width: 100%; text-align: center; padding: 10px; border-radius: 20px;">
                         Cart Summary
@@ -297,8 +309,8 @@
                 cartItemDiv.classList.add("cart-item");
 
                 cartItemDiv.innerHTML = `
-                                <div class="cart-item row" data-index="0" style="padding: 20px 40px;">
-                                    <div class="product-image col-6 col-md-4">
+                                <div class="cart-item d-flex" data-index="0" style="padding: 20px 40px;">
+                                    <div class="product-image col-6 col-md-4 padding-0">
                                         <img src="${item.image}" alt="Product 1" >
                                     </div>
                                     <div class="product-details col-6 col-md-8">
@@ -319,7 +331,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr style="height: 5px; background-color: black; border: none;">
+                    <hr style="height: 5px; background-color: white; border: none;">
                             `;
 
                 cartContainer.appendChild(cartItemDiv);
@@ -421,7 +433,7 @@
 
 
         let clearCartBtn = document.querySelector(".clear-cart-btn");
-        clearCartBtn.addEventListener("click",clearCart)
+        clearCartBtn.addEventListener("click", clearCart);
         function clearCart() {
             let username = localStorage.getItem("username");
             let carts = JSON.parse(localStorage.getItem("carts")) || [];
@@ -534,7 +546,7 @@
     </script>
 
     <script type="module" src="./navbar/navbar.js">
-        
+
     </script>
     <script src="./js/utilities.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
