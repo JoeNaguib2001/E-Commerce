@@ -353,6 +353,7 @@ function setupAddToCart(productDiv, product) {
 }
 
 function addToCart(product) {
+    console.log(product);
     let username = localStorage.getItem("username"); // Assuming the username is stored in localStorage
     if (!username) {
         ShowBootstrapToast("User not found. Please log in again.", "danger");

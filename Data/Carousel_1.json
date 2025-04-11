@@ -1,30 +1,42 @@
 [
   {
     "id": 21,
-    "productName": "Proc#1",
+    "title": "Proc#1",
     "price": 200,
     "quantity": 60,
-    "image": "../Images/carousel_1/blonde1.png"
+    "image": "../Images/carousel_1/blonde1.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "sunglasses"
   },
   {
     "id": 22,
-    "productName": "Proc#2",
+    "title": "Proc#2",
     "price": 300,
     "quantity": 60,
-    "image": "../Images/carousel_1/blonde2.png"
+    "image": "../Images/carousel_1/blonde2.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "sunglasses"
   },
   {
     "id": 23,
-    "productName": "Proc#3",
+    "title": "Proc#3",
     "price": 400,
     "quantity": 60,
-    "image": "../Images/carousel_1/blonde3.png"
+    "image": "../Images/carousel_1/blonde3.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "sunglasses"
   },
   {
     "id": 24,
-    "productName": "Proc#4",
+    "title": "Proc#4",
     "price": 450,
     "quantity": 60,
-    "image": "../Images/carousel_1/blonde4.png"
+    "image": "../Images/carousel_1/blonde4.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "sunglasses"
   }
 ]

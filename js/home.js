@@ -63,7 +63,7 @@ function loadFirstCarousel() {
                 const carouselText = document.createElement("div");
 
                 const productName = document.createElement("span");
-                productName.innerHTML = item.productName + " ";
+                productName.innerHTML = item.title + " ";
                 productName.style.fontWeight = "100";
                 productName.style.fontSize = "25px";
                 productName.style.marginBottom = "20px";
@@ -129,7 +129,7 @@ function loadSecondCarousel() {
                         <img  src="${data[i].image}" alt="${data[i].alt}" style="margin-bottom:20px !important">
                         <div class="product-info d-flex flex-column align-items-center" style="margin-bottom:20px !important">
                             <div> 
-                                <span style="font-weight:100; font-size:20px !important">${data[i].productName}</span>
+                                <span style="font-weight:100; font-size:20px !important">${data[i].title}</span>
                                 <span style="font-weight:100; font-size:20px  !important">${data[i].price}.00 EGP</span>
                             </div>
                                                 <button class="add-to-cart-btn" data-product='${JSON.stringify(data[i])}' style="font-weight:100; font-size:20px !important; background-color:orange !important; padding:10px; display:block;
@@ -143,7 +143,7 @@ function loadSecondCarousel() {
                         <img src="${data[i + 1].image}" alt="${data[i + 1].alt}"  style="margin-bottom:20px !important">
                        <div class="product-info d-flex flex-column align-items-center" style="margin-bottom:20px !important">
                             <div>
-                                <span style="font-weight:100; font-size:20px !important">${data[i + 1].productName}</span>
+                                <span style="font-weight:100; font-size:20px !important">${data[i + 1].title}</span>
                                 <span style="font-weight:100; font-size:20px  !important">${data[i + 1].price}.00 EGP</span>
                             </div>
                                                 <button class="add-to-cart-btn" data-product='${JSON.stringify(data[i + 1])}' style="font-weight:100; font-size:20px !important; background-color:orange !important; padding:10px !important; display:block;
@@ -203,7 +203,7 @@ function loadThirdCarousel() {
                                         <div class="product-card-tall d-flex flex-column align-items-center gap-3">
                                             <img src="${item.image}" alt="${item.alt}">
                                             <div class="product-info">
-                                                <span style="font-weight:100; font-size:20px !important">${item.productName}</span>
+                                                <span style="font-weight:100; font-size:20px !important">${item.title}</span>
                                                 <span style="font-weight:100; font-size:20px  !important">${item.price}.00 EGP</span>
                                                 <button class="add-to-cart-btn" data-product='${JSON.stringify(item)}' style="font-weight:100; font-size:20px !important; background-color:orange !important; padding:10px; display:block;
                                                 border-radius:20px; margin-top:10px !important">Add To Cart</button>

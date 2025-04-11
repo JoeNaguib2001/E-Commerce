@@ -1,58 +1,82 @@
 [
   {
-    "id":1,
-    "productName": "Proc#1",
+    "id": 1,
+    "title": "Proc#1",
     "price": 300,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_1.png"
+    "image": "../Images/carousel_2/blonde_1.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "women's clothing"
   },
   {
-    "id":29,
-    "productName": "Proc#2",
+    "id": 29,
+    "title": "Proc#2",
     "price": 300,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_2.png"
+    "image": "../Images/carousel_2/blonde_2.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "women's clothing"
   },
   {
-    "id":30,
-    "productName": "Proc#3",
+    "id": 30,
+    "title": "Proc#3",
     "price": 300,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_3.png"
+    "image": "../Images/carousel_2/blonde_3.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "women's clothing"
   },
   {
-    "id":31,
-    "productName": "Proc#4",
+    "id": 31,
+    "title": "Proc#4",
     "price": 300,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_4.png"
+    "image": "../Images/carousel_2/blonde_4.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "women's clothing"
   },
   {
-    "id":32,
-    "productName": "Proc#5",
+    "id": 32,
+    "title": "Proc#5",
     "price": 300,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_1.png"
+    "image": "../Images/carousel_2/blonde_1.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "women's clothing"
   },
   {
-    "id":33,
-    "productName": "Proc#6",
+    "id": 33,
+    "title": "Proc#6",
     "price": 300,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_2.png"
+    "image": "../Images/carousel_2/blonde_2.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "women's clothing"
   },
   {
-    "id":34,
-    "productName": "Proc#7",
+    "id": 34,
+    "title": "Proc#7",
     "price": 300,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_3.png"
+    "image": "../Images/carousel_2/blonde_3.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "women's clothing"
   },
   {
-    "id":35,
-    "productName": "Proc#8",
+    "id": 35,
+    "title": "Proc#8",
     "price": 300,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_4.png"
+    "image": "../Images/carousel_2/blonde_4.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "women's clothing"
   }
 ]
