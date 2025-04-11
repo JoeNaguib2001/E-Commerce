@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="./css/main-colors.css">
     <link rel="stylesheet" href="./css/shopstyle.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
@@ -18,8 +20,8 @@
 </head>
 
 <body>
-    <!-- Nav -->
     <div class="container-fluid px-0">
+        <!-- Nav -->
         <div id="navbar"></div>
         <!-- Toast Container -->
         <div class="toast-container position-fixed top-0 end-0 p-3">
@@ -43,7 +45,6 @@
             style="display: none !important;">
             Categories will be dynamically rendered here
         </div>
-        <!-- First Carousel with Promo Text -->
         <!-- Products Section -->
         <div class="container-fluid random-products-container" style="padding: 0;">
             <section class="shopping-row">
@@ -54,11 +55,11 @@
                     <select id="sort-by" class="form-select"
                         style="width: 200px; display: inline-block; font-size: 1rem; padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
                         onchange="fetchProducts()">
-                        <option value="default" selected>Default</option>
-                        <option value="price-low-to-high">Price: Low to High</option>
-                        <option value="price-high-to-low">Price: High to Low</option>
-                        <option value="rating-low-to-high">Rating: Low to High</option>
-                        <option value="rating-high-to-low">Rating: High to Low</option>
+                        <option id="default-sort" value="default" selected>Default</option>
+                        <option id="price-low-to-high-sort" value="price-low-to-high">Price: Low to High</option>
+                        <option id="price-high-to-low-sort" value="price-high-to-low">Price: High to Low</option>
+                        <option id="rating-low-to-high" value="rating-low-to-high">Rating: Low to High</option>
+                        <option id="rating-high-to-low" value="rating-high-to-low">Rating: High to Low</option>
                     </select>
                 </div>
 
@@ -117,10 +118,10 @@
 
 
     </script>
-    <script  src="./js/utilities.js"></script>
+    <!-- <script src="./js/utilities.js"></script> -->
 
     <!-- Load NavBar -->
-    <script type="module" src="./navbar/navbar.js"></script>
+    <!-- <script type="module" src="./navbar/navbar.js"></script> -->
 
     <!-- Load Boostrap JS -->
     <script src="./js/bootstrap.bundle.min.js"></script>
@@ -128,6 +129,8 @@
     <script type="module" src="./js/shop.js">
 
     </script>
+
+    <script src="./js/utilities.js"></script>
 
 
 </body>

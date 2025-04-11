@@ -209,27 +209,25 @@
             <!-- Repeat for other products -->
         </div>
     </div>
-    <script type="module" src="./navbar/navbar.js"></script>
-    <script src="./js/bootstrap.bundle.min.js"></script>
     <script type="module">
-         // Import the functions you need from the SDKs you need
+        // Import the functions you need from the SDKs you need
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-        import { getDatabase, ref,set, push } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+        import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
         import * as navbar from "./navbar/navbar.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
-      
+
         // Your web app's Firebase configuration
         const firebaseConfig = {
-          apiKey: "AIzaSyBCDfTghFj89jNnYM3oz0LSGZU_FEi5s3c",
-          authDomain: "iti-2025-e-commerce.firebaseapp.com",
-          projectId: "iti-2025-e-commerce",
-          storageBucket: "https://iti-2025-e-commerce-default-rtdb.firebaseio.com",
-          messagingSenderId: "90149751365",
-          appId: "1:90149751365:web:839d4d987cbcafd36b712c"
+            apiKey: "AIzaSyBCDfTghFj89jNnYM3oz0LSGZU_FEi5s3c",
+            authDomain: "iti-2025-e-commerce.firebaseapp.com",
+            projectId: "iti-2025-e-commerce",
+            storageBucket: "https://iti-2025-e-commerce-default-rtdb.firebaseio.com",
+            messagingSenderId: "90149751365",
+            appId: "1:90149751365:web:839d4d987cbcafd36b712c"
         };
-      
+
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         console.log("Firebase App:", app);
@@ -452,13 +450,13 @@
             const newOrderRef = push(ordersRef);
 
             set(newOrderRef, orderData)
-            .then(() => {
-                alert("✅ Order placed successfully!");
-                // You can redirect or clear cart here
-            })
-            .catch((error) => {
-                alert("❌ Error placing order: " + error.message);
-            });
+                .then(() => {
+                    alert("✅ Order placed successfully!");
+                    // You can redirect or clear cart here
+                })
+                .catch((error) => {
+                    alert("❌ Error placing order: " + error.message);
+                });
             const userOrdersRef = ref(db, `users/${username}/orders/`);
             const newUserOrderRef = push(userOrdersRef);
             set(newUserOrderRef, orderData);
@@ -471,7 +469,7 @@
                 carts[userCartIndex].order = []; // Clear the order for the current user
                 localStorage.setItem("carts", JSON.stringify(carts));
             }
-            
+
             debugger;
             loadCartItems();
 
@@ -489,8 +487,10 @@
 
 
     </script>
+    <script src="./js/utilities.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./navbar/navbar.js"></script>
+
 </body>
 
 </html>
-<!-- <i class="fa-solid fa-minus decrease-quantity" data-index="${index}"></i>
-<i class="fa-solid fa-plus increase-quantity" data-index="${index}"></i> -->

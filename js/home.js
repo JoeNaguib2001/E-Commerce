@@ -1,16 +1,9 @@
 // CTRL + K + , || CTRL + K + C
 // CTRL + M + O || CTRL + M + L
 // CTRL + K + (1,2,3)
+import { updateCartCount } from "../navbar/navbar.js";
 
 function ShopNow() {
-    // if (isSignedIn()) {
-    //     window.location.href = "./shop.html";
-    // } else {
-    //     ShowBootstrapToast("Please log in to continue shopping.", "danger");
-    //     setTimeout(() => {
-    //         window.location.href = "./login.html";
-    //     }, 2000);
-    // }
     window.location.href = "./shop.html";
 }
 
@@ -235,8 +228,9 @@ function setupAddToCartBtn(btn, product) {
 function addToCart(product) {
     let carts = JSON.parse(localStorage.getItem("carts")) || [];
     let userCart = carts.find(cart => cart.username === localStorage.getItem("username"));
+    let username = localStorage.getItem("username");
 
-    if (!userCart) {
+    if (userCart == undefined || userCart == null) {
         userCart = { username: username, order: [] };
         carts.push(userCart);
     }
@@ -249,20 +243,27 @@ function addToCart(product) {
     }
 
     localStorage.setItem("carts", JSON.stringify(carts));
+    updateCartCount();
 }
 
-function toggleNav() {
+let toggleIcon = document.querySelector("#toggle-custom-nav-icon");
+toggleIcon.addEventListener('click', (e) => {
+    toggleNav();
+});
+
+export function toggleNav() {
     const navbar = document.querySelector('.custom-navbar');
-    const iconContainer = navbar.querySelector('.nav-toggle-btn a');
 
     navbar.classList.toggle('collapsed');
 
     const isCollapsed = navbar.classList.contains('collapsed');
 
     // غيّر الأيقونة نفسها حسب الوضع
-    iconContainer.innerHTML = `
+    toggleIcon.innerHTML = `
         <i class="fa-solid ${isCollapsed ? 'fa-arrow-left' : 'fa-arrow-right'} arrow-icon"></i>
     `;
+
+
 
     // خزّن الوضع
     localStorage.setItem('navbarCollapsed', isCollapsed ? 'true' : 'false');
@@ -291,6 +292,8 @@ window.addEventListener("load", function () {
     let welcomeMessage = localStorage.getItem("welcomeMessage");
     if (welcomeMessage) {
         ShowBootstrapToast(`${welcomeMessage}`, "success");
-        localStorage.removeItem("welcomeMessage"); 
+        localStorage.removeItem("welcomeMessage");
     }
 });
+
+

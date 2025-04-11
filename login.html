@@ -41,13 +41,12 @@
             </div>
         </div>
         <!-- End Toast Container -->
-        <div class="nav navbar bg-white p-2 m-0 d-flex align-items-center">
+        <div class="nav navbar bg-white p-2 m-0 d-flex align-items-center position-fixed w-100">
             <a class="text-decoration-none text-black" style="font-weight: 100; font-size: 20px;"
                 href="./home.html">Joe's Store</a>
             <a class="shopping-cart-link text-black position-relative me-2" href="./shop.html">
                 <i class="fa-solid fa-warehouse"></i> </a>
             </a>
-
         </div>
 
         <form class="loginform">
@@ -511,7 +510,7 @@
                 usernameValidation.innerText = "Username cannot be more than 20 charachters.";
                 usernameValidation.style.color = "red";
             }
-            else if (!/^[a-zA-Z0-9]+$/.test(username)) {
+            else if (!/^[a-zA-Z0-9]+$/.test(username)) { 
                 usernameValidation.innerText = "Username can only contain letters and numbers.";
                 usernameValidation.style.color = "red";
             } else if (username.length >= 3 && username.length <= 20 && /^[a-zA-Z0-9]+$/.test(username)) {

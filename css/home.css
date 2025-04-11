@@ -180,6 +180,15 @@ li a {
     justify-content: center;
 }
 
+.custom-navbar.collapsed #toggle-custom-nav-icon {
+    padding: 0;
+    padding-top: 5px;
+    position: relative;
+    left: 50%;
+}
+
+
+
 .carousel-container {
     width: 20%;
     height: 80vh;

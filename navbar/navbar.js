@@ -6,6 +6,7 @@
 //toggle sign in
 //go to cart if signed in
 
+import { searchProducts } from "../js/shop.js"; 
 import { ref, child, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 
@@ -188,7 +189,6 @@ fetch("./Data/Accounts.json")
             }
         }
         else {
-            console.log("User not found in Accounts.json");
             document.querySelector(".admin-dropdown").remove();
             document.querySelector(".user-dropdown").style.display = "block";
         }

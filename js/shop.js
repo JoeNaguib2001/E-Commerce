@@ -1,25 +1,98 @@
 import * as navbar from "../navbar/navbar.js";
+let sortByDropDown = document.querySelector("#sort-by");
 
-window.addEventListener("load", function () {
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Welcome Message is set in the login page
     let welcomeMessage = localStorage.getItem("welcomeMessage");
     if (welcomeMessage) {
         ShowBootstrapToast(`${welcomeMessage}`, "success");
         localStorage.removeItem("welcomeMessage"); // علشان متتكررش التوست كل مرة يدخل الصفحة
     }
+
+
+    // Search in All products not just current category
+    let searchInput = document.querySelector("#search-box");
+    if (searchInput) {
+        searchInput.addEventListener("input", function () {
+            let query = searchInput.value.trim().toLowerCase();
+            searchProducts(query);
+        });
+    }
+
+    let sortBy = localStorage.getItem("sortBy") || "default";
+    if(sortByDropDown != null)
+    sortByDropDown.value = sortBy;
 });
+
 
 let currentPage = 1;
 const itemsPerPage = 12;
+// productsList = [] // This will be used to store the whole products list from the json file
 let productsList = [];
+// filteredProducts = [] // This will be used to store the filtered products based on the selected category
+let filteredProducts = [];
+// Default mode = random , if user clicks on a category, mode = category , All products => mode = random
 let mode = "random";
 
 
-
-let sortByDropDown = document.querySelector("#sort-by");
+if(sortByDropDown != null) {
 sortByDropDown.addEventListener("change", function () {
     let selectedValue = sortByDropDown.value;
     localStorage.setItem("sortBy", selectedValue); // Save the selected value to localStorage
+    fetchProducts(); // Fetch products again to apply sorting
 });
+}
+
+
+
+// Render Pagination Pages
+function renderPagination(totalItems) {
+    const paginationContainer = document.querySelector(".pagination");
+    paginationContainer.innerHTML = ""; // Clear existing pagination items
+
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    // Previous Page
+    const prevPageItem = document.createElement("li");
+    prevPageItem.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+    prevPageItem.innerHTML = `<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>`;
+    prevPageItem.addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderPaginatedProducts();
+            renderPagination(totalItems);
+        }
+    });
+    paginationContainer.appendChild(prevPageItem);
+
+    // Pages Numbers
+    for (let i = 1; i <= totalPages; i++) {
+        const pageItem = document.createElement("li");
+        pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
+        pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+        pageItem.addEventListener("click", () => {
+            currentPage = i;
+            renderPaginatedProducts();
+            renderPagination(totalItems);
+        });
+        paginationContainer.appendChild(pageItem);
+    }
+
+    // Next Page
+    const nextPageItem = document.createElement("li");
+    nextPageItem.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+    nextPageItem.innerHTML = `<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>`;
+    nextPageItem.addEventListener("click", () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderPaginatedProducts();
+            renderPagination(totalItems);
+        }
+    });
+    paginationContainer.appendChild(nextPageItem);
+}
 
 
 function renderProducts(products) {
@@ -67,54 +140,6 @@ function renderProducts(products) {
     });
 }
 
-// Render Pagination Pages
-function renderPagination(totalItems) {
-    const paginationContainer = document.querySelector(".pagination");
-    paginationContainer.innerHTML = ""; // Clear existing pagination items
-
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-    // Previous Page
-    const prevPageItem = document.createElement("li");
-    prevPageItem.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
-    prevPageItem.innerHTML = `<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>`;
-    prevPageItem.addEventListener("click", () => {
-        if (currentPage > 1) {
-            currentPage--;
-            renderProductsPaginated();
-            renderPagination(totalItems);
-        }
-    });
-    paginationContainer.appendChild(prevPageItem);
-
-    // Pages Numbers
-    for (let i = 1; i <= totalPages; i++) {
-        const pageItem = document.createElement("li");
-        pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
-        pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
-        pageItem.addEventListener("click", () => {
-            currentPage = i;
-            renderProductsPaginated();
-            renderPagination(totalItems);
-        });
-        paginationContainer.appendChild(pageItem);
-    }
-
-    // Next Page
-    const nextPageItem = document.createElement("li");
-    nextPageItem.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
-    nextPageItem.innerHTML = `<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>`;
-    nextPageItem.addEventListener("click", () => {
-        if (currentPage < totalPages) {
-            currentPage++;
-            renderProductsPaginated();
-            renderPagination(totalItems);
-        }
-    });
-    paginationContainer.appendChild(nextPageItem);
-}
-
-
 // Render Current Paginatated Pages
 function renderPaginatedProducts() {
     const start = (currentPage - 1) * itemsPerPage;
@@ -122,7 +147,7 @@ function renderPaginatedProducts() {
     // Filter products based on the selected category
     let dataSource;
     if (mode != "random") {
-        // If mode is category, use the filteredProducts array
+        //If mode is category,use the filteredProducts array
         dataSource = filteredProducts;
     }
     else {
@@ -180,10 +205,7 @@ async function fetchProducts() {
 // fetchProducts will load Initial Page and Initial Pagination
 fetchProducts();
 
-
-
-
-async function fetchCategories() {
+async function fetchCategoriesThenRender() {
     try {
         let response = await fetch('./Data/categories.json');
         let categories = await response.json();
@@ -193,7 +215,7 @@ async function fetchCategories() {
     }
 }
 
-let filteredProducts = [];
+// Used In Fetch Categories Then Render Function Above, responsible For Rendering The Categories In The Categories Navbar And The Categories Container
 function renderCategories(categories) {
     const categoriesContainer = document.getElementById("categories-container");
     const categoriesContainer2 = document.getElementById("categories-container-nav-id");
@@ -216,22 +238,27 @@ function renderCategories(categories) {
         li.addEventListener("click", function () {
 
             currentPage = 1;
+
             if (category.name == "All Categories") {
                 mode = "random";
+                renderPaginatedProducts();
+                renderPagination(productsList.length);
             }
             else {
                 filteredProducts = productsList.filter(product => product.category === category.name);
                 mode = "category";
+                renderPaginatedProducts();
+                renderPagination(filteredProducts.length);
             }
 
-            renderProductsPaginated();
-            renderPagination(filteredProducts.length);
-            shoppingRow.scrollIntoView({ behavior: "smooth" });
+            // shoppingRow.scrollIntoView({ behavior: "smooth" });
         });
 
 
         categoryDiv.addEventListener("click", function () {
+
             currentPage = 1;
+
             if (category.name == "All Categories") {
                 mode = "random";
             }
@@ -248,10 +275,9 @@ function renderCategories(categories) {
         categoriesContainer.appendChild(categoryDiv);
     });
 }
-fetchCategories();
 
-
-
+// Fetch Categories From The Json File And Render Them
+fetchCategoriesThenRender();
 
 function setupRating(productDiv, rating) {
     const stars = productDiv.querySelectorAll('.star');
@@ -267,7 +293,12 @@ function setupRating(productDiv, rating) {
 function setupAddToCart(productDiv, product) {
     const addToCartBtn = productDiv.querySelector(".add-to-cart");
     addToCartBtn.addEventListener("click", (event) => {
-        event.stopPropagation(); // Prevent the click event from propagating to the product
+        event.stopPropagation();
+        if (localStorage.getItem("isSignedIn") !== "true") {
+            ShowBootstrapToast("You must sign in first to add the product to the cart", "danger");
+            return;
+        }
+
         addToCart(product);
         navbar.updateCartCount();
         ShowBootstrapToast("Product Added To Shopping Cart Successfully !", "success");
@@ -275,14 +306,9 @@ function setupAddToCart(productDiv, product) {
 }
 
 function addToCart(product) {
-    if (localStorage.getItem("isSignedIn") !== "true") {
-        alert("يجب تسجيل الدخول أولاً لإضافة المنتج إلى السلة.");
-        return;
-    }
-
     let username = localStorage.getItem("username"); // Assuming the username is stored in localStorage
     if (!username) {
-        alert("User not found. Please log in again.");
+        ShowBootstrapToast("User not found. Please log in again.", "danger");
         return;
     }
 
@@ -313,13 +339,13 @@ function setupAddToFavorites(productDiv, product) {
 }
 function addToFavorites(product) {
     if (localStorage.getItem("isSignedIn") !== "true") {
-        alert("يجب تسجيل الدخول أولاً لإضافة المنتج إلى المفضلة.");
+        ShowBootstrapToast("You must sign in first to add the product to the favorites", "danger");
         return;
     }
 
     let username = localStorage.getItem("username"); // Assuming the username is stored in localStorage
     if (!username) {
-        alert("User not found. Please log in again.");
+        ShowBootstrapToast("User not found. Please log in again.", "danger");
         return;
     }
 
@@ -344,39 +370,7 @@ function addToFavorites(product) {
     localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
-
-function sortProducts(criteria) {
-    let sortedProducts = [...productsList];
-
-    if (criteria === "high-to-low") {
-        sortedProducts.sort((a, b) => b.price - a.price);
-    } else if (criteria === "low-to-high") {
-        sortedProducts.sort((a, b) => a.price - b.price);
-    } else if (criteria === "highest-rating") {
-        sortedProducts.sort((a, b) => b.rating.rate - a.rating.rate);
-    }
-
-    renderProducts(sortedProducts);
-}
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    let searchInput = document.querySelector("#search-box");
-    if (searchInput) {
-        searchInput.addEventListener("input", function () {
-            let query = searchInput.value.trim().toLowerCase();
-            searchProducts(query);
-        });
-    }
-
-    let sortBy = localStorage.getItem("sortBy") || "Default";
-    if (sortBy) {
-        sortByDropDown.value = sortBy;
-    }
-});
-
-function searchProducts(query) {
-    console.log(query);
+export function searchProducts(query) {
     let products = document.querySelectorAll(".product");
     let productContainer = document.getElementById("product-container");
 
@@ -407,24 +401,6 @@ if (localStorage.getItem("searchQuery") != null) {
     }, 300);
 
 }
-
-//Bootstrap Toast Function
-ShowBootstrapToast = function (message, type) {
-    let toastEl = document.getElementById("bootstrapToast");
-    let toastBody = document.getElementById("toastMessage");
-    let toastHeader = document.getElementById("toastTitle");
-
-    // تغيير لون العنوان حسب نوع الرسالة
-    let bgColor = type === "success" ? "text-success" : "text-danger";
-    toastHeader.className = `me-auto ${bgColor}`;
-
-    // تعيين الرسالة
-    toastBody.innerText = message;
-
-    // عرض التوست
-    let toast = new bootstrap.Toast(toastEl);
-    toast.show();
-};
 
 
 

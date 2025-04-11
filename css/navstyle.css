@@ -42,8 +42,6 @@ input:focus {
     box-shadow: none !important;
 }
 
-/* تعديل سلوك القائمة المنسدلة */
-
 .dropdown-menu {
     display: none;
     transform: translateY(10px);
@@ -95,30 +93,24 @@ input:focus {
     color: var(--main-color) !important;
     font-size: 20px !important;
     font-weight: 200;
-    /* font-family: "Roboto", sans-serif !important; */
 }
 
+.fa-solid.fa-cart-shopping {
+    color: var(--main-color);
+    font-size: 30px;
+    margin: 20px;
+}
 
-/* تحسين شكل الزر في الشاشات الصغيرة */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 10px;
-    }
+.fa-solid.fa-cart-shopping:hover {
+    color: var(--main-color-hover);
+    transition: .3s;
+}
 
-    /* تكبير حجم زر القائمة */
-    .navbar-toggler {
-        border: none;
-        font-size: 1.5rem;
-        padding: 8px;
-    }
-
-    /* جعل عناصر القائمة تأخذ حجم كامل */
-    .navbar-nav {
-        text-align: center;
-    }
-
-    .nav-item {
-        margin: 5px 0;
+@media (min-width: 1200px) {
+    .products-count {
+        padding: 3px !important;
+        top: 20px;
+        right: -45px;
     }
 }
 
@@ -142,44 +134,33 @@ input:focus {
         margin-top: 5px !important;
     }
 
-    /* تأكد من ظهور زر التوجّل دائمًا */
     .navbar-toggler {
         display: block !important;
         position: absolute;
         right: 10px;
-        /* تحريكه لليمين */
         top: 10px;
         z-index: 1050;
-        /* اجعله فوق العناصر الأخرى */
     }
 
-    /* تعديل عرض القائمة عند الفتح */
     .navbar-collapse {
         width: 100%;
         display: flex;
         flex-direction: row;
-        /* ترتيب العناصر بشكل عمودي عند الفتح */
         align-items: flex-start;
         background: #fff;
-        /* خلفية داكنة عند الفتح */
         padding: 10px;
-        /* position: absolute; */
         top: 50px;
-        /* تفادي تغطية الهيدر */
         left: 0;
         right: 0;
         z-index: 1040;
         border-bottom: 3px solid var(--main-color);
     }
 
-    /* ضبط البحث ليبقى في صف واحد */
     .navbar .d-flex {
         flex-wrap: nowrap !important;
     }
 
-    /* تصغير عرض مربع البحث */
     #search-box {
-        min-width: 300px !important;
         font-size: 14px;
     }
 
@@ -194,87 +175,33 @@ input:focus {
     }
 }
 
-@media (max-width:680px) {
-
-    /* تأكد من ظهور زر التوجّل دائمًا */
-    .navbar-toggler {
-        display: block !important;
-        position: absolute;
-        right: 10px;
-        /* تحريكه لليمين */
-        top: 10px;
-        z-index: 1050;
-        /* اجعله فوق العناصر الأخرى */
-    }
-
-    /* تعديل عرض القائمة عند الفتح */
-    .navbar-collapse {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        /* ترتيب العناصر بشكل عمودي عند الفتح */
-        align-items: flex-start;
-        /* خلفية داكنة عند الفتح */
-        padding: 10px;
-        top: 50px;
-        /* تفادي تغطية الهيدر */
-        left: 0;
-        right: 0;
-        z-index: 1040;
-    }
-
-    /* ضبط البحث ليبقى في صف واحد */
-    .navbar .d-flex {
-        flex-wrap: nowrap !important;
-    }
-
-    /* تصغير عرض مربع البحث */
-    #search-box {
-        min-width: 300px !important;
-        font-size: 14px;
-    }
-
-    /* تقليل المسافات بين العناصر */
-    .navbar .me-3 {
-        margin-right: 5px !important;
-    }
-
-    .navbar .ms-4,
-    .navbar .me-4 {
-        margin: 0 5px !important;
-    }
-}
-
-@media (min-width: 1200px) {
-    .products-count {
-        padding: 3px !important;
-        top: 20px;
-        right: -45px;
-    }
-}
-
-
-
-.fa-solid.fa-cart-shopping {
-    color: var(--main-color);
-    font-size: 30px;
-    margin: 20px;
-}
-
-.fa-solid.fa-cart-shopping:hover {
-    color: var(--main-color-hover);
-    transition: .3s;
-}
-
-
-/* Responsive styles */
 @media (max-width: 768px) {
-    nav {
+    .navbar {
         flex-wrap: wrap;
         justify-content: center;
         height: auto;
         padding: 10px;
+        padding: 10px;
     }
+
+    .navbar-toggler {
+        border: none;
+        font-size: 1.5rem;
+        padding: 8px;
+    }
+
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .nav-item {
+        margin: 5px 0;
+    }
+
+    #search-box {
+        margin: 10px 0;
+    }
+
 
     .logo {
         margin-bottom: 10px;
@@ -284,12 +211,6 @@ input:focus {
         font-size: 20px;
         width: auto;
         gap: 10px;
-    }
-
-    .search-div {
-        min-width: 100%;
-        max-width: 100%;
-        margin: 10px 0;
     }
 
     .user-info {
@@ -317,14 +238,55 @@ input:focus {
     }
 }
 
+@media (max-width:680px) {
+    .navbar-toggler {
+        display: block !important;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 1050;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+        top: 50px;
+        left: 0;
+        right: 0;
+        z-index: 1040;
+    }
+
+    .navbar .d-flex {
+        flex-wrap: nowrap !important;
+    }
+
+    #search-box {
+        width: 300px;
+        font-size: 14px;
+    }
+
+    .navbar .me-3 {
+        margin-right: 5px !important;
+    }
+
+    .navbar .ms-4,
+    .navbar .me-4 {
+        margin: 0 5px !important;
+    }
+}
+
 @media (max-width: 480px) {
     .location-info {
         font-size: 18px;
     }
 
-    .search-div input {
+    #search-box {
         font-size: 16px;
         padding: 8px 35px 8px 8px;
+        width: 250px;
     }
 
     .menu-button {
@@ -334,4 +296,9 @@ input:focus {
     .menu-list a {
         font-size: 18px;
     }
+
+    #searhch-box {
+        width: 250px;
+    }
+
 }
