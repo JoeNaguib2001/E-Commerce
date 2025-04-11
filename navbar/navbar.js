@@ -6,7 +6,7 @@
 //toggle sign in
 //go to cart if signed in
 
-import { searchProducts } from "../js/shop.js"; 
+import * as navbar from "../navbar/navbar.js";
 import { ref, child, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 
@@ -32,7 +32,13 @@ async function loadNavbar() {
 
         updateCartCount();
         updateSignButton();
-        getStoredName().then(name => updateHelloCustomerName(name));
+        if (localStorage.getItem("isSignedIn") == "true") {
+            const name = localStorage.getItem("firstName");
+            updateHelloCustomerName(name);
+        }
+        else {
+            updateHelloCustomerName("User");
+        }
 
         setupSearchFunctionality();
         goToCartIfSignedIn();
@@ -103,30 +109,6 @@ function updateSignButton() {
     }
 }
 
-async function getStoredName() {
-    const dbRef = ref(db);
-
-    try {
-        const snapshot = await get(child(dbRef, `users/${localStorage.getItem("username")}`));
-        if (snapshot.exists()) {
-            const userData = snapshot.val();
-            const fullName = userData.fullName;
-
-            if (fullName) {
-                const nameParts = fullName.split(" ");
-                const firstName = nameParts[0];
-                return firstName;
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    } catch (error) {
-        console.error("Error fetching user data from Firebase:", error);
-        return null;
-    }
-}
 
 
 function updateHelloCustomerName(name) {

@@ -27,6 +27,7 @@ function setSignInText() {
 setSignInText();
 
 function loadFirstCarousel() {
+    //This function loads the first carousel with data from a JSON file. It creates carousel items and indicators dynamically based on the data.
     const firstCarouselToFill = document.querySelector(".first-carousel-to-fill");
     const firstCarouselIndicators = document.querySelector(".first-carousel-indicators");
     fetch('./Data/Carousel_1.json')
@@ -45,6 +46,41 @@ function loadFirstCarousel() {
                 }
                 firstCarouselIndicators.appendChild(carouselIndicator);
 
+
+
+
+                carouselItem.className = `carousel-item${index === 0 ? ' active' : ''}`;
+
+                const carouselContent = document.createElement("div");
+                carouselContent.className = "d-flex flex-column gap-3 align-items-center";
+
+                const img = document.createElement("img");
+                img.src = item.image;
+                img.alt = item.alt;
+                img.className = "d-block w-100";
+                carouselContent.appendChild(img);
+
+                const carouselText = document.createElement("div");
+
+                const productName = document.createElement("span");
+                productName.innerHTML = item.productName + " ";
+                productName.style.fontWeight = "100";
+                productName.style.fontSize = "25px";
+                productName.style.marginBottom = "20px";
+                productName.style.textAlign = "center";
+                productName.style.color = "white";
+                carouselText.appendChild(productName);
+
+                const productPrice = document.createElement("span");
+                productPrice.innerHTML = item.price + ".00 EGP";
+                productPrice.style.fontWeight = "100";
+                productPrice.style.fontSize = "25px";
+                productPrice.style.marginBottom = "20px";
+                productPrice.style.textAlign = "center";
+                productPrice.style.color = "white";
+                carouselText.appendChild(productPrice);
+                carouselContent.append(carouselText);
+
                 let addToCartBtn = document.createElement("button");
                 addToCartBtn.innerHTML = "Add To Cart";
                 addToCartBtn.style.marginBottom = "50px";
@@ -56,21 +92,11 @@ function loadFirstCarousel() {
                 addToCartBtn.style.borderRadius = "25px";
                 addToCartBtn.style.fontSize = "20px";
                 setupAddToCartBtn(addToCartBtn, item);
-
-                carouselItem.className = `carousel-item${index === 0 ? ' active' : ''}`;
-
-                const carouselContent = document.createElement("div");
-                carouselContent.className = "d-flex flex-column gap-3 align-items-center";
-
-                const img = document.createElement("img");
-                img.src = item.image;
-                img.alt = item.alt;
-                img.className = "d-block w-100";
-
-                carouselContent.appendChild(img);
                 carouselContent.appendChild(addToCartBtn);
+
                 carouselItem.appendChild(carouselContent);
 
+                // ca
                 firstCarouselToFill.appendChild(carouselItem);
             });
         })

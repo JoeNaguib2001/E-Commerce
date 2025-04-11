@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>shopping cart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="./css/shoppingcartstyle.css"> -->
     <!-- <link rel="stylesheet" href="./css/navbar.css"> -->
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
     <style>
         a {
             text-decoration: none !important;
@@ -66,21 +70,17 @@
         .product-quantity span::before,
         .product-quantity span::after {
             content: "|";
-            /* إضافة الفاصل */
             color: black;
-            /* لون الفاصل */
             font-weight: bold;
             position: absolute;
         }
 
         .product-quantity span::before {
             left: -6px;
-            /* تحريك الفاصل قبل الرقم */
         }
 
         .product-quantity span::after {
             right: -6px;
-            /* تحريك الفاصل بعد الرقم */
         }
 
 
@@ -106,7 +106,6 @@
             font-size: 18px;
             font-weight: bold;
             padding: 0 12px;
-            /* مسافة حول الرقم */
         }
 
         .product-actions {
@@ -158,15 +157,43 @@
         @media (max-width: 990px) {
 
             p,
-            span,
             i,
-            button {
+            .action-button {
                 font-size: 10px !important;
             }
 
             h5 {
                 font-size: 15px !important;
             }
+        }
+
+        .checkout-btn {
+            background-color: green;
+            color: white;
+            transition: .3s;
+            min-width: 50%;
+            border-radius: 10px;
+        }
+
+
+        .checkout-btn:hover {
+            background-color: darkgreen;
+            color: white;
+            cursor: pointer;
+        }
+
+        .clear-cart-btn {
+            background-color: red;
+            color: white;
+            transition: .3s;
+            min-width: 50%;
+            border-radius: 10px;
+        }
+
+        .clear-cart-btn:hover {
+            background-color: rgb(67, 4, 4);
+            color: white;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -187,28 +214,36 @@
             </div>
         </div>
         <!-- End Toast Container -->
-
         <div class="row m-5 main-container">
             <div class="col-12 col-md-9" style=" padding:0; margin:0; border:2px solid black;">
                 <div class="cart-items" style="margin: 0; padding: 0;">
-
                 </div>
             </div>
             <div class="col-12 col-md-3" style="padding: 20px; margin: 0; border:2px solid black;">
-                <div class=" cart-summary"
+                <div class="cart-summary position-relative"
                     style=" padding:20px 5px; display: flex; flex-direction: column; align-items: center;">
-                    <h5 style="border: 2px solid black; width: 100%; text-align: center; padding: 10px;">Cart Summary
+                    <!-- <i class="fa-solid fa-trash position-absolute top-0"></i> -->
+                    <h5
+                        style="border: 2px solid black; width: 100%; text-align: center; padding: 10px; border-radius: 20px;">
+                        Cart Summary
                     </h5>
-                    <p class="cart-summary-total m-3">Total Items: 1</p>
-                    <p id="subtotal" class="m-3">Subtotal = $10.00</p>
-                    <p id="tax" class="m-3">Tax = $1.00</p>
-                    <p id="total" class="m-3">Total = $11.00</p>
-                    <button class="btn btn-primary checkout-btn m-3" style="min-width: 60%;">Checkout</button>
+                    <p class="cart-summary-total m-3">Total Items: 0</p>
+                    <p id="subtotal" class="m-3">Subtotal = $0.00</p>
+                    <p id="tax" class="m-3">Tax = $0.00</p>
+                    <p id="total" class="m-3">Total = $0.00</p>
+                    <div class="d-flex w-100">
+                        <button class="checkout-btn m-1 p-2 action-button">Checkout</button>
+                        <button class="clear-cart-btn m-1 p-2 action-button"
+                            style="min-width: 50%; border-radius:10px;">Clear
+                            Cart</button>
+                    </div>
                 </div>
             </div>
             <!-- Repeat for other products -->
         </div>
     </div>
+
+    <!-- تعويذة الفاير بيز -->
     <script type="module">
         // Import the functions you need from the SDKs you need
         // Import the functions you need from the SDKs you need
@@ -252,7 +287,7 @@
                 cartContainer.style.height = "100%";
                 cartContainer.style.display = "flex";
                 cartContainer.style.alignItems = "center";
-                cartContainer.innerHTML = '<div style="width:100%;" class="inner-container"><h2>The Cart Is Empty 🛒</h2></div>';
+                cartContainer.innerHTML = '<div style="width:100%; font-weight:100; font-size:40px" class="inner-container"><span>The Cart Is Empty 🛒</span></div>';
                 cartContainer.style.textAlign = "center";
                 return;
             }
@@ -267,7 +302,7 @@
                                         <img src="${item.image}" alt="Product 1" >
                                     </div>
                                     <div class="product-details col-6 col-md-8">
-                                        <p style="text-align: center;">${item.title}</p>
+                                        <p style="text-align: center;">${item.title || item.productName}</p>
                                         <p style="text-align: center;"class="price">Price: $${item.price}</p>
                                         <p style="text-align: center;"class="real-quantity">In Stock</p>
                                         <div class="d-flex justify-content-center align-items-center">
@@ -384,8 +419,18 @@
             navbar.updateCartCount();
         }
 
+
+        let clearCartBtn = document.querySelector(".clear-cart-btn");
+        clearCartBtn.addEventListener("click",clearCart)
         function clearCart() {
-            localStorage.removeItem("cart");
+            let username = localStorage.getItem("username");
+            let carts = JSON.parse(localStorage.getItem("carts")) || [];
+            let userCart = carts.find(cart => cart.username === username);
+            if (userCart) {
+                const index = carts.indexOf(userCart);
+                carts.splice(index, 1);
+            }
+            localStorage.setItem("carts", JSON.stringify(carts));
             loadCartItems();
         }
 
@@ -424,7 +469,7 @@
         async function Checkout() {
             let cartItems = getCurrentLoggedInUserCartOrderedItems(); // استرجاع العناصر من السلة
             if (cartItems.length === 0) {
-                alert("Your cart is empty. Please add items to your cart before checking out.");
+                ShowBootstrapToast("Your Shopping Cart Is Empty !!", "danger");
                 return;
             }
 
@@ -451,11 +496,11 @@
 
             set(newOrderRef, orderData)
                 .then(() => {
-                    alert("✅ Order placed successfully!");
+                    ShowBootstrapToast("✅ Order placed successfully!", "success");
                     // You can redirect or clear cart here
                 })
                 .catch((error) => {
-                    alert("❌ Error placing order: " + error.message);
+                    ShowBootstrapToast("❌ Error placing order!", "danger");
                 });
             const userOrdersRef = ref(db, `users/${username}/orders/`);
             const newUserOrderRef = push(userOrdersRef);
@@ -487,9 +532,12 @@
 
 
     </script>
+
+    <script type="module" src="./navbar/navbar.js">
+        
+    </script>
     <script src="./js/utilities.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="./navbar/navbar.js"></script>
 
 </body>
 

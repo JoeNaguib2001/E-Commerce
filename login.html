@@ -55,7 +55,7 @@
                     <!-- Toggler Effect Between Login And Signup -->
                     <div style="display: flex; margin-bottom: 20px; position: relative;" class="mode-toggler">
                         <div id="slider"
-                            style="position: absolute; width: 50%; height: 100%;  border-radius: 5px; transition: transform 0.3s ease-in-out;">
+                            style="position: absolute; width: 50%; height: 100%;  border-radius: 10px; transition: transform 0.3s ease-in-out;">
                         </div>
                         <span id="loginTab"
                             style="flex: 1; padding: 12px 0; cursor: pointer; text-align: center; position: relative; z-index: 2;">Log
@@ -359,7 +359,7 @@
         // }
 
         var currentMode = "login";
-        document.querySelector("form").addEventListener("submit", function (event) {
+        document.querySelector("form").addEventListener("submit",async function (event) {
             event.preventDefault(); // منع إعادة تحميل الصفحة
 
             let fullName = document.getElementById("fullname");
@@ -372,6 +372,11 @@
                     if (isValidUser) {
                         localStorage.setItem("isSignedIn", "true");
                         localStorage.setItem("username", username.value);
+                        getStoredName().then(firstName => {
+                            localStorage.setItem("firstName", firstName);
+                        });
+                      
+
                         if (document.querySelector("#remember").checked) {
                             localStorage.setItem("rememberMe", "true");
                         } else {
@@ -510,7 +515,7 @@
                 usernameValidation.innerText = "Username cannot be more than 20 charachters.";
                 usernameValidation.style.color = "red";
             }
-            else if (!/^[a-zA-Z0-9]+$/.test(username)) { 
+            else if (!/^[a-zA-Z0-9]+$/.test(username)) {
                 usernameValidation.innerText = "Username can only contain letters and numbers.";
                 usernameValidation.style.color = "red";
             } else if (username.length >= 3 && username.length <= 20 && /^[a-zA-Z0-9]+$/.test(username)) {
@@ -552,6 +557,32 @@
             document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
                 checkbox.checked = false;
             });
+        }
+
+
+        async function getStoredName() {
+            const dbRef = ref(db);
+
+            try {
+                const snapshot = await get(child(dbRef, `users/${localStorage.getItem("username")}`));
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    const fullName = userData.fullName;
+
+                    if (fullName) {
+                        const nameParts = fullName.split(" ");
+                        const firstName = nameParts[0];
+                        return firstName;
+                    } else {
+                        return null;
+                    }
+                } else {
+                    return null;
+                }
+            } catch (error) {
+                console.error("Error fetching user data from Firebase:", error);
+                return null;
+            }
         }
 
     </script>

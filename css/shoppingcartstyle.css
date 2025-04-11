@@ -230,23 +230,14 @@
             height: 300px;
         }
 
-        .right-side .checkout-btn {
+        .checkout-btn {
             display: block;
             width: 90%;
-            margin: 10px auto;
+            margin: 10px 0 !important;
             font-size: 20px;
             padding: 10px 20px;
             border-radius: 10px;
             border: none;
-            background-color: green;
-            color: white;
-            transition: .3s;
-        }
-
-        .right-side .checkout-btn:hover {
-            background-color: darkgreen;
-            color: white;
-            cursor: pointer;
         }
 
         .cart-item a {

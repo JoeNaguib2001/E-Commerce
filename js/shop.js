@@ -421,15 +421,18 @@ export function searchProducts(query) {
     let products = document.querySelectorAll(".product");
     let productContainer = document.getElementById("product-container");
 
-    products.forEach(product => {
-        let name = product.querySelector(".product-name").innerText.toLowerCase();
+    if (products != null && productContainer != null) {
+        products.forEach(product => {
+            let name = product.querySelector(".product-name").innerText.toLowerCase();
 
-        if (name.includes(query.toLowerCase())) {
-            product.parentElement.classList.remove("d-none"); // Show the product
-        } else {
-            product.parentElement.classList.add("d-none"); // Hide the product
-        }
-    });
+            if (name.includes(query.toLowerCase())) {
+                product.parentElement.classList.remove("d-none"); // Show the product
+            } else {
+                product.parentElement.classList.add("d-none"); // Hide the product
+            }
+        });
+
+    }
 }
 
 
