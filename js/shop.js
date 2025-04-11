@@ -22,8 +22,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     let sortBy = localStorage.getItem("sortBy") || "default";
-    if(sortByDropDown != null)
-    sortByDropDown.value = sortBy;
+    if (sortByDropDown != null)
+        sortByDropDown.value = sortBy;
+
+    if(localStorage.getItem("currentPage") != null){
+        currentPage = parseInt(localStorage.getItem("currentPage"));
+    }
+    if (currentPage > 1) {
+        renderPaginatedProducts();
+        renderPagination(productsList.length);
+    }
 });
 
 
@@ -37,12 +45,12 @@ let filteredProducts = [];
 let mode = "random";
 
 
-if(sortByDropDown != null) {
-sortByDropDown.addEventListener("change", function () {
-    let selectedValue = sortByDropDown.value;
-    localStorage.setItem("sortBy", selectedValue); // Save the selected value to localStorage
-    fetchProducts(); // Fetch products again to apply sorting
-});
+if (sortByDropDown != null) {
+    sortByDropDown.addEventListener("change", function () {
+        let selectedValue = sortByDropDown.value;
+        localStorage.setItem("sortBy", selectedValue); // Save the selected value to localStorage
+        fetchProducts(); // Fetch products again to apply sorting
+    });
 }
 
 
@@ -61,6 +69,7 @@ function renderPagination(totalItems) {
     prevPageItem.addEventListener("click", () => {
         if (currentPage > 1) {
             currentPage--;
+            localStorage.setItem("currentPage", currentPage);
             renderPaginatedProducts();
             renderPagination(totalItems);
         }
@@ -74,11 +83,13 @@ function renderPagination(totalItems) {
         pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
         pageItem.addEventListener("click", () => {
             currentPage = i;
+            localStorage.setItem("currentPage", currentPage);
             renderPaginatedProducts();
             renderPagination(totalItems);
         });
         paginationContainer.appendChild(pageItem);
     }
+
 
     // Next Page
     const nextPageItem = document.createElement("li");
@@ -87,6 +98,7 @@ function renderPagination(totalItems) {
     nextPageItem.addEventListener("click", () => {
         if (currentPage < totalPages) {
             currentPage++;
+            localStorage.setItem("currentPage", currentPage);
             renderPaginatedProducts();
             renderPagination(totalItems);
         }
@@ -115,7 +127,7 @@ function renderProducts(products) {
         productDiv.innerHTML = `
                 <div class="product">
                     <div class="front-card">
-                        <a href="#" class="add-to-fav"><i class="fa-solid fa-plus"> </i> </a>
+                        <a href="#" class="add-to-fav"><i class="fa-solid fa-heart add-to-favorites-icon"></i> </a>
                         <img src="${product.image}" alt="${product.title}">
                         <br>
                         <span class="product-name">${product.title}</span>

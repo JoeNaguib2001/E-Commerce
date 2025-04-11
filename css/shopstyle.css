@@ -294,7 +294,7 @@ a.page-link {
 }
 
 
-.fa-solid.fa-plus {
+.add-to-favorites-icon {
     position: absolute;
     right: 5%;
     border: 1px solid orange;
@@ -302,10 +302,10 @@ a.page-link {
     border-radius: 50%;
 }
 
-.fa-solid.fa-plus:hover {
+.add-to-favorites-icon:hover {
     transition: .75s;
-    background-color: orange;
-    color: white;
+    background-color: white;
+    color: red;
 }
 
 .fa-location-.dot {
