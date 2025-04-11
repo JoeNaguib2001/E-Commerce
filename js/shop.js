@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (sortByDropDown != null)
         sortByDropDown.value = sortBy;
 
-    if(localStorage.getItem("currentPage") != null){
+    if (localStorage.getItem("currentPage") != null) {
         currentPage = parseInt(localStorage.getItem("currentPage"));
     }
     if (currentPage > 1) {
@@ -247,7 +247,42 @@ function renderCategories(categories) {
             <h5 class="card-title">${category.name}</h5>
         `;
         // Filter By Category
-        li.addEventListener("click", function () {
+        li.addEventListener("click", async function () {
+            // Show loading spinner
+            const greaterOuterContainer = document.querySelector(".greater-outer-container");
+
+            const overlay = document.createElement("div");
+            overlay.className = "overlay position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center";
+
+            const spinnerContainer = document.createElement("div");
+            spinnerContainer.className = "text-center text-white";
+
+            const loadingSpinner = document.createElement("div");
+            loadingSpinner.className = "spinner-border text-primary mb-2";
+            loadingSpinner.role = "status";
+
+            const loadingText = document.createElement("div");
+            loadingText.innerText = "Loading...";
+            loadingText.style.fontSize = "2.5rem";
+
+            // Append spinner and text to container
+            spinnerContainer.appendChild(loadingSpinner);
+            spinnerContainer.appendChild(loadingText);
+
+            // Append container to overlay
+            overlay.appendChild(spinnerContainer);
+
+            // Append overlay to the page
+            greaterOuterContainer.appendChild(overlay);
+
+            // Remove overlay once data is loaded
+            await new Promise(resolve => {
+                setTimeout(() => {
+                    overlay.remove();
+                    resolve();
+                }, 800);
+            });
+
 
             currentPage = 1;
 
