@@ -27,6 +27,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom;
+    background-color: black;
 }
 
 
@@ -124,7 +125,7 @@ input[type="password"],
 input[type="email"],
 select {
     display: block;
-    height: 45px;
+    height: 35px;
     width: 70%;
     font-size: 18px;
     margin: 15px auto;

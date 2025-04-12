@@ -120,6 +120,7 @@ function updateHelloCustomerName(name) {
     if (span) span.innerHTML = `Hello, ${name}`;
 }
 
+// After Sign Out => username = "Default User" , isSignedIn = "false" , rememberMe = "false"
 function toggleSingedIn() {
     if (localStorage.getItem("isSignedIn") == "true") {
         localStorage.setItem("isSignedIn", "false");
@@ -149,7 +150,6 @@ const dbRef = ref(db);
 
 // Retrieve the current username from localStorage
 const username = localStorage.getItem("username");
-console.log("Current username:", username);
 
 
 

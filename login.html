@@ -71,24 +71,33 @@
                     </div>
                     <!-- Begin Inputs -->
                     <!-- FullName -->
+                    <label for="fullname" class="forSignUpOnly text-white"
+                        style="display:none; margin: 0 auto; width: 70%;">Full Name
+                    </label>
+
                     <div class="d-flex">
-                        <input type="text" id="fullname" name="fullname" placeholder="FullName" required disabled
-                            class="forSignUpOnly" style="display: none;" maxlength="20">
+                        <input type="text" id="fullname" name="fullname" required disabled class="forSignUpOnly"
+                            style="display: none;" maxlength="20">
                     </div>
                     <!-- Email -->
+                    <label for="email" class="forSignUpOnly text-white"
+                        style="display:none; margin: 0 auto; width: 70%;">Email
+                    </label>
                     <div class="d-flex">
-                        <input type="email" id="email" name="email" placeholder="Email" required disabled
-                            class="forSignUpOnly" style="display: none;">
+                        <input type="email" id="email" name="email" required disabled class="forSignUpOnly"
+                            style="display: none;">
                     </div>
                     <!-- UserName & Password & ConfirmPassword & Forgot & Remember & Submit  -->
                     <div class="d-flex flex-column">
-                        <input type="text" id="username" name="username" placeholder="Username" required minlength="6"
-                            maxlength="20">
+                        <label for="username" class="text-white" style="margin: 0 auto; width: 70%;">User
+                            Name</label>
+                        <input type="text" id="username" name="username" required minlength="6" maxlength="20">
                         <div id="username-validation" style="height: 0px !important;">
                         </div>
+                        <label for="password" class="text-white" style="margin: 0 auto; width: 70%;">Password</label>
                         <div class="position-relative d-flex align-items-center">
-                            <input type="password" id="password" name="password" placeholder="Password" required
-                                class="password" maxlength="20" onkeyup="checkPasswordStrength()">
+                            <input type="password" id="password" name="password" required class="password"
+                                maxlength="20" onkeyup="checkPasswordStrength()">
                             <i class="fa-solid fa-eye-slash show-hide-pass"></i>
                             <div id="progress-container"
                                 class="position-absolute d-flex flex-column align-items-center d-none"
@@ -112,9 +121,11 @@
                             <!-- <small id="strength-text" class="position-absolute text-white" style="right: -60px;">Very
                                             Weak</small> -->
                         </div>
+                        <label for="confirmpassword" class="forSignUpOnly text-white"
+                            style="display:none; margin: 0 auto; width: 70%;">Confirm Password </label>
                         <div class="d-flex confirmpassowrd-div position-relative">
-                            <input type="password" id="confirmpassword" name="password" placeholder="Confirm Password"
-                                required class="forSignUpOnly password" style="display: none;" disabled maxlength="20">
+                            <input type="password" id="confirmpassword" name="password" required
+                                class="forSignUpOnly password" style="display: none;" disabled maxlength="20">
                             <i class="fa-solid fa-circle-check text-success position-absolute"
                                 id="confirm-password-success-icon"
                                 style="top:40%; right:30px; font-size: 18px; display: none;"></i>
@@ -164,8 +175,6 @@
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        console.log("Firebase App:", app);
-
         import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
         const db = getDatabase();
 
@@ -200,7 +209,7 @@
             loginTab.style.color = "gray";
             submit.value = "Sign up";
             currentMode = "signup";
-            document.querySelectorAll("input:disabled").forEach(input => {
+            document.querySelectorAll(".forSignUpOnly").forEach(input => {
                 input.disabled = false;
                 input.style.display = "block";
             });
@@ -217,11 +226,10 @@
         }
 
 
-        //Show / Hide Password Functionality
-        let showHidePass = document.querySelector('.show-hide-pass');
+        //Show / Hide Password Functionality Default Is False
         let showPass = false;
+        let showHidePass = document.querySelector('.show-hide-pass');
         showHidePass.addEventListener('click', function () {
-            // Toggle password visibility
             if (showPass) {
                 showHidePass.classList.add('fa-eye-slash');
                 showHidePass.classList.remove('fa-eye');
@@ -253,110 +261,9 @@
             });
         });
 
-        //Disable Right-Click On Images
-        // document.addEventListener("contextmenu", (event) => {
-        //     if (event.target.tagName === "IMG") {
-        //         event.preventDefault();
-        //         alert("Right-click is disabled on images!");
-        //     }
-        // });
 
-
-        //Handle Sign-In / Sign-Up Logic
-        // let currentMode = "login";
-        // document.querySelector("form").addEventListener("submit", async function (event) {
-        //     event.preventDefault();
-
-        //     let username = document.getElementById("username");
-        //     let password = document.getElementById("password");
-
-        //     if (currentMode === "login") {
-        //         let isValidUser = await checkUser(username.value, password.value);
-        //         if (isValidUser) {
-        //             localStorage.setItem("isSignedIn", "true");
-        //             localStorage.setItem("username", username.value);
-        //             if (document.querySelector("#remember").checked) {
-        //                 localStorage.setItem("rememberMe", "true");
-        //             } else {
-        //                 localStorage.setItem("rememberMe", "false");
-        //             }
-        //             localStorage.setItem("welcomeMessage", "Welcome back, " + username.value);
-        //             setTimeout(() => {
-        //                 window.location.href = "shop.html";
-        //             }, 2000);
-        //         } else {
-        //             ShowBootstrapToast("Invalid Username or Password", "danger");
-        //         }
-        //     }
-        //     else if (currentMode === "signup") {
-        //         let fullName = document.getElementById("fullname").value;
-        //         let userName = document.getElementById("username").value;
-        //         let password = document.getElementById("password").value;
-        //         let email = document.getElementById("email").value;
-        //         let userType = "user";
-
-        //         let userData = { fullName, userName, password, email, userType };
-
-        //         try {
-        //             let response = await fetch("http://localhost:3000/signup", {
-        //                 method: "POST",
-        //                 headers: { "Content-Type": "application/json" },
-        //                 body: JSON.stringify(userData)
-        //             });
-
-        //             let result = await response.json();
-
-        //             if (response.ok) {
-        //                 ShowBootstrapToast(result.message, "success");
-        //                 localStorage.setItem("isSignedIn", "true");
-        //                 localStorage.setItem("username", userName);
-        //                 setTimeout(() => {
-        //                     window.location.href = "shop.html";
-        //                 }, 2000);
-        //             } else {
-        //                 ShowBootstrapToast(result.message, "danger");
-        //             }
-        //         } catch (error) {
-        //             ShowBootstrapToast("❌ حدث خطأ أثناء الاتصال بالسيرفر", "danger");
-        //         }
-        //     }
-        // });
-
-        // //Validate User Input On Sign-In
-        // async function checkUser(userName, password) {
-        //     try {
-        //         const response = await fetch('./Data/Accounts.Json');
-
-        //         if (!response.ok) {
-        //             console.error("Error loading JSON file");
-        //             return false;
-        //         }
-
-        //         const accounts = await response.json();
-        //         console.log("Accounts Data:", accounts);
-
-        //         const user = accounts.find(acc => acc.userName === userName);
-
-        //         if (!user) {
-        //             console.warn("User not found!");
-        //             return false;
-        //         }
-
-        //         console.log("Stored Password:", user.password);
-        //         console.log("Entered Password:", password);
-
-        //         if (user.password === password) {
-        //             return true;
-        //         } else {
-        //             console.warn("Incorrect password");
-        //             return false;
-        //         }
-        //     } catch (error) {
-        //         console.error("Error fetching or parsing JSON:", error);
-        //         return false;
-        //     }
-        // }
-
+        // Default Mode = Login 
+        // Submit Event
         var currentMode = "login";
         document.querySelector("form").addEventListener("submit", async function (event) {
             event.preventDefault(); // منع إعادة تحميل الصفحة
@@ -391,6 +298,7 @@
                 });
             }
             else if (currentMode === "signup") {
+                debugger;
                 set(ref(db, "users/" + username.value), {
                     fullName: fullName.value,
                     userName: userName.value,
@@ -399,13 +307,12 @@
                     userType: "user"
                 })
                     .then(() => {
-                        ShowBootstrapToast("Account Created Successfully", "success");
                         localStorage.setItem("isSignedIn", "true");
                         localStorage.setItem("username", userName);
-                        getStoredName().then(firstName => {
-                            localStorage.setItem("firstName", firstName);
-                        });
+                        localStorage.setItem("userRole", "user");
+                        localStorage.setItem("firstName", fullName.value.split(" ")[0]);
 
+                        ShowBootstrapToast("Account Created Successfully", "success");
 
                         setTimeout(() => {
                             window.location.href = "home.html";
@@ -418,7 +325,23 @@
         });
 
 
-        //Validate User Input On Sign-In And Set his Role
+
+        //Validate User Input On Sign-In And Set his Role If Mode = Sign Up => Don't check role , And Set Role Automatically To User
+        async function getUserRole(username) {
+            const dbRef = ref(db);
+            try {
+                const snapshot = await get(child(dbRef, `users/${username}`));
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    return userData.userType || "user";
+                } else {
+                    return null;
+                }
+            } catch (error) {
+                console.error("Error fetching user role:", error);
+                return null;
+            }
+        }
         async function checkUser(username, password) {
             const dbRef = ref(db);
             try {
@@ -426,8 +349,8 @@
                 if (snapshot.exists()) {
                     const userData = snapshot.val();
                     if (userData.password === password) {
-                        // ✅ تخزين الدور (role) في localStorage
-                        localStorage.setItem("userRole", userData.userType || "user");
+                        const userRole = await getUserRole(username);
+                        localStorage.setItem("userRole", userRole);
                         return true;
                     } else {
                         return false;
@@ -442,6 +365,7 @@
         }
 
 
+        // Password Strength Checker
         window.checkPasswordStrength = function () {
             document.getElementById("confirmpassword").value = "";
             confirmPasswordFailIcon.style.display = "none";
@@ -478,7 +402,7 @@
             });
         };
 
-
+        // Confirm Password Matches Password Checker
         let confirmPassowrdDiv = document.querySelector(".confirmpassowrd-div");
         let pass = document.getElementById("password");
         document.getElementById("confirmpassword").addEventListener("keyup", function () {
@@ -504,12 +428,15 @@
             }
         });
 
+        // Prevent Spaces In User Name
         document.getElementById("username").addEventListener("keypress", function (event) {
             if (event.key === " ") {
                 event.preventDefault();
                 ShowBootstrapToast("Spaces are not allowed in the username.", "danger");
             }
         });
+
+        // Validate Username On Keyup
         document.getElementById("username").addEventListener("keyup", function () {
             if (currentMode === "login") return; // Skip if in login mode
             let usernameValidation = document.getElementById("username-validation");
@@ -592,6 +519,122 @@
                 return null;
             }
         }
+
+
+
+
+        //Old Commented Code Json Sign In
+        // Disable Right-Click On Images
+        // document.addEventListener("contextmenu", (event) => {
+        // if (event.target.tagName === "IMG") {
+        // event.preventDefault();
+        // alert("Right-click is disabled on images!");
+        // }
+        // });
+
+
+        //Handle Sign-In / Sign-Up Logic
+        // let currentMode = "login";
+        // document.querySelector("form").addEventListener("submit", async function (event) {
+        // event.preventDefault();
+
+        // let username = document.getElementById("username");
+        // let password = document.getElementById("password");
+
+        // if (currentMode === "login") {
+        // let isValidUser = await checkUser(username.value, password.value);
+        // if (isValidUser) {
+        // localStorage.setItem("isSignedIn", "true");
+        // localStorage.setItem("username", username.value);
+        // if (document.querySelector("#remember").checked) {
+        // localStorage.setItem("rememberMe", "true");
+        // } else {
+        // localStorage.setItem("rememberMe", "false");
+        // }
+        // localStorage.setItem("welcomeMessage", "Welcome back, " + username.value);
+        // setTimeout(() => {
+        // window.location.href = "shop.html";
+        // }, 2000);
+        // } else {
+        // ShowBootstrapToast("Invalid Username or Password", "danger");
+        // }
+        // }
+        // else if (currentMode === "signup") {
+        // let fullName = document.getElementById("fullname").value;
+        // let userName = document.getElementById("username").value;
+        // let password = document.getElementById("password").value;
+        // let email = document.getElementById("email").value;
+        // let userType = "user";
+
+        // let userData = { fullName, userName, password, email, userType };
+
+        // try {
+        // let response = await fetch("http://localhost:3000/signup", {
+        // method: "POST",
+        // headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(userData)
+        // });
+
+        // let result = await response.json();
+
+        // if (response.ok) {
+        // ShowBootstrapToast(result.message, "success");
+        // localStorage.setItem("isSignedIn", "true");
+        // localStorage.setItem("username", userName);
+        // setTimeout(() => {
+        // window.location.href = "shop.html";
+        // }, 2000);
+        // } else {
+        // ShowBootstrapToast(result.message, "danger");
+        // }
+        // } catch (error) {
+        // ShowBootstrapToast("❌ حدث خطأ أثناء الاتصال بالسيرفر", "danger");
+        // }
+        // }
+        // });
+
+        // //Validate User Input On Sign-In
+        // async function checkUser(userName, password) {
+        // try {
+        // const response = await fetch('./Data/Accounts.Json');
+
+        // if (!response.ok) {
+        // console.error("Error loading JSON file");
+        // return false;
+        // }
+
+        // const accounts = await response.json();
+        // console.log("Accounts Data:", accounts);
+
+        // const user = accounts.find(acc => acc.userName === userName);
+
+        // if (!user) {
+        // console.warn("User not found!");
+        // return false;
+        // }
+
+        // console.log("Stored Password:", user.password);
+        // console.log("Entered Password:", password);
+
+        // if (user.password === password) {
+        // return true;
+        // } else {
+        // console.warn("Incorrect password");
+        // return false;
+        // }
+        // } catch (error) {
+        // console.error("Error fetching or parsing JSON:", error);
+        // return false;
+        // }
+        // }
+
+
+        //
+
+
+
+
+        //
 
     </script>
 
