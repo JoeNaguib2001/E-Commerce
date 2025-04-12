@@ -1,0 +1,42 @@
+[
+  {
+    "id": 25,
+    "title": "Proc#1",
+    "price": 100,
+    "quantity": 60,
+    "image": "../Images/carousel_4/product_1.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "mens clothing"
+  },
+  {
+    "id": 26,
+    "title": "Proc#2",
+    "price": 200,
+    "quantity": 60,
+    "image": "../Images/carousel_4/product_2.jpg",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "mens clothing"
+  },
+  {
+    "id": 27,
+    "title": "Proc#3",
+    "price": 300,
+    "quantity": 60,
+    "image": "../Images/carousel_4/product_3.jpg",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "mens clothing"
+  },
+  {
+    "id": 28,
+    "title": "Proc#4",
+    "price": 400,
+    "quantity": 60,
+    "image": "../Images/carousel_4/product_4.png",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "rating": { "rate": 3.9, "count": 120 },
+    "category": "mens clothing"
+  }
+]
