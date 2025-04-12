@@ -26,11 +26,11 @@ function setSignInText() {
 }
 setSignInText();
 
-function loadFirstCarousel() {
+function loadThirdCarousel() {
     //This function loads the first carousel with data from a JSON file. It creates carousel items and indicators dynamically based on the data.
     const firstCarouselToFill = document.querySelector(".first-carousel-to-fill");
     const firstCarouselIndicators = document.querySelector(".first-carousel-indicators");
-    fetch('./Data/Carousel_1.json')
+    fetch('./Data/Carousel_3.json')
         .then(response => response.json())
         .then(data => {
             data.forEach((item, index) => {
@@ -103,12 +103,12 @@ function loadFirstCarousel() {
         .catch(error => console.error('Error fetching carousel data:', error));
 }
 
-loadFirstCarousel();
+loadThirdCarousel();
 
-function loadSecondCarousel() {
+function loadFourthCarousel() {
     const secondCarouselToFill = document.querySelector(".second-carousel-to-fill");
     const secondCarouselIndicators = document.querySelector(".second-carousel-indicators");
-    fetch('./Data/Carousel_2.json').then(response => response.json()).then(data => {
+    fetch('./Data/Carousel_4.json').then(response => response.json()).then(data => {
         for (let i = 0; i < data.length; i += 2) {
             const carouselItem = document.createElement('div');
             const carouselIndicator = document.createElement('button');
@@ -175,13 +175,13 @@ function loadSecondCarousel() {
         }
     }).catch(error => console.error('Error fetching carousel data:', error));
 }
-loadSecondCarousel();
+loadFourthCarousel();
 
 
-function loadThirdCarousel() {
+function loadFifthCarousel() {
     const thirdCarouselToFill = document.querySelector(".third-carousel-to-fill");
     const thirdCarouselIndicators = document.querySelector(".third-carousel-indicators");
-    fetch('./Data/Carousel_3.json')
+    fetch('./Data/Carousel_5.json')
         .then(response => response.json())
         .then(data => {
             for (let i = 0; i < data.length; i += 4) {
@@ -238,7 +238,7 @@ function loadThirdCarousel() {
         .catch(error => console.error('Error fetching carousel data:', error));
 }
 
-loadThirdCarousel();
+loadFifthCarousel();
 
 function setupAddToCartBtn(btn, product) {
     btn.addEventListener("click", () => {

@@ -1,82 +1,42 @@
 [
   {
-    "id": 1,
+    "id": 21,
     "title": "Proc#1",
-    "price": 300,
+    "price": 200,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_1.png",
+    "image": "../Images/carousel_3/blonde1.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "womens clothing"
+    "category": "sunglasses"
   },
   {
-    "id": 29,
+    "id": 22,
     "title": "Proc#2",
     "price": 300,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_2.png",
+    "image": "../Images/carousel_3/blonde2.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "womens clothing"
+    "category": "sunglasses"
   },
   {
-    "id": 30,
+    "id": 23,
     "title": "Proc#3",
-    "price": 300,
+    "price": 400,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_3.png",
+    "image": "../Images/carousel_3/blonde3.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "womens clothing"
+    "category": "sunglasses"
   },
   {
-    "id": 31,
+    "id": 24,
     "title": "Proc#4",
-    "price": 300,
+    "price": 450,
     "quantity": 60,
-    "image": "../Images/carousel_2/blonde_4.png",
+    "image": "../Images/carousel_3/blonde4.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "rating": { "rate": 3.9, "count": 120 },
-    "category": "womens clothing"
-  },
-  {
-    "id": 32,
-    "title": "Proc#5",
-    "price": 300,
-    "quantity": 60,
-    "image": "../Images/carousel_2/blonde_1.png",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "rating": { "rate": 3.9, "count": 120 },
-    "category": "womens clothing"
-  },
-  {
-    "id": 33,
-    "title": "Proc#6",
-    "price": 300,
-    "quantity": 60,
-    "image": "../Images/carousel_2/blonde_2.png",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "rating": { "rate": 3.9, "count": 120 },
-    "category": "womens clothing"
-  },
-  {
-    "id": 34,
-    "title": "Proc#7",
-    "price": 300,
-    "quantity": 60,
-    "image": "../Images/carousel_2/blonde_3.png",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "rating": { "rate": 3.9, "count": 120 },
-    "category": "womens clothing"
-  },
-  {
-    "id": 35,
-    "title": "Proc#8",
-    "price": 300,
-    "quantity": 60,
-    "image": "../Images/carousel_2/blonde_4.png",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "rating": { "rate": 3.9, "count": 120 },
-    "category": "womens clothing"
+    "category": "sunglasses"
   }
 ]
