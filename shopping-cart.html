@@ -582,9 +582,9 @@
                 };
 
                 let matchedProduct = await checkTable("products");
-                if (!matchedProduct) matchedProduct = await checkTable("carousel_1");
-                if (!matchedProduct) matchedProduct = await checkTable("carousel_2");
                 if (!matchedProduct) matchedProduct = await checkTable("carousel_3");
+                if (!matchedProduct) matchedProduct = await checkTable("carousel_4");
+                if (!matchedProduct) matchedProduct = await checkTable("carousel_5");
 
                 return matchedProduct;
             }
