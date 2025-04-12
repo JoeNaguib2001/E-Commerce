@@ -143,6 +143,40 @@ function goToCartIfSignedIn() {
 
 
 // Choose the right dropdown menu based on the user role
+const dbRef = ref(db);
+
+// Retrieve the current username from localStorage
+const username = localStorage.getItem("username");
+console.log("Current username:", username);
+
+
+// Fetch user data from Firebase
+// get(child(dbRef, `users / ${username}`))
+//     .then((snapshot) => {
+//         if (snapshot.exists()) {
+//             const userData = snapshot.val();
+//             const currentUserRole = userData.userType;
+//             // Show/hide dropdown menus based on the user role
+//             if (currentUserRole === "admin") {
+//                 document.querySelector(".admin-dropdown").style.display = "block";
+//                 const userDropdown = document.querySelector(".user-dropdown");
+//                 if (userDropdown) userDropdown.remove();
+//             } else {
+//                 const adminDropdown = document.querySelector(".admin-dropdown");
+//                 if (adminDropdown) adminDropdown.remove();
+//                 document.querySelector(".user-dropdown").style.display = "block";
+//             }
+//         } else {
+//             console.error("User not found in Firebase.");
+//             const adminDropdown = document.querySelector(".admin-dropdown");
+//             if (adminDropdown) adminDropdown.remove();
+//             document.querySelector(".user-dropdown").style.display = "block";
+//         }
+//     })
+//     .catch((error) => {
+//         console.error("Error fetching user data from Firebase:", error);
+//     });
+
 fetch("./Data/Accounts.json")
     .then(response => {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
