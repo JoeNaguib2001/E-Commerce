@@ -400,7 +400,7 @@
                     userType: "user"
                 })
                     .then(() => {
-                        alert("you signed up successfully!");
+                        ShowBootstrapToast("Account Created Successfully", "success");
                         localStorage.setItem("isSignedIn", "true");
                         localStorage.setItem("username", userName);
                         setTimeout(() => {

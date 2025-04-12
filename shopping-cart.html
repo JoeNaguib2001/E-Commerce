@@ -264,7 +264,9 @@
         // Import the functions you need from the SDKs you need
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-        import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+        import { getDatabase, ref, set, push, get } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+        import { query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+
         import * as navbar from "./navbar/navbar.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
@@ -273,6 +275,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyBCDfTghFj89jNnYM3oz0LSGZU_FEi5s3c",
             authDomain: "iti-2025-e-commerce.firebaseapp.com",
+            // databaseURL: "https://iti-2025-e-commerce-default-rtdb.firebaseio.com",
             projectId: "iti-2025-e-commerce",
             storageBucket: "https://iti-2025-e-commerce-default-rtdb.firebaseio.com",
             messagingSenderId: "90149751365",
@@ -499,26 +502,142 @@
             let orderData = {
                 orderId: Date.now(),
                 userName: username,
-                orderDate: new Date().toISOString().split('T')[0], // تاريخ اليوم
-                estimatedDelivery: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // +3 أيام
+                orderDate: new Date().toISOString().split('T')[0],
+                estimatedDelivery: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                 order: cartItems,
                 orderStatus: "Waiting",
                 totalPrice: cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2),
                 paymentMethod: "Credit Card",
+                shippingAddress: "123 Main St, City, Country",
             };
 
-            const ordersRef = ref(db, "orders/");
-            const newOrderRef = push(ordersRef);
 
-            set(newOrderRef, orderData)
+            // async function checkProductInAllTables(item) {
+            //     const productId = item.productId || item.id; // نستخدم اللي موجود
+            //     // دالة هتبحث في الجدول المحدد
+            //     const checkTable = async (tableName) => {
+            //         const tableRef = ref(db, tableName);
+            //         const snapshot = await get(tableRef);
+            //         if (snapshot.exists()) {
+            //             const allProducts = snapshot.val();
+            //             const matchedProduct = Object.values(allProducts).find(p => p.id === Number(productId));
+            //             return matchedProduct;
+            //         }
+            //         return null;
+            //     };
+            //     // البحث في الجداول
+            //     let matchedProduct = await checkTable("products");
+            //     if (!matchedProduct) matchedProduct = await checkTable("carousel_1");
+            //     if (!matchedProduct) matchedProduct = await checkTable("carousel_2");
+            //     if (!matchedProduct) matchedProduct = await checkTable("carousel_3");
+            //     return matchedProduct;
+            // }
+
+            // for (let item of orderData.order) {
+            //     if (!item.productId && !item.id) {
+            //         ShowBootstrapToast(`Product ID missing for ${item.title || item.productName}!`, "danger");
+            //         return;
+            //     }
+            //     const matchedProduct = await checkProductInAllTables(item);
+            //     if (matchedProduct) {
+            //         if (matchedProduct.quantity < item.quantity) {
+            //             ShowBootstrapToast(`Not enough stock for ${item.title || item.productName}!`, "danger");
+            //             return;
+            //         }
+            //         // خصم الكمية من المنتج
+            //         const updatedQuantity = matchedProduct.quantity - item.quantity;
+            //         const productRefToUpdate = ref(db, `${matchedProduct.tableName}/${matchedProduct.id}`);
+            //         await set(productRefToUpdate, {
+            //             ...matchedProduct, // خليه زي ما هو
+            //             quantity: updatedQuantity  // خصم الكمية الجديدة
+            //         });
+            //         ShowBootstrapToast(`${item.title || item.productName} added to cart!`, "success");
+            //     } else {
+            //         ShowBootstrapToast(`Product ${item.title || item.productName} not found in warehouse!`, "danger");
+            //         return;
+            //     }
+            // }
+
+
+            async function checkProductInAllTables(item) {
+                const productId = item.productId || item.id;
+
+                const checkTable = async (tableName) => {
+                    const tableRef = ref(db, tableName);
+                    const snapshot = await get(tableRef);
+                    if (snapshot.exists()) {
+                        const allProducts = snapshot.val();
+                        for (const [key, value] of Object.entries(allProducts)) {
+                            if (value.id === Number(productId)) {
+                                return {
+                                    ...value,
+                                    firebaseKey: key,
+                                    tableName: tableName
+                                };
+                            }
+                        }
+                    }
+                    return null;
+                };
+
+                let matchedProduct = await checkTable("products");
+                if (!matchedProduct) matchedProduct = await checkTable("carousel_1");
+                if (!matchedProduct) matchedProduct = await checkTable("carousel_2");
+                if (!matchedProduct) matchedProduct = await checkTable("carousel_3");
+
+                return matchedProduct;
+            }
+
+            let shortageMessages = [];
+
+            for (let item of orderData.order) {
+                if (!item.productId && !item.id) {
+                    ShowBootstrapToast(`Product ID missing for ${item.title || item.productName}!`, "danger");
+                    return;
+                }
+
+                const matchedProduct = await checkProductInAllTables(item);
+
+                if (matchedProduct) {
+                    if (matchedProduct.quantity < item.quantity) {
+                        shortageMessages.push(`${item.title || item.productName}: only ${matchedProduct.quantity} available`);
+                        continue; // كمل للمنتج اللي بعده
+                    }
+
+                    const updatedQuantity = matchedProduct.quantity - item.quantity;
+                    const productRefToUpdate = ref(db, `${matchedProduct.tableName}/${matchedProduct.firebaseKey}`);
+
+                    await set(productRefToUpdate, {
+                        ...matchedProduct,
+                        quantity: updatedQuantity
+                    });
+
+                    ShowBootstrapToast(`${item.title || item.productName} added to cart!`, "success");
+
+                } else {
+                    shortageMessages.push(`${item.title || item.productName} not found in any warehouse`);
+                }
+            }
+
+            if (shortageMessages.length > 0) {
+                const message = "Order couldn't be completed due to:\n\n" + shortageMessages.join("\n");
+                ShowBootstrapToast(message, "danger");
+                return; // منرجعش ننفذ أي حاجة بعد كده
+            }
+
+
+
+            const ordersRef = ref(db, "orders/" + orderData.orderId);
+
+
+            set(ordersRef, orderData)
                 .then(() => {
-                    ShowBootstrapToast("✅ Order placed successfully!", "success");
-                    // You can redirect or clear cart here
+                    ShowBootstrapToast("Order placed successfully!", "success");
                 })
                 .catch((error) => {
-                    ShowBootstrapToast("❌ Error placing order!", "danger");
+                    ShowBootstrapToast("Error placing order!", "danger");
                 });
-            const userOrdersRef = ref(db, `users/${username}/orders/`);
+            const userOrdersRef = ref(db, `users/${username}/orders/@${orderData.orderId}`);
             const newUserOrderRef = push(userOrdersRef);
             set(newUserOrderRef, orderData);
 
@@ -531,7 +650,6 @@
                 localStorage.setItem("carts", JSON.stringify(carts));
             }
 
-            debugger;
             loadCartItems();
 
             // Wait for 3 seconds before redirecting

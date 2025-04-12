@@ -7,6 +7,7 @@
 //go to cart if signed in
 
 import * as navbar from "../navbar/navbar.js";
+import { searchProducts } from "../js/shop.js";
 import { ref, child, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 
