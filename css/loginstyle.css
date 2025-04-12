@@ -128,7 +128,7 @@ select {
     height: 35px;
     width: 70%;
     font-size: 18px;
-    margin: 15px auto;
+    margin: 8px auto;
     padding: 5px 5px 5px 15px;
     outline: none;
     appearance: none;
@@ -198,11 +198,15 @@ a.forgot,
         margin-top: 0;
     }
 
+    label{
+        font-size: 16px;
+    }
+
     input[type="text"],
     input[type="password"],
     input[type="email"] {
         height: 20px;
-        font-size: 14px;
+        font-size: 16px;
         padding: 10px !important;
         margin: 5px auto;
     }
@@ -214,7 +218,13 @@ a.forgot,
     }
 
     a.forgot,
-    #remember {
-        font-size: 12px;
+    .remember {
+        font-size: 14px;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+        font-size: large;
+
     }
 }
