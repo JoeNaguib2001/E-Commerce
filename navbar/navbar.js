@@ -42,6 +42,8 @@ async function loadNavbar() {
         }
 
         setupSearchFunctionality();
+        showCorrectDropDown();
+
 
 
         let shoppingCart = document.querySelector(".shopping-cart-link");
@@ -150,61 +152,51 @@ const username = localStorage.getItem("username");
 console.log("Current username:", username);
 
 
-// Fetch user data from Firebase
-// get(child(dbRef, `users / ${username}`))
-//     .then((snapshot) => {
-//         if (snapshot.exists()) {
-//             const userData = snapshot.val();
-//             const currentUserRole = userData.userType;
-//             // Show/hide dropdown menus based on the user role
+
+
+function showCorrectDropDown() {
+    let userRole = localStorage.getItem("userRole");
+    if (userRole === "admin") {
+        document.querySelector(".admin-dropdown").style.display = "block";
+        document.querySelector(".user-dropdown").remove();
+    } else if (userRole === "user") {
+        document.querySelector(".admin-dropdown").remove();
+        document.querySelector(".user-dropdown").style.display = "block";
+    } else {
+        document.querySelector(".admin-dropdown").remove();
+        document.querySelector(".user-dropdown").style.display = "block";
+    }
+}
+
+
+// fetch("./Data/Accounts.json")
+//     .then(response => {
+//         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+//         return response.json();
+//     })
+//     .then(accounts => {
+//         const currentUser = localStorage.getItem("username");
+//         const user = accounts.find(account => account.userName === currentUser);
+//         if (user) {
+//             currentUserRole = user.userType;
 //             if (currentUserRole === "admin") {
 //                 document.querySelector(".admin-dropdown").style.display = "block";
-//                 const userDropdown = document.querySelector(".user-dropdown");
-//                 if (userDropdown) userDropdown.remove();
+//                 document.querySelector(".user-dropdown").remove();
+
 //             } else {
-//                 const adminDropdown = document.querySelector(".admin-dropdown");
-//                 if (adminDropdown) adminDropdown.remove();
+//                 document.querySelector(".admin-dropdown").remove();
 //                 document.querySelector(".user-dropdown").style.display = "block";
 //             }
-//         } else {
-//             console.error("User not found in Firebase.");
-//             const adminDropdown = document.querySelector(".admin-dropdown");
-//             if (adminDropdown) adminDropdown.remove();
+//         }
+//         else {
+//             document.querySelector(".admin-dropdown").remove();
 //             document.querySelector(".user-dropdown").style.display = "block";
 //         }
 //     })
-//     .catch((error) => {
-//         console.error("Error fetching user data from Firebase:", error);
-//     });
-
-fetch("./Data/Accounts.json")
-    .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        return response.json();
-    })
-    .then(accounts => {
-        const currentUser = localStorage.getItem("username");
-        const user = accounts.find(account => account.userName === currentUser);
-        if (user) {
-            currentUserRole = user.userType;
-            if (currentUserRole === "admin") {
-                document.querySelector(".admin-dropdown").style.display = "block";
-                document.querySelector(".user-dropdown").remove();
-
-            } else {
-                document.querySelector(".admin-dropdown").remove();
-                document.querySelector(".user-dropdown").style.display = "block";
-            }
-        }
-        else {
-            document.querySelector(".admin-dropdown").remove();
-            document.querySelector(".user-dropdown").style.display = "block";
-        }
-    })
-    .catch(error => {
-        console.error("❌ Error fetching Accounts.json:", error);
-    }); {
-}
+//     .catch(error => {
+//         console.error("❌ Error fetching Accounts.json:", error);
+//     }); {
+// }
 
 
 function showOrder() {

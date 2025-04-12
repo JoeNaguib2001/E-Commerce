@@ -221,21 +221,20 @@
         let showHidePass = document.querySelector('.show-hide-pass');
         let showPass = false;
         showHidePass.addEventListener('click', function () {
+            // Toggle password visibility
             if (showPass) {
                 showHidePass.classList.add('fa-eye-slash');
                 showHidePass.classList.remove('fa-eye');
                 showPass = false;
                 document.querySelectorAll('.password').forEach(el => {
-
-                    el.setAttribute('type', 'text');
+                    el.setAttribute('type', 'password');
                 });
-            }
-            else {
+            } else {
                 showHidePass.classList.add('fa-eye');
                 showHidePass.classList.remove('fa-eye-slash');
                 showPass = true;
                 document.querySelectorAll('.password').forEach(el => {
-                    el.setAttribute('type', 'password');
+                    el.setAttribute('type', 'text');
                 });
             }
         });
@@ -359,7 +358,7 @@
         // }
 
         var currentMode = "login";
-        document.querySelector("form").addEventListener("submit",async function (event) {
+        document.querySelector("form").addEventListener("submit", async function (event) {
             event.preventDefault(); // منع إعادة تحميل الصفحة
 
             let fullName = document.getElementById("fullname");
@@ -375,7 +374,7 @@
                         getStoredName().then(firstName => {
                             localStorage.setItem("firstName", firstName);
                         });
-                      
+
 
                         if (document.querySelector("#remember").checked) {
                             localStorage.setItem("rememberMe", "true");
@@ -403,6 +402,11 @@
                         ShowBootstrapToast("Account Created Successfully", "success");
                         localStorage.setItem("isSignedIn", "true");
                         localStorage.setItem("username", userName);
+                        getStoredName().then(firstName => {
+                            localStorage.setItem("firstName", firstName);
+                        });
+
+
                         setTimeout(() => {
                             window.location.href = "home.html";
                         }, 2000);
@@ -412,7 +416,9 @@
                     });
             };
         });
-        //Validate User Input On Sign-In
+
+
+        //Validate User Input On Sign-In And Set his Role
         async function checkUser(username, password) {
             const dbRef = ref(db);
             try {
@@ -420,6 +426,8 @@
                 if (snapshot.exists()) {
                     const userData = snapshot.val();
                     if (userData.password === password) {
+                        // ✅ تخزين الدور (role) في localStorage
+                        localStorage.setItem("userRole", userData.userType || "user");
                         return true;
                     } else {
                         return false;
