@@ -1,7 +1,16 @@
 import { ref, push, child, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 const db = window.db;
 document.getElementById("productButton").addEventListener("click", function () {
+    if(localStorage.getItem("userRole") === "admin"){
+
     loadProducts();
+    }else{
+        let hideInfoWarning =  document.createElement("h1");
+        hideInfoWarning.textContent = "You don't have permission to access this page!";   
+          hideInfoWarning.style.textAlign = "center"; 
+          this.body.appendChild(hideInfoWarning); 
+          
+      }
 });
 
 // Global categories array to maintain state across functions

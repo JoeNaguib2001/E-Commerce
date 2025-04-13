@@ -2,6 +2,8 @@ import { ref, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-dat
 const db = window.db;
 
 document.addEventListener("DOMContentLoaded", function () {
+    if(localStorage.getItem("userRole") === "admin"){
+
     document.getElementById("addAdminBtn").addEventListener("click", function () {
         const searchDiv = document.getElementById("searchDiv");
         const tableData = document.getElementById("tableData");
@@ -41,6 +43,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         addAdmins();
     });
+}else{
+
+    
+    let hideInfoWarning =  document.createElement("h1");
+    hideInfoWarning.textContent = "You don't have permission to access this page!";   
+      hideInfoWarning.style.textAlign = "center"; 
+      this.body.appendChild(hideInfoWarning); 
+}
 });
 function addAdmins() {
     document.getElementById("addAdminForm").addEventListener("submit", function (event) {

@@ -2,7 +2,7 @@ import { ref, child, get, update } from "https://www.gstatic.com/firebasejs/10.8
 const db = window.db;
 
 document.addEventListener("DOMContentLoaded", function () {
-    
+    if(localStorage.getItem("userRole") === "admin"){
     loadOrders();
     const navLinks = document.querySelectorAll('.nav-bar-links .nav-link');
 
@@ -21,6 +21,14 @@ document.addEventListener("DOMContentLoaded", function () {
         
         loadOrders();
     });
+}else{
+  let hideInfoWarning =  document.createElement("h1");
+  hideInfoWarning.textContent = "You don't have permission to access this page!";   
+    hideInfoWarning.style.textAlign = "center"; 
+    this.body.appendChild(hideInfoWarning); 
+    
+}
+
 });
 
 // Function to show the loader
