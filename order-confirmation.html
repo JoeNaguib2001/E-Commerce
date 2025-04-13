@@ -4,70 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shopping cart</title>
+    <title>Order Confirmation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <style>
-        h2,
-        h4 {
-            text-align: center;
-            margin-top: 20px !important;
-        }
-
-        .row,
         body {
             background-image: url("./images/black-brick-wall-textured-background.jpg");
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
-        .row {
-            height: 60vh;
+        .confirmation-wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .confirmation-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .confirmation-card h2,
+        .confirmation-card h4 {
             color: white;
+            margin-bottom: 20px;
+            font-weight: 300;
         }
     </style>
 </head>
 
-
 <body>
-    <div class="container-fluid">
-        <div class="row justify-content-center align-content-center">
+    <!-- مكان النافبار -->
+    <div id="navbar-container"></div>
+
+    <!-- كارد الكونفرميشن -->
+    <div class="confirmation-wrapper">
+        <div class="confirmation-card">
             <h2>Your Order Has Been Confirmed 👌✌</h2>
             <h4 id="order-id"></h4>
             <h4 id="total-paid"></h4>
+            <script>
+                const urlParams = new URLSearchParams(window.location.search);
+                const orderId = urlParams.get("orderId");
+                const totalPaid = urlParams.get("total");
+                const estimatedDelivery = urlParams.get("estimatedDelivery");
+
+                if (orderId) {
+                    document.getElementById("order-id").textContent = `Order ID: ${orderId}`;
+                }
+
+                if (totalPaid) {
+                    document.getElementById("total-paid").textContent = `You Paid a Total Of $${totalPaid}`;
+                }
+
+                if (estimatedDelivery) {
+                    const deliveryElement = document.createElement("h4");
+                    deliveryElement.textContent = `Estimated Delivery: ${estimatedDelivery}`;
+                    document.querySelector(".confirmation-card").appendChild(deliveryElement);
+                }
+            </script>
             <h4>Thank you for shopping with us!</h4>
             <h4>We hope to see you again soon!</h4>
+
+
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/users/previous orders/previous.html" class="btn btn-primary p-3" style="width: 30%;">View Your
+                    Order</a>
+                <a href="/home.html" class="btn btn-primary p-3 bg-success" style="width: 30%;">Home</a>
+
+                <a href="/shop.html" class="btn btn-primary p-3 bg-danger" style="width: 30%;">Buy Again!</a>
+
+            </div>
         </div>
     </div>
 
     <script type="module" src="./navbar/navbar.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Get the order details from the URL parameters and display them
-        const urlParams = new URLSearchParams(window.location.search);
-        const orderId = urlParams.get("orderId");
-        const totalPaid = urlParams.get("total");
-        const estimatedDelivery = urlParams.get("estimatedDelivery");
-
-        if (orderId) {
-            document.getElementById("order-id").innerHTML = `Order ID: ${orderId}`;
-        }
-
-        if (totalPaid) {
-            document.getElementById("total-paid").innerHTML = `You Paid a Total Of $${totalPaid}`;
-        }
-
-        if (estimatedDelivery) {
-            const deliveryElement = document.createElement("h4");
-            deliveryElement.innerHTML = `Estimated Delivery: ${estimatedDelivery}`;
-            document.querySelector(".row").appendChild(deliveryElement);
-        }
-
-
-    </script>
 </body>
-
 
 </html>

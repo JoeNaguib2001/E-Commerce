@@ -85,11 +85,12 @@ function createThirdCarouselItem(item, isActive) {
     const img = document.createElement("img");
     img.src = item.image;
     img.alt = item.alt;
-    img.className = "d-block w-100";
+    // img.className = "d-block w-100";
     carouselContent.appendChild(img);
 
     const carouselText = document.createElement("div");
-    carouselText.appendChild(createTextSpan(item.title));
+    const modifiedTitle = item.title.substring(item.title.indexOf(" ") + 1);
+    carouselText.appendChild(createTextSpan(modifiedTitle));
     carouselText.appendChild(createTextSpan(`${item.price}.00 EGP`));
     carouselContent.appendChild(carouselText);
 
@@ -122,8 +123,8 @@ function createFavoriteIcon(item) {
     }
 
     Object.assign(icon.style, {
-        right: "10px",
-        top: "35px",
+        right: "5%",
+        top: "5%",
         zIndex: "1",
         backgroundColor: "white",
         fontSize: "20px",
@@ -264,7 +265,7 @@ function createProductColumnForFourthCarousel(product) {
                 <img src="${product.image}" alt="${product.alt}" style="margin-bottom:20px !important">
                 <div class="product-info d-flex flex-column align-items-center" style="margin-bottom:20px !important">
                     <div>
-                        <span style="font-weight:100; font-size:20px !important">${product.title}</span>
+                        <span style="font-weight:100; font-size:20px !important">${product.title.substring(product.title.indexOf(" ") + 1)}</span>
                         <span style="font-weight:100; font-size:20px !important">${product.price}.00 EGP</span>
                     </div>
                     <button class="add-to-cart-btn" data-product='${JSON.stringify(product)}'
@@ -318,7 +319,7 @@ function loadFifthCarousel() {
                                         </i>
                                         <img src="${item.image}" alt="${item.alt}">
                                         <div class="product-info text-center">
-                                            <span style="font-weight:100; font-size:20px !important">${item.title}</span><br>
+                                            <span style="font-weight:100; font-size:20px !important">${ item.title.substring(item.title.indexOf(" ") + 1) }</span><br>
                                             <span style="font-weight:100; font-size:20px  !important">${item.price}.00 EGP</span>
                                             <button class="add-to-cart-btn" data-product='${JSON.stringify(item)}'
                                                 style="font-weight:100; font-size:20px !important; background-color:orange !important;
