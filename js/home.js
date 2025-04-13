@@ -2,6 +2,7 @@
 // CTRL + M + O || CTRL + M + L
 // CTRL + K + (1,2,3)
 import { updateCartCount } from "../navbar/navbar.js";
+import { addToFavorites } from "./shop.js";
 
 function ShopNow() {
     window.location.href = "./shop.html";
@@ -52,7 +53,27 @@ function loadThirdCarousel() {
                 carouselItem.className = `carousel-item${index === 0 ? ' active' : ''}`;
 
                 const carouselContent = document.createElement("div");
-                carouselContent.className = "d-flex flex-column gap-3 align-items-center";
+                carouselContent.className = "d-flex flex-column gap-3 align-items-center position-relative";
+
+                const icon = document.createElement("i");
+                icon.className = "fa-solid fa-heart position-absolute translate-middle p-2  border border-light rounded-circle add-to-favorites-icon";
+                icon.style.right = "10px";
+                icon.style.top = "35px";
+                icon.style.zIndex = "1";
+                icon.style.backgroundColor = "white";
+                icon.style.fontSize = "20px";
+                icon.style.padding = "5px";
+                icon.style.borderRadius = "50%";
+                icon.style.border = "1px solid orange";
+                icon.style.opacity = "0.8";
+                icon.style.borderRadius = "50%";
+                icon.style.cursor = "pointer";
+                icon.style.transition = "all 0.3s ease-in-out";
+
+                carouselContent.appendChild(icon);
+                icon.addEventListener("click", () => {
+                    addToFavorites(item);
+                });
 
                 const img = document.createElement("img");
                 img.src = item.image;
@@ -93,10 +114,8 @@ function loadThirdCarousel() {
                 addToCartBtn.style.fontSize = "20px";
                 setupAddToCartBtn(addToCartBtn, item);
                 carouselContent.appendChild(addToCartBtn);
-
                 carouselItem.appendChild(carouselContent);
 
-                // ca
                 firstCarouselToFill.appendChild(carouselItem);
             });
         })

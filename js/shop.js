@@ -385,7 +385,7 @@ function setupAddToFavorites(productDiv, product) {
         addToFavorites(product);
     });
 }
-function addToFavorites(product) {
+export function addToFavorites(product) {
     if (localStorage.getItem("isSignedIn") !== "true") {
         ShowBootstrapToast("You must sign in first to add the product to the favorites", "danger");
         return;

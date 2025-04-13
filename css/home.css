@@ -300,22 +300,10 @@ li a {
     }
 }
 
+.add-to-favorites-icon {
+    color: black;
+}
 
-/* @media (max-width: 400px) {
-    #Main-Quote {
-        font-size: 20px;
-    }
-
-    h1 {
-        font-size: 18px !important;
-    }
-
-    h3 {
-        font-size: 15px !important;
-    }
-
-    .shop-now-btn {
-        padding: 5px;
-        font-size: 1rem;
-    }
-} */
+.add-to-favorites-icon:hover {
+    color: red;
+}
