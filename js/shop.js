@@ -1,4 +1,6 @@
 import * as navbar from "../navbar/navbar.js";
+import { ref, push, child, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+const db = window.db;
 let sortByDropDown = document.querySelector("#sort-by");
 
 
@@ -198,17 +200,21 @@ function renderPaginatedProducts() {
 
 // Fetchs All Products From The Json File And Renders The First Page Of Products And Pagination
 async function fetchProducts() {
+    const dbRef = ref(db); 
     try {
-        // Fetch All Products From Json
-        let response = await fetch('./Data/products.json');
-        productsList = await response.json();
-        // Render First Page Of Products Based On Page Size, Current Page = 1
-        renderPaginatedProducts();
+        const snapshot = await get(child(dbRef, `products/`));
+        if (snapshot.exists()) {
+            // Assign the fetched products to the global productsList variable
+            productsList = Object.values(snapshot.val());
 
-        //create pagination after fetching the whole products from the Json file
-        renderPagination(productsList.length);
+            // Render the first page of products based on page size, current page = 1
+            renderProductsPaginated();
 
-
+            // Create pagination after fetching the whole products from Firebase
+            renderPagination(productsList.length);
+        } else {
+            console.error("No products found in Firebase.");
+        }
     } catch (error) {
         console.error("Error fetching products:", error);
     }
@@ -216,16 +222,22 @@ async function fetchProducts() {
 
 // fetchProducts will load Initial Page and Initial Pagination
 fetchProducts();
-
 async function fetchCategoriesThenRender() {
+    const dbRef = ref(db); 
     try {
-        let response = await fetch('./Data/categories.json');
-        let categories = await response.json();
-        renderCategories(categories);
+        const snapshot = await get(child(dbRef, `categories/`));
+        if (snapshot.exists()) {
+            // Assign the fetched categories to the global productsList variable
+            let categories = Object.values(snapshot.val());
+            renderCategories(categories);
+        } else {
+            console.error("No categories found in Firebase.");
+        }
     } catch (error) {
         console.error("Error fetching categories:", error);
     }
 }
+
 
 // Used In Fetch Categories Then Render Function Above, responsible For Rendering The Categories In The Categories Navbar And The Categories Container
 function renderCategories(categories) {
