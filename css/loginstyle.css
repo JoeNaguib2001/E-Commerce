@@ -23,11 +23,10 @@ body {
 }
 
 .outer-container {
-    background-image: url("../Images/carousel_3/blonde3.png");
+    background-image: url("../Images/carousel_3/blonde1.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom;
-    backdrop-filter: blur(1000px);
 }
 
 .row {
