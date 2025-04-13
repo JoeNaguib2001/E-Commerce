@@ -2,7 +2,7 @@
 // CTRL + M + O || CTRL + M + L
 // CTRL + K + (1,2,3)
 import { updateCartCount } from "../navbar/navbar.js";
-import { addToFavorites } from "./shop.js";
+import { addToFavorites, isProductInFavorites } from "./shop.js";
 
 function ShopNow() {
     window.location.href = "./shop.html";
@@ -57,6 +57,10 @@ function loadThirdCarousel() {
 
                 const icon = document.createElement("i");
                 icon.className = "fa-solid fa-heart position-absolute translate-middle p-2  border border-light rounded-circle add-to-favorites-icon";
+                if (isProductInFavorites(item)) {
+                    icon.classList.add("favorite");
+                }
+
                 icon.style.right = "10px";
                 icon.style.top = "35px";
                 icon.style.zIndex = "1";
@@ -72,6 +76,7 @@ function loadThirdCarousel() {
 
                 carouselContent.appendChild(icon);
                 icon.addEventListener("click", () => {
+                    icon.classList.toggle("favorite");
                     addToFavorites(item);
                 });
 
@@ -153,8 +158,8 @@ function loadFourthCarousel() {
                 carouselItem.className = `carousel-item${i === 0 ? ' active' : ''}`;
                 carouselItem.innerHTML = `
                     <div class="d-flex flex-wrap">
-                        ${createProductColumn(product1)}
-                        ${product2 ? createProductColumn(product2) : ''}
+                        ${createProductColumnForFourthCarousel(product1)}
+                        ${product2 ? createProductColumnForFourthCarousel(product2) : ''}
                     </div>
                 `;
 
@@ -162,7 +167,10 @@ function loadFourthCarousel() {
                 const favoriteIcons = carouselItem.querySelectorAll('.add-to-favorites-icon');
                 favoriteIcons.forEach((icon, index) => {
                     const product = index === 0 ? product1 : product2;
-                    icon.addEventListener('click', () => addToFavorites(product));
+                    icon.addEventListener('click', () => {
+                        icon.classList.toggle('favorite');
+                        addToFavorites(product);
+                    });
                 });
 
                 // Add to cart buttons
@@ -188,12 +196,12 @@ function loadFourthCarousel() {
         .catch(error => console.error('Error fetching carousel data:', error));
 }
 
-function createProductColumn(product) {
+function createProductColumnForFourthCarousel(product) {
     return `
         <div class="col-lg-6 col-12 d-flex justify-content-center">
             <div class="product-card position-relative">
-                <i class="fa-solid fa-heart position-absolute translate-middle p-2 border border-light rounded-circle add-to-favorites-icon"
-                   style="right:10px; top:35px; z-index:1; font-size:20px; padding:5px;
+                <i class="fa-solid fa-heart position-absolute translate-middle p-2 border border-light rounded-circle add-to-favorites-icon ${isProductInFavorites(product) ? 'favorite' : ''}"
+                   style="right:20px; top:45px; z-index:1; font-size:20px; padding:5px;
                           border-radius:50%; border:1px solid orange; opacity:0.8; cursor:pointer; transition: all 0.3s ease-in-out;">
                 </i>
                 <img src="${product.image}" alt="${product.alt}" style="margin-bottom:20px !important">
@@ -218,12 +226,14 @@ loadFourthCarousel();
 function loadFifthCarousel() {
     const thirdCarouselToFill = document.querySelector(".third-carousel-to-fill");
     const thirdCarouselIndicators = document.querySelector(".third-carousel-indicators");
+
     fetch('./Data/Carousel_5.json')
         .then(response => response.json())
         .then(data => {
             for (let i = 0; i < data.length; i += 4) {
                 const carouselItem = document.createElement('div');
                 const carouselIndicator = document.createElement('button');
+
                 carouselIndicator.type = "button";
                 carouselIndicator.setAttribute("data-bs-target", "#productSlider");
                 carouselIndicator.setAttribute("data-bs-slide-to", i / 4);
@@ -234,25 +244,33 @@ function loadFifthCarousel() {
                 }
                 thirdCarouselIndicators.appendChild(carouselIndicator);
 
+                const products = data.slice(i, i + 4);
                 carouselItem.className = `carousel-item${i === 0 ? ' active' : ''}`;
                 carouselItem.innerHTML = `
-                            <div class="d-flex flex-wrap" style="margin-bottom:50px !important">
-                                ${data.slice(i, i + 4).map(item => `
-                                    <div class="col-lg-3 col-md-6 col-12 d-flex justify-content-center">
-                                        <div class="product-card-tall d-flex flex-column align-items-center gap-3">
-                                            <img src="${item.image}" alt="${item.alt}">
-                                            <div class="product-info">
-                                                <span style="font-weight:100; font-size:20px !important">${item.title}</span>
-                                                <span style="font-weight:100; font-size:20px  !important">${item.price}.00 EGP</span>
-                                                <button class="add-to-cart-btn" data-product='${JSON.stringify(item)}' style="font-weight:100; font-size:20px !important; background-color:orange !important; padding:10px; display:block;
-                                                border-radius:20px; margin-top:10px !important">Add To Cart</button>
-                                            </div>
-                                        </div>
+                    <div class="d-flex flex-wrap" style="margin-bottom:50px !important">
+                        ${products.map(item => `
+                            <div class="col-lg-3 col-md-6 col-12 d-flex justify-content-center">
+                                <div class="product-card-tall d-flex flex-column align-items-center gap-3 position-relative">
+                                    <i class="fa-solid fa-heart position-absolute translate-middle p-2 border border-light rounded-circle add-to-favorites-icon ${isProductInFavorites(item) ? 'favorite' : ''}"
+                                       style="right:45px; top:35px; z-index:1;font-size:20px;
+                                              padding:5px; border-radius:50%; border:1px solid orange; opacity:0.8; cursor:pointer; transition: all 0.3s ease-in-out;">
+                                    </i>
+                                    <img src="${item.image}" alt="${item.alt}">
+                                    <div class="product-info text-center">
+                                        <span style="font-weight:100; font-size:20px !important">${item.title}</span><br>
+                                        <span style="font-weight:100; font-size:20px  !important">${item.price}.00 EGP</span>
+                                        <button class="add-to-cart-btn" data-product='${JSON.stringify(item)}'
+                                            style="font-weight:100; font-size:20px !important; background-color:orange !important;
+                                            padding:10px; display:block; border-radius:20px; margin-top:10px !important">
+                                            Add To Cart
+                                        </button>
                                     </div>
-                                `).join('')}
-                            </div>`;
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
 
-                // Add event listeners to the buttons
                 const buttons = carouselItem.querySelectorAll('.add-to-cart-btn');
                 buttons.forEach(button => {
                     const product = JSON.parse(button.getAttribute('data-product'));
@@ -266,6 +284,15 @@ function loadFifthCarousel() {
                                 window.location.href = "./login.html";
                             }, 2000);
                         }
+                    });
+                });
+
+                const favoriteIcons = carouselItem.querySelectorAll('.add-to-favorites-icon');
+                favoriteIcons.forEach((icon, index) => {
+                    const product = products[index];
+                    icon.addEventListener('click', () => {
+                        icon.classList.toggle('favorite');
+                        addToFavorites(product);
                     });
                 });
 

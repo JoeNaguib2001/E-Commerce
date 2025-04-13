@@ -305,6 +305,10 @@ li a {
     color: white;
 }
 
+.add-to-favorites-icon.favorite {
+    color: red !important;
+}
+
 .add-to-favorites-icon:hover {
     color: red;
 }

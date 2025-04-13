@@ -412,10 +412,27 @@ export function addToFavorites(product) {
     }
 
     else {
-        ShowBootstrapToast("Product Already In Wish List !", "danger");
+        userFavorites.favorites = userFavorites.favorites.filter(item => item.id !== product.id);
+        ShowBootstrapToast("Product Removed From Wish List !", "success");
     }
 
     localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+export function isProductInFavorites(product) {
+    let username = localStorage.getItem("username"); // Assuming the username is stored in localStorage
+    if (!username) {
+        return false;
+    }
+
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    let userFavorites = favorites.find(fav => fav.username === username);
+
+    if (!userFavorites) {
+        return false;
+    }
+
+    return userFavorites.favorites.some(item => item.id === product.id);
 }
 
 export function searchProducts(query) {
