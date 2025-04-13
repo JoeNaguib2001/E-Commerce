@@ -1,0 +1,50 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>previous</title>
+    <link rel="stylesheet" href="previous.css" />
+  </head>
+
+  <body>
+    <br />
+    <fieldset class="order-box">
+      <img src="1.jpg" style="width: 200px" alt="Product Image" />
+
+      <div>
+        <h3>order #1235</h3>
+        <p>Status:Deliverd</p>
+
+        <hr />
+
+        <p>items: 2 | total : 250 $</p>
+
+        <hr />
+        <p id="date">March 25,2025</p>
+
+        <select id="rating">
+          <option value="">Rate your order</option>
+          <option value="1">⭐</option>
+          <option value="2">⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+          <option value="4">⭐⭐⭐⭐</option>
+          <option value="5">⭐⭐⭐⭐⭐</option>
+        </select>
+        <p id="saved-rating" style="margin-top: 10px"></p>
+      </div>
+      <div id="reviewContainer" hidden>
+        <textarea
+          id="review-text"
+          placeholder="Write your review here..."
+          rows="4"
+          cols="50"
+        ></textarea
+        ><br />
+      </div>
+      <button id="reviewButton">Write Review</button>
+      <button id="submit-review" hidden>Submit Review</button>
+    </fieldset>
+    <br />
+    <script src="previous.js"></script>
+  </body>
+</html>
