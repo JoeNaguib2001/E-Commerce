@@ -299,6 +299,11 @@
                 });
             }
             else if (currentMode === "signup") {
+                let exists = await userExists(userName.value);
+                if (exists) {
+                    ShowBootstrapToast("This username has already been taken.", "error");
+                    return;
+                }
                 set(ref(db, "users/" + username.value), {
                     fullName: fullName.value,
                     userName: userName.value,
@@ -437,7 +442,7 @@
         });
 
         // Validate Username On Keyup
-        document.getElementById("username").addEventListener("keyup", function () {
+        document.getElementById("username").addEventListener("keyup", async function () {
             if (currentMode === "login") return; // Skip if in login mode
             let usernameValidation = document.getElementById("username-validation");
             let username = this.value;
@@ -461,26 +466,20 @@
             }
             // If username is valid, check if it exists in the Firebase
             else if (username.length >= 3 && username.length <= 20 && /^[a-zA-Z0-9]+$/.test(username)) {
-                const dbRef = ref(db);
-                get(child(dbRef, `users/${username}`))
-                    .then(snapshot => {
-                        if (snapshot.exists()) {
-                            usernameValidation.innerText = "Username already exists.";
-                            usernameValidation.style.color = "red";
-                            usernameValidation.style.padding = "10px";
+                const exists = await userExists(username);
 
-                        } else {
-                            usernameValidation.innerText = "Valid Username";
-                            usernameValidation.style.color = "green";
-                            usernameValidation.style.padding = "10px";
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error checking username in Firebase:", error);
-                        usernameValidation.innerText = "Error validating username.";
-                        usernameValidation.style.color = "red";
-                        usernameValidation.style.padding = "10px";
-                    });
+                if (exists) {
+                    usernameValidation.innerText = "Username already exists.";
+                    usernameValidation.style.color = "red";
+                    usernameValidation.style.padding = "10px";
+                    console.log("user exists");
+                }
+                else {
+                    usernameValidation.innerText = "Valid Username";
+                    usernameValidation.style.color = "green";
+                    usernameValidation.style.padding = "10px";
+                    console.log("user doesn't exist");
+                }
 
                 // fetch('./Data/Accounts.json')
                 //     .then(response => response.json())
@@ -506,6 +505,18 @@
                 usernameValidation.innerText = "";
             }
         });
+
+        async function userExists(username) {
+            const dbRef = ref(db);
+            try {
+                const snapshot = await get(child(dbRef, `users/${username}`));
+                return snapshot.exists();
+            } catch (error) {
+                console.error("Error checking username:", error);
+                return true; // احتياطي لو فيه خطأ نعتبره موجود
+            }
+        }
+
 
         // Function to clear all inputs and uncheck checkboxes
         function clearFormInputs() {
