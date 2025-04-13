@@ -301,7 +301,8 @@ li a {
 }
 
 .add-to-favorites-icon {
-    color: black;
+    background-color: black !important;
+    color: white;
 }
 
 .add-to-favorites-icon:hover {
