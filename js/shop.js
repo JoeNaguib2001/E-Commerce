@@ -208,7 +208,7 @@ async function fetchProducts() {
             productsList = Object.values(snapshot.val());
 
             // Render the first page of products based on page size, current page = 1
-            renderProductsPaginated();
+            renderPaginatedProducts();
 
             // Create pagination after fetching the whole products from Firebase
             renderPagination(productsList.length);
@@ -326,7 +326,7 @@ function renderCategories(categories) {
                 mode = "category";
             }
 
-            renderProductsPaginated();
+            renderPaginatedProducts();
             renderPagination(filteredProducts.length);
             shoppingRow.scrollIntoView({ behavior: "smooth" });
         });
