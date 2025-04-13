@@ -26,7 +26,8 @@ window.db = db;
 
 console.log("Firebase database ready:", db);
 // ayah
-function x(processedOrders) {
+const stepContainer = document.querySelector(".step-container");
+function x(lastorder) {
   const itemsContainer = document.getElementById("items");
   const payContainer = document.getElementById("pay");
 
@@ -34,31 +35,21 @@ function x(processedOrders) {
   itemsContainer.innerHTML = "";
   payContainer.innerHTML = "";
 
-  // Loop through each order in processedOrders
-  processedOrders.forEach((order) => {
+  lastorder.forEach((order) => {
     // Loop through each item in the order
     order.order.forEach((item) => {
       const itemHTML = `
-  <div class="item">
-    <img src="${item.image}" alt="${item.title}">
-    <div class="item-details">
-      <h4>${item.title}</h4>
-      <p>Quantity: ${item.quantity}</p>
-      <p>Price: $${item.price}</p>
-    </div>
-  </div>
-`;
+        <div class="item">
+          <img src="${item.image}" alt="${item.title}">
+          <div class="item-details">
+            <h4>${item.title}</h4>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Price: $${item.price}</p>
+          </div>
+        </div>
+      `;
       itemsContainer.insertAdjacentHTML("beforeend", itemHTML);
     });
-
-    // Add payment method and total price for the order
-    const paymentHTML = `
-<div class="payment-summary">
-  <p>Payment Method: ${order.paymentMethod}</p>
-  <p>Total Price: $${order.totalPrice}</p>
-</div>
-`;
-    payContainer.insertAdjacentHTML("beforeend", paymentHTML);
   });
 } // ahmed
 async function loadOrders() {
@@ -67,7 +58,9 @@ async function loadOrders() {
     console.log("Fetching orders from Firebase...");
 
     // Fetch orders from Firebase
-    const snapshot = await get(child(dbRef, "orders/"));
+    const snapshot = await get(
+      child(dbRef, "orders/" + localStorage.getItem("username"))
+    );
     console.log("Snapshot fetched:", snapshot);
 
     if (snapshot.exists()) {
@@ -75,10 +68,10 @@ async function loadOrders() {
       console.log("User Data:", userData);
 
       // Process the orders into an array
-      const processedOrders = Object.values(userData).map((order) => ({
+      const orders = Object.values(userData).map((order) => ({
         id: order.orderId,
         userName: order.userName,
-        orderDate: order.orderDate,
+        orderDate: new Date(order.orderDate), // Convert to Date object for comparison
         estimatedDelivery: order.estimatedDelivery,
         paymentMethod: order.paymentMethod,
         totalPrice: order.totalPrice,
@@ -86,11 +79,29 @@ async function loadOrders() {
         order: order.order,
       }));
 
-      console.log("Processed Orders:", processedOrders);
-      x(processedOrders);
+      // Filter the latest order by date
+      const latestOrder = orders.reduce((latest, current) => {
+        return current.orderDate > latest.orderDate ? current : latest;
+      });
 
-      hideLoader();
+      console.log("Latest Order:", latestOrder);
+
+      // Update the step-container based on the latest order's status
+      const stepItems = stepContainer.querySelectorAll(".step-item");
+      stepItems.forEach((step) => step.classList.remove("active")); // Remove active class from all steps
+
+      if (latestOrder.orderStatus === "Waiting") {
+        stepItems[0].classList.add("active");
+      } else if (latestOrder.orderStatus === "InProgress") {
+        stepItems[1].classList.add("active");
+      } else if (latestOrder.orderStatus === "Delivered") {
+        stepItems[2].classList.add("active");
+      }
+
+      // Display the latest order
+      x([latestOrder]); // Pass the latest order as an array to the display function
     } else {
+      console.log("No orders found.");
     }
   } catch (error) {
     console.error("Failed to load orders:", error);
