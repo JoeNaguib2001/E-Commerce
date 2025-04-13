@@ -1,10 +1,10 @@
 import { ref, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 const db = window.db;
 
-document.addEventListener("DOMContentLoaded", function () {
-    if(localStorage.getItem("userRole") === "admin"){
 
     document.getElementById("addAdminBtn").addEventListener("click", function () {
+        if(localStorage.getItem("userRole") === "admin"){
+
         const searchDiv = document.getElementById("searchDiv");
         const tableData = document.getElementById("tableData");
         const cardHeader = document.getElementById("cardHeader");
@@ -42,14 +42,13 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
         addAdmins();
-    });
 }else{
 
     
     let hideInfoWarning =  document.createElement("h1");
     hideInfoWarning.textContent = "You don't have permission to access this page!";   
-      hideInfoWarning.style.textAlign = "center"; 
-      this.body.appendChild(hideInfoWarning); 
+    hideInfoWarning.style.textAlign = "center"; 
+    this.body.appendChild(hideInfoWarning); 
 }
 });
 function addAdmins() {
