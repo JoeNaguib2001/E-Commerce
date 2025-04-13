@@ -127,7 +127,7 @@ function renderProducts(products) {
         productDiv.innerHTML = `
                 <div class="product">
                     <div class="front-card">
-                        <a href="#" class="add-to-fav"><i class="fa-solid fa-heart add-to-favorites-icon"></i> </a>
+                        <a href="#" class="add-to-fav"><i class="fa-solid fa-heart add-to-favorites-icon ${isProductInFavorites(product) ? 'favorite' : ''}"></i> </a>
                         <img src="${product.image}" alt="${product.title}">
                         <br>
                         <span class="product-name">${product.title}</span>
@@ -353,7 +353,6 @@ function setupAddToCart(productDiv, product) {
 }
 
 function addToCart(product) {
-    console.log(product);
     let username = localStorage.getItem("username"); // Assuming the username is stored in localStorage
     if (!username) {
         ShowBootstrapToast("User not found. Please log in again.", "danger");
@@ -383,6 +382,8 @@ function setupAddToFavorites(productDiv, product) {
     addToFavoritesBtn.addEventListener("click", (event) => {
         event.stopPropagation(); // Prevent the click event from propagating to the product
         addToFavorites(product);
+        const addToFavoritesIcon = addToFavoritesBtn.querySelector(".add-to-favorites-icon");
+        addToFavoritesIcon.classList.toggle("favorite");
     });
 }
 export function addToFavorites(product) {

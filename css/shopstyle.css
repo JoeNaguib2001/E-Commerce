@@ -302,6 +302,12 @@ a.page-link {
     border: 1px solid orange;
     padding: 5px;
     border-radius: 50%;
+    color: white;
+}
+
+.add-to-favorites-icon.favorite {
+    transition: .75s;
+    color: red;
 }
 
 .add-to-favorites-icon:hover {
@@ -314,6 +320,6 @@ a.page-link {
     color: green !important;
 }
 
-ul li:hover{
+ul li:hover {
     border: 1px solid white;
 }
