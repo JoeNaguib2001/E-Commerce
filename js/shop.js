@@ -127,7 +127,7 @@ function renderProducts(products) {
         productDiv.innerHTML = `
                 <div class="product">
                     <div class="front-card">
-                        <a href="#" class="add-to-fav"><i class="fa-solid fa-heart add-to-favorites-icon"></i> </a>
+                        <a href="#" class="add-to-fav"><i class="fa-solid fa-heart add-to-favorites-icon ${isProductInFavorites(product) ? 'favorite' : ''}"></i> </a>
                         <img src="${product.image}" alt="${product.title}">
                         <br>
                         <span class="product-name">${product.title}</span>
@@ -353,7 +353,6 @@ function setupAddToCart(productDiv, product) {
 }
 
 function addToCart(product) {
-    console.log(product);
     let username = localStorage.getItem("username"); // Assuming the username is stored in localStorage
     if (!username) {
         ShowBootstrapToast("User not found. Please log in again.", "danger");
@@ -383,9 +382,11 @@ function setupAddToFavorites(productDiv, product) {
     addToFavoritesBtn.addEventListener("click", (event) => {
         event.stopPropagation(); // Prevent the click event from propagating to the product
         addToFavorites(product);
+        const addToFavoritesIcon = addToFavoritesBtn.querySelector(".add-to-favorites-icon");
+        addToFavoritesIcon.classList.toggle("favorite");
     });
 }
-function addToFavorites(product) {
+export function addToFavorites(product) {
     if (localStorage.getItem("isSignedIn") !== "true") {
         ShowBootstrapToast("You must sign in first to add the product to the favorites", "danger");
         return;
@@ -412,10 +413,27 @@ function addToFavorites(product) {
     }
 
     else {
-        ShowBootstrapToast("Product Already In Wish List !", "danger");
+        userFavorites.favorites = userFavorites.favorites.filter(item => item.id !== product.id);
+        ShowBootstrapToast("Product Removed From Wish List !", "success");
     }
 
     localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+export function isProductInFavorites(product) {
+    let username = localStorage.getItem("username"); // Assuming the username is stored in localStorage
+    if (!username) {
+        return false;
+    }
+
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    let userFavorites = favorites.find(fav => fav.username === username);
+
+    if (!userFavorites) {
+        return false;
+    }
+
+    return userFavorites.favorites.some(item => item.id === product.id);
 }
 
 export function searchProducts(query) {

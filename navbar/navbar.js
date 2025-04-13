@@ -6,14 +6,14 @@
 //toggle sign in
 //go to cart if signed in
 
-import * as navbar from "../navbar/navbar.js";
-import { searchProducts } from "../js/shop.js";
+
+// import { searchProducts } from "../js/shop.js";
 import { ref, child, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 
 // Access the globally initialized database
 const db = window.db;
-async function loadNavbar() {
+export async function loadNavbar() {
     try {
         //this is the navbar element in the html page that wants to load the navbar
         //if the navbar element is not found, create a new div element and add it to the body
@@ -146,7 +146,6 @@ function goToCartIfSignedIn() {
 
 
 // Choose the right dropdown menu based on the user role
-const dbRef = ref(db);
 
 // Retrieve the current username from localStorage
 const username = localStorage.getItem("username");

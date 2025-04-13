@@ -261,13 +261,14 @@
 
     <!-- تعويذة الفاير بيز -->
     <script type="module">
-        // Import the functions you need from the SDKs you need
+
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
         import { getDatabase, ref, set, push, get } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
         import { query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+        import { updateCartCount } from "./navbar/navbar.js";
 
-        import * as navbar from "./navbar/navbar.js";
+        // import { updateCartCount } from "./navbar/navbar.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -388,7 +389,7 @@
             localStorage.setItem("carts", JSON.stringify(carts));
             loadCartItems();
             updateOrderSummary(); // تحديث ملخص الطلب بعد التعديل
-            navbar.updateCartCount();
+            updateCartCount();
         }
 
 
@@ -414,7 +415,7 @@
             localStorage.setItem("carts", JSON.stringify(carts));
             loadCartItems();
             updateOrderSummary(); // تحديث ملخص الطلب بعد التعديل
-            navbar.updateCartCount();
+            updateCartCount();
         }
 
         function deleteItem(index) {
@@ -435,7 +436,7 @@
             localStorage.setItem("carts", JSON.stringify(carts));
             loadCartItems();
             updateOrderSummary(); // تحديث ملخص الطلب بعد التعديل
-            navbar.updateCartCount();
+            updateCartCount();
         }
 
 
@@ -581,9 +582,9 @@
                 };
 
                 let matchedProduct = await checkTable("products");
-                if (!matchedProduct) matchedProduct = await checkTable("carousel_1");
-                if (!matchedProduct) matchedProduct = await checkTable("carousel_2");
                 if (!matchedProduct) matchedProduct = await checkTable("carousel_3");
+                if (!matchedProduct) matchedProduct = await checkTable("carousel_4");
+                if (!matchedProduct) matchedProduct = await checkTable("carousel_5");
 
                 return matchedProduct;
             }
@@ -663,13 +664,8 @@
             });
             window.location.href = `order-confirmation.html?${params.toString()}`;
         }
-
-
     </script>
 
-    <script type="module" src="./navbar/navbar.js">
-
-    </script>
     <script src="./js/utilities.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
 

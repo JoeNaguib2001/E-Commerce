@@ -23,25 +23,11 @@ body {
 }
 
 .outer-container {
-    background-image: url("../Images/carousel_1/blonde1.png");
+    background-image: url("../Images/carousel_3/blonde3.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom;
-    background-color: black;
-}
-
-
-.background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-image: url("../Images/1200+.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: bottom;
-    z-index: -1;
+    backdrop-filter: blur(1000px);
 }
 
 .row {
@@ -49,9 +35,6 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
-
-    /* min-height: 100vh;
-    max-height: fit-content; */
 }
 
 
@@ -128,7 +111,7 @@ select {
     height: 35px;
     width: 70%;
     font-size: 18px;
-    margin: 15px auto;
+    margin: 8px auto;
     padding: 5px 5px 5px 15px;
     outline: none;
     appearance: none;
@@ -198,11 +181,15 @@ a.forgot,
         margin-top: 0;
     }
 
+    label {
+        font-size: 16px;
+    }
+
     input[type="text"],
     input[type="password"],
     input[type="email"] {
         height: 20px;
-        font-size: 14px;
+        font-size: 16px;
         padding: 10px !important;
         margin: 5px auto;
     }
@@ -214,7 +201,13 @@ a.forgot,
     }
 
     a.forgot,
-    #remember {
-        font-size: 12px;
+    .remember {
+        font-size: 14px;
+    }
+
+    input[type="submit"] {
+        width: 150px;
+        font-size: large;
+
     }
 }
