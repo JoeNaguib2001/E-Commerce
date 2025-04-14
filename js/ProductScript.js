@@ -826,10 +826,69 @@ async function editProduct(product) {
         hideLoader();
     }
 }
+function validateEditProductForm() {
+    const title = document.getElementById('editProductTitle').value.trim();
+    const price = document.getElementById('editProductPrice').value.trim();
+    const description = document.getElementById('editProductDescription').value.trim();
+    const category = document.getElementById('editProductCategory').value.trim();
+    const image = document.getElementById('editProductImage').value.trim();
+    const rate = document.getElementById('editProductRating').value.trim();
+    const count = document.getElementById('editProductCount').value.trim();
+
+    if (title === "") {
+        ShowBootstrapToast("Title is required", "warning");
+        return false;
+    }
+
+    if (price === "" || isNaN(price) || parseFloat(price) <= 0) {
+        ShowBootstrapToast("Please enter a valid price greater than 0", "danger");
+        return false;
+    }
+
+    if (description === "") {
+        ShowBootstrapToast("Description is required", "danger");
+        return false;
+    }
+
+    if (category === "") {
+        ShowBootstrapToast("Category is required", "danger");
+        return false;
+    }
+
+    if (image === "" || !isValidURL(image)) {
+        ShowBootstrapToast("Please enter a valid image URL", "danger");
+        return false;
+    }
+
+    if (rate === "" || isNaN(rate) || parseFloat(rate) < 0 || parseFloat(rate) > 5) {
+        ShowBootstrapToast("Rating must be a number between 0 and 5", "danger");
+        return false;
+    }
+
+    if (count === "" || isNaN(count) || parseInt(count) < 0) {
+        ShowBootstrapToast("Rating count must be a non-negative number", "danger");
+        return false;
+    }
+
+    return true;
+}
+
+function isValidURL(str) {
+    try {
+        new URL(str);
+        return true;
+    } catch (_) {
+        return false;
+    }
+}
 async function saveProductChanges() {
     try {
         // Show loader
         showLoader();
+        if (!validateEditProductForm()) {
+            return;  
+        }
+
 
         // Collect data from the form
         const productId = document.getElementById('editProductId').value;
