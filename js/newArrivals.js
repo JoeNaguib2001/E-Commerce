@@ -170,7 +170,7 @@ function showNewCollectionProductDetails(product) {
                         <h5 class="modal-title" id="productDetailsModalLabel">Product Details</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="productDetailsContent1">
+                    <div class="modal-body" id="productDetailsContentNewCollection2">
                         <!-- Content will be inserted here -->
                     </div>
                     <div class="modal-footer bg-light">
@@ -189,7 +189,7 @@ function showNewCollectionProductDetails(product) {
     }
     
     // Populate the modal with product details
-    const detailsContent = document.getElementById('productDetailsContent1');
+    const detailsContent = document.getElementById('productDetailsContentNewCollection2');
     
     // Format rating stars if available
     let ratingStars = '';

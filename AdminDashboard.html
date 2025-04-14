@@ -28,16 +28,15 @@
         <div class="d-flex justify-content-between w-100">
             <!-- Logo -->
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="./imgs/mainlogo.jpg" alt="Main Logo" class="logo-image rounded-circle">
             </a>
-            <div class="name d-none d-md-block">
-                <p>Admin Dashboard</p>
+            <div class="name d-none d-md-block mt-3">
+                <p style="font-size: large;font-weight: bold;">Admin Dashboard</p>
             </div>
             <!-- User settings and profile -->
-            <div class="user-settings d-flex align-items-center">
-                <button class="settings-btn d-lg-none">⚙️</button>
-                <img src="profile.jpg" alt="User Profile" class="profile-pic">
-                <span class="username">Steve Rogers</span>
+            <div class="user-settings d-flex align-items-center me-4">
+                <a href="./home.html">
+                    <i class="fa-solid fa-right-to-bracket fa-lg"></i>
+                </a>
             </div>
         </div>
     </nav>
@@ -79,6 +78,7 @@
         </div>
         <div id="tableData"></div>
     </section>
+    <script src="https://kit.fontawesome.com/adec9fca79.js" crossorigin="anonymous"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
         import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
