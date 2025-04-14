@@ -23,10 +23,54 @@ window.db = db;
 
 console.log("Firebase database ready:", db);
 
-const stepContainer = document.querySelector(".step-container");
+/**
+ * Creates a tracking bar for an individual order
+ * @param {Object} order - Order object with status information
+ * @param {Number} orderIndex - Index of the order for identification
+ * @returns {String} HTML string of the tracking bar
+ */
+function createOrderTrackingBar(order, orderIndex) {
+  // Determine which steps should be active based on order status
+  const status = (order.orderStatus || order.status || "").toLowerCase();
+  
+  let step1Active = false, step2Active = false, step3Active = false;
+  
+  switch (status) {
+    case "waiting":
+      step1Active = true;
+      break;
+    case "inprogress":
+    case "inprogress":
+      step1Active = step2Active = true;
+      break;
+    case "delivered":
+      step1Active = step2Active = step3Active = true;
+      break;
+  }
+  
+  return `
+    <div class="step-container" id="tracking-${orderIndex}">
+      <div class="step-item ${step1Active ? 'active' : ''}">
+        <div class="step-icon"><i class="fa-solid fa-list-check"></i></div>
+        <div class="step-label">Order Submitted</div>
+      </div>
+      <div class="step-item ${step2Active ? 'active' : ''}">
+        <div class="step-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+        <div class="step-label">Preparing Order</div>
+      </div>
+      <div class="step-item ${step3Active ? 'active' : ''}">
+        <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="step-label">Ready for Pickup</div>
+      </div>
+    </div>
+  `;
+}
 
-// Function to display the latest order
-function displayOrder(lastOrder) {
+/**
+ * Displays multiple orders on the page with individual tracking bars
+ * @param {Array} orders - Array of order objects to display
+ */
+function displayOrders(orders) {
   const itemsContainer = document.getElementById("items");
   const payContainer = document.getElementById("pay");
 
@@ -34,173 +78,216 @@ function displayOrder(lastOrder) {
   itemsContainer.innerHTML = "";
   payContainer.innerHTML = "";
 
-  if (!lastOrder || !lastOrder.order || lastOrder.order.length === 0) {
-    itemsContainer.innerHTML = "<p>No items found in this order.</p>";
+  if (!orders || orders.length === 0) {
+    itemsContainer.innerHTML = "<p>No orders found.</p>";
     return;
   }
 
-  // Loop through each item in the last order
-  lastOrder.order.forEach((item) => {
-    const itemHTML = `
-          <div class="item">
-        <img src="${item.image}" alt="${item.title}" />
-        <div class="item-details">
-          <h4>${item.title}</h4>
-          <p>Quantity: ${item.quantity}</p>
-          <p>Price: $${item.price}</p>
+  // Loop through each order in the array
+  orders.forEach((order, index) => {
+    // Format the order date
+    const orderDate = order.orderDate ? new Date(order.orderDate).toLocaleDateString() : "N/A";
+    const orderTime = order.orderDate ? new Date(order.orderDate).toLocaleTimeString() : "";
+    
+    // Create order section with header and tracking bar
+    const orderHeaderHTML = `
+      <div class="order-section" id="order-${index}">
+        <div class="order-header">
+          <h3>Order #${index + 1}</h3>
+          <p class="order-date">Date: ${orderDate} ${orderTime}</p>
+          <p class="order-status">Status: ${order.orderStatus || order.status || "Unknown"}</p>
         </div>
+        ${createOrderTrackingBar(order, index)}
+        <div class="order-items" id="order-items-${index}"></div>
       </div>
     `;
-    itemsContainer.insertAdjacentHTML("beforeend", itemHTML);
-  });
+    
+    itemsContainer.insertAdjacentHTML("beforeend", orderHeaderHTML);
+    
+    const orderItemsContainer = document.getElementById(`order-items-${index}`);
+    
+    // Loop through each item in the current order
+    if (Array.isArray(order.order)) {
+      order.order.forEach((item) => {
+        const itemHTML = `
+          <div class="item">
+            <img src="${item.image}" alt="${item.title}" />
+            <div class="item-details">
+              <h4>${item.title}</h4>
+              <p>Quantity: ${item.quantity}</p>
+              <p>Price: $${item.price}</p>
+            </div>
+          </div>
+        `;
+        orderItemsContainer.insertAdjacentHTML("beforeend", itemHTML);
+      });
+    } else {
+      console.error("Order items not found or not in expected format:", order);
+      orderItemsContainer.innerHTML = "<p>No items found for this order.</p>";
+    }
 
-  // Add payment method and total price for the order
-  const paymentHTML = `
-    <div class="payment-summary">
-      <p><strong>Payment Method:</strong> ${lastOrder.paymentMethod}</p>
-      <p><strong>Total Price:</strong> $${lastOrder.totalPrice}</p>
-    </div>
-  `;
-  payContainer.insertAdjacentHTML("beforeend", paymentHTML);
+    // Add payment method and total price for the current order
+    const paymentHTML = `
+      <div class="payment-summary" id="payment-${index}">
+        <p><strong>Payment Method:</strong> ${order.paymentMethod || "N/A"}</p>
+        <p><strong>Total Price:</strong> $${order.totalPrice || "0.00"}</p>
+        <hr class="order-divider">
+      </div>
+    `;
+    payContainer.insertAdjacentHTML("beforeend", paymentHTML);
+  });
 }
 
-// Function to load orders and display the latest one
-async function loadOrders() {
+/**
+ * Shows a toast notification
+ * @param {string} title - Toast title
+ * @param {string} message - Toast message
+ */
+function showToast(title, message) {
+  const toastEl = document.getElementById('bootstrapToast');
+  const toastTitle = document.getElementById('toastTitle');
+  const toastMessage = document.getElementById('toastMessage');
+  
+  toastTitle.textContent = title;
+  toastMessage.textContent = message;
+  
+  const toast = new bootstrap.Toast(toastEl);
+  toast.show();
+}
+
+/**
+ * Loads all orders for the current user
+ * @returns {Array|null} Array of order objects or null if no orders found
+ */
+async function loadUserOrders() {
   const dbRef = ref(db);
-  const currentUsername = localStorage.getItem("username"); // Get the current username from localStorage
+  const currentUsername = localStorage.getItem("username");
 
   if (!currentUsername) {
     console.error("No username found in localStorage.");
-    alert("Please log in to view your orders.");
-    return;
+    document.getElementById("items").innerHTML = "<p>Please log in to view your orders.</p>";
+    showToast("Error", "Please log in to view your orders");
+    return null;
   }
 
   try {
     console.log("Fetching orders from Firebase...");
-
-    // Fetch orders from Firebase
     const snapshot = await get(child(dbRef, "orders/"));
-    console.log("Snapshot fetched:", snapshot);
-
-    if (snapshot.exists()) {
-      const allOrders = snapshot.val();
-
-      // Filter orders for the current username
-      const userOrders = Object.values(allOrders).filter(
-        (order) => order.userName === currentUsername
-      );
-
-      if (userOrders.length === 0) {
-        console.log("No orders found for the current user.");
-        document.getElementById("items").innerHTML = "<p>No orders found.</p>";
-        return;
-      }
-
-      console.log("User Orders:", userOrders);
-
-      // Find the latest order by orderDate
-      const latestOrder = userOrders.reduce((latest, current) => {
-        return new Date(current.orderDate) > new Date(latest.orderDate)
-          ? current
-          : latest;
-      });
-
-      console.log("Latest Order:", latestOrder);
-
-      // Update the step-container based on the latest order's status
-      const stepItems = stepContainer.querySelectorAll(".step-item");
-      stepItems.forEach((step) => step.classList.remove("active")); // Remove active class from all steps
-
-      switch (latestOrder.orderStatus) {
-        case "Waiting":
-          stepItems[0].classList.add("active");
-          break;
-        case "InProgress":
-          stepItems[0].classList.add("active");
-          stepItems[1].classList.add("active");
-          break;
-        case "Delivered":
-          stepItems[0].classList.add("active");
-          stepItems[1].classList.add("active");
-          stepItems[2].classList.add("active");
-          break;
-        default:
-          console.log("Unknown order status:", latestOrder.orderStatus);
-      }
-
-      // Display the latest order
-      displayOrder(latestOrder);
-    } else {
-      console.log("No orders found.");
+    
+    if (!snapshot.exists()) {
+      console.log("No orders found in database.");
       document.getElementById("items").innerHTML = "<p>No orders found.</p>";
-    }
-  } catch (error) {
-    console.error("Failed to load orders:", error);
-    alert("There was an error loading the orders. Please try again later.");
-  }
-}
-
-// Call the function to load and display the latest order
-async function loadOrdersForCurrentUser() {
-  const dbRef = ref(db);
-  const currentUsername = localStorage.getItem("username"); // Get the current username from localStorage
-
-  if (!currentUsername) {
-    console.error("No username found in localStorage.");
-    return null;
-  }
-
-  try {
-    console.log("Fetching orders for the current user from Firebase...");
-
-    // Fetch orders from Firebase
-    const snapshot = await get(child(dbRef, "orders/"));
-    console.log("Snapshot fetched:", snapshot);
-
-    if (snapshot.exists()) {
-      const userData = snapshot.val();
-      console.log("All Orders Data:", userData);
-
-      // Filter orders for the current username
-      const userOrders = Object.values(userData).filter(
-        (order) => order.userName === currentUsername
-      );
-
-      if (userOrders.length === 0) {
-        console.log("No orders found for the current user.");
-        return null;
-      }
-
-      // Find the latest order by orderDate
-      const latestOrder = userOrders.reduce((latest, current) => {
-        return new Date(current.orderDate) > new Date(latest.orderDate)
-          ? current
-          : latest;
-      });
-
-      console.log("Latest Order for Current User:", latestOrder);
-      return latestOrder;
-    } else {
-      console.log("No orders found in the database.");
+      showToast("Information", "No orders found in the database");
       return null;
     }
+    
+    const allOrders = snapshot.val();
+    
+    // Filter orders for the current username
+    const userOrders = Object.values(allOrders).filter(
+      (order) => order.userName === currentUsername
+    );
+
+    if (userOrders.length === 0) {
+      console.log("No orders found for the current user.");
+      document.getElementById("items").innerHTML = "<p>No orders found for your account.</p>";
+      showToast("Information", "No orders found for your account");
+      return null;
+    }
+
+    console.log("User Orders:", userOrders);
+    return userOrders;
   } catch (error) {
     console.error("Failed to load orders:", error);
-    alert("There was an error loading the orders. Please try again later.");
+    document.getElementById("items").innerHTML = "<p>Error loading orders. Please try again later.</p>";
+    showToast("Error", "Failed to load orders. Please try again later.");
     return null;
   }
 }
-async function displayLatestOrder() {
-  const latestOrder = await loadOrdersForCurrentUser();
 
-  if (latestOrder) {
-    console.log("Displaying the latest order:", latestOrder);
-    // Call a function to display the order details
-    displayOrder(latestOrder);
+/**
+ * Add filter options for orders
+ * @param {Array} orders - All user orders
+ */
+function addOrderFilterOptions(orders) {
+  // Create filter container
+  const filterContainer = document.createElement("div");
+  filterContainer.className = "order-filter mb-3";
+  filterContainer.innerHTML = `
+    <label for="order-filter" class="me-2">Filter Orders: </label>
+    <select id="order-filter" class="form-select form-select-sm d-inline-block" style="width: auto">
+      <option value="all">All Orders</option>
+      <option value="waiting">Waiting</option>
+      <option value="inprogress">In Progress</option>
+      <option value="delivered">Delivered</option>
+    </select>
+  `;
+  
+  // Insert filter before the items heading
+  const itemsHeading = document.querySelector("h2");
+  if (itemsHeading) {
+    itemsHeading.insertAdjacentElement("beforebegin", filterContainer);
   } else {
-    console.log("No latest order to display.");
+    document.getElementById("items").insertAdjacentElement("beforebegin", filterContainer);
   }
+  
+  // Add event listener for filter changes
+  document.getElementById("order-filter").addEventListener("change", (e) => {
+    const filterValue = e.target.value;
+    let filteredOrders;
+    
+    if (filterValue === "all") {
+      filteredOrders = orders;
+    } else {
+      filteredOrders = orders.filter(order => {
+        const status = (order.orderStatus || order.status || "").toLowerCase();
+        return status === filterValue;
+      });
+    }
+    
+    displayOrders(filteredOrders);
+    
+    if (filteredOrders.length === 0) {
+      document.getElementById("items").innerHTML = `<p>No ${filterValue} orders found.</p>`;
+    }
+  });
 }
 
-displayLatestOrder();
-loadOrders();
+/**
+ * Main function to initialize order display
+ */
+async function initializeOrderHistory() {
+  // Set page title
+  
+  // Display loading message
+  document.getElementById("items").innerHTML = "<p>Loading orders...</p>";
+  
+  const userOrders = await loadUserOrders();
+  
+  if (!userOrders) return;
+  
+  // Sort orders by date (newest first)
+  const sortedOrders = [...userOrders].sort((a, b) => 
+    new Date(b.orderDate || 0) - new Date(a.orderDate || 0)
+  );
+  
+  // Display all orders
+  displayOrders(sortedOrders);
+  
+  // Update order date element
+  const orderDateElement = document.getElementById("order-date");
+  if (orderDateElement) {
+    orderDateElement.textContent = "";
+  }
+  
+  // Add filter options
+  addOrderFilterOptions(sortedOrders);
+  
+  // Show success toast
+  showToast("Success", `Loaded ${sortedOrders.length} orders`);
+}
+
+// Initialize the page when DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+  initializeOrderHistory();
+});
