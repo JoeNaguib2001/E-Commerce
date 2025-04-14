@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="./bootstrap-5.3.3-dist/css/bootstrap.min.css">
 
 </head>
+
 <body>
     <!-- Toast Container -->
     <div class="toast-container position-fixed top-0 end-0 p-3">
@@ -44,61 +46,66 @@
         <div class="spinner"></div>
     </div>
     <!-- Admin Management Bar -->
-    <div class="nav-links container pt-5 mt-5">
+    <div class="nav-links container-fluid pt-5 mt-5" style="max-width: 80%;">
         <div class="row">
 
-                <ul class="nav-bar-links text-center  d-flex  list-unstyled p-0 m-0 bg-success-subtle">
-                    <li class="col-3 text-center"><a class="nav-link" id="addAdminBtn" href="#">Add other Admins</a></li>
-                    <li class="col-2 text-center Productli "><a id="productButton" class="nav-link" href="#">Products</a></li>
-                    <li class="col-2 text-center Orderli"><a id="OrderButton" class="nav-link" href="#">Orders</a></li>
-                    <li class="col-2 text-center Trendli "><a id="trendButton" class="nav-link" href="#">Products Trend</a></li>
-                    <li class="col-2 text-center Trendli "><a id="NewCollectionButton" class="nav-link" href="#">New Collection</a></li>
+            <ul class="nav-bar-links text-center  d-flex  list-unstyled p-0 m-0 bg-success-subtle">
+                <li class="col-3 text-center" style="max-width: 25%"><a class="nav-link" id="addAdminBtn" href="#">Add
+                        other Admins</a></li>
+                <li class="col-3 text-center Productli" style="max-width: 25%"><a id="productButton" class="nav-link"
+                        href="#">Products</a></li>
+                <li class="col-3 text-center Orderli" style="max-width: 25%"><a id="OrderButton" class="nav-link"
+                        href="#">Orders</a></li>
+                <li class="col-3 text-center Trendli" style="max-width: 25%"><a id="trendButton" class="nav-link"
+                        href="#">Trending Products</a>
+                </li>
+                <li class="col-2 text-center Trendli "><a id="NewCollectionButton" class="nav-link" href="#">New Collection</a></li>
 
-                </ul>
-            </div>
+
+            </ul>
+        </div>
     </div>
     <div id="CatContainer" class="container mt-5"></div>
 
-    
-  <div class="cardHeader" id="cardHeader"></div>
+
+    <div class="cardHeader" id="cardHeader"></div>
     <main class="mainContent">
         <div class="cardList" id="cardList">
-     
+
         </div>
     </main>
-    
 
-<section class="orders">
-    <div id="searchDiv">     
-    </div>
-    <div  id="tableData"></div>
-</section>
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
-  
-    const firebaseConfig = {
-      apiKey: "AIzaSyBCDfTghFj89jNnYM3oz0LSGZU_FEi5s3c",
-      authDomain: "iti-2025-e-commerce.firebaseapp.com",
-      projectId: "iti-2025-e-commerce",
-      storageBucket: "iti-2025-e-commerce.appspot.com", // لاحظ: دي لازم تكون بدون https
-      messagingSenderId: "90149751365",
-      appId: "1:90149751365:web:839d4d987cbcafd36b712c",
-      databaseURL: "https://iti-2025-e-commerce-default-rtdb.firebaseio.com", // دي مهمة
-    };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    window.db = db;
-  
-    console.log("Firebase database ready:", db);
-    
-  </script>
-      <script src="./bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+
+    <section class="orders">
+        <div id="searchDiv">
+        </div>
+        <div id="tableData"></div>
+    </section>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBCDfTghFj89jNnYM3oz0LSGZU_FEi5s3c",
+            authDomain: "iti-2025-e-commerce.firebaseapp.com",
+            projectId: "iti-2025-e-commerce",
+            storageBucket: "iti-2025-e-commerce.appspot.com", // لاحظ: دي لازم تكون بدون https
+            messagingSenderId: "90149751365",
+            appId: "1:90149751365:web:839d4d987cbcafd36b712c",
+            databaseURL: "https://iti-2025-e-commerce-default-rtdb.firebaseio.com", // دي مهمة
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        window.db = db;
+
+        console.log("Firebase database ready:", db);
+
+    </script>
+    <script src="./bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 
       <script type="module" src="./js/TrendScript.js"></script>
-      <script type="module" src="./js/newArrivals.js"></script>
       <script type="module" src="./js/addAdmins.js"></script>
     <script type="module" src="./js/OrderScript.js"></script>
     <script type="module" src="./js/ProductScript.js"></script>
@@ -106,4 +113,5 @@
 
 
 </body>
+
 </html>

@@ -299,7 +299,11 @@
                 });
             }
             else if (currentMode === "signup") {
-                debugger;
+                let exists = await userExists(userName.value);
+                if (exists) {
+                    ShowBootstrapToast("This username has already been taken.", "error");
+                    return;
+                }
                 set(ref(db, "users/" + username.value), {
                     fullName: fullName.value,
                     userName: userName.value,
@@ -320,7 +324,7 @@
                         }, 2000);
                     })
                     .catch((error) => {
-                        alert(error.message + " please try again");
+                        ShowBootstrapToast("Error ! Please Contact Admins !", "danger");
                     });
             };
         });
@@ -383,7 +387,7 @@
             if (password.length >= 8) strength++;
             if (/[A-Z]/.test(password)) strength++;
             if (/\d/.test(password)) strength++;
-            if (/[@$!%*?&]/.test(password)) strength++;
+            if (/[@$!%*?&#]/.test(password)) strength++;
 
             let strengthLevels = ["Very Weak", "Weak", "Fair", "Good", "Strong"];
             let colors = ["#FF0000", "#FF8C00", "#FFD700", "#32CD32", "#008000"];
@@ -438,47 +442,81 @@
         });
 
         // Validate Username On Keyup
-        document.getElementById("username").addEventListener("keyup", function () {
+        document.getElementById("username").addEventListener("keyup", async function () {
             if (currentMode === "login") return; // Skip if in login mode
             let usernameValidation = document.getElementById("username-validation");
             let username = this.value;
             if (username.length < 6) {
                 usernameValidation.innerText = "Username must be at least 6 characters long.";
                 usernameValidation.style.color = "red";
+                usernameValidation.style.padding = "10px";
 
             }
             else if (username.length > 20) {
                 usernameValidation.innerText = "Username cannot be more than 20 charachters.";
                 usernameValidation.style.color = "red";
+                usernameValidation.style.padding = "10px";
+
             }
             else if (!/^[a-zA-Z0-9]+$/.test(username)) {
                 usernameValidation.innerText = "Username can only contain letters and numbers.";
                 usernameValidation.style.color = "red";
-            } else if (username.length >= 3 && username.length <= 20 && /^[a-zA-Z0-9]+$/.test(username)) {
-                fetch('./Data/Accounts.json')
-                    .then(response => response.json())
-                    .then(accounts => {
-                        const userExists = accounts.some(account => account.userName === username);
-                        if (userExists) {
-                            usernameValidation.innerText = "Username already exists.";
-                            usernameValidation.style.color = "red";
-                        } else {
-                            usernameValidation.innerText = "Valid Username";
-                            usernameValidation.style.color = "green";
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error fetching or parsing JSON:", error);
-                        usernameValidation.innerText = "Error validating username.";
-                        usernameValidation.style.color = "red";
-                    });
-                usernameValidation.innerText = "Valid Username";
-                usernameValidation.style.color = "green";
+                usernameValidation.style.padding = "10px";
+
+            }
+            // If username is valid, check if it exists in the Firebase
+            else if (username.length >= 3 && username.length <= 20 && /^[a-zA-Z0-9]+$/.test(username)) {
+                const exists = await userExists(username);
+
+                if (exists) {
+                    usernameValidation.innerText = "Username already exists.";
+                    usernameValidation.style.color = "red";
+                    usernameValidation.style.padding = "10px";
+                    console.log("user exists");
+                }
+                else {
+                    usernameValidation.innerText = "Valid Username";
+                    usernameValidation.style.color = "green";
+                    usernameValidation.style.padding = "10px";
+                    console.log("user doesn't exist");
+                }
+
+                // fetch('./Data/Accounts.json')
+                //     .then(response => response.json())
+                //     .then(accounts => {
+                //         const userExists = accounts.some(account => account.userName === username);
+                //         if (userExists) {
+                //             usernameValidation.innerText = "Username already exists.";
+                //             usernameValidation.style.color = "red";
+                //         } else {
+                //             usernameValidation.innerText = "Valid Username";
+                //             usernameValidation.style.color = "green";
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.error("Error fetching or parsing JSON:", error);
+                //         usernameValidation.innerText = "Error validating username.";
+                //         usernameValidation.style.color = "red";
+                //     });
+                // usernameValidation.innerText = "Valid Username";
+                // usernameValidation.style.color = "green";
             }
             else {
                 usernameValidation.innerText = "";
             }
         });
+
+        async function userExists(username) {
+            const dbRef = ref(db);
+            try {
+                const snapshot = await get(child(dbRef, `users/${username}`));
+                return snapshot.exists();
+            } catch (error) {
+                console.error("Error checking username:", error);
+                return true; // احتياطي لو فيه خطأ نعتبره موجود
+            }
+        }
+
 
         // Function to clear all inputs and uncheck checkboxes
         function clearFormInputs() {
