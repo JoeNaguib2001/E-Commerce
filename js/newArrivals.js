@@ -1,16 +1,16 @@
 import { ref, push, child, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 const db = window.db;
-document.getElementById("trendButton").addEventListener("click", function () {
-    LoadTrends();
+document.getElementById("NewCollectionButton").addEventListener("click", function () {
+    LoadNewCollections();
 });
 
-async function LoadTrends() {
+async function LoadNewCollections() {
     const dbRef = ref(db);
 
     showLoader();
 
     // Fetch products from Firebase
-    const snapshot = await get(child(dbRef, `carousel_4/`));
+    const snapshot = await get(child(dbRef, `carousel_3/`));
     if (snapshot.exists()) {
         const userData = snapshot.val();
 
@@ -34,11 +34,11 @@ async function LoadTrends() {
         document.getElementById("searchDiv").innerHTML = "";
 
         const modalHeader = `
-             <h2 class="cardHeader text-center">Products Trend</h2>
+             <h2 class="cardHeader text-center">Products NewCollection</h2>
         `;
         const divHeader = document.querySelector(".cardHeader");
         divHeader.innerHTML = modalHeader; 
-        buildTrendProductsTable(processedProducts);
+        buildNewCollectionProductsTable(processedProducts);
     } else {
         console.error("No products found in Firebase.");
         ShowBootstrapToast("No products found in Firebase.", "danger");             
@@ -47,7 +47,7 @@ async function LoadTrends() {
     hideLoader();
 }
 
-function buildTrendProductsTable(products) {
+function buildNewCollectionProductsTable(products) {
     let container = document.getElementById("tableData");
     if (!container) {
         console.error("Element with ID 'tableData' not found");
@@ -99,7 +99,7 @@ function buildTrendProductsTable(products) {
         detailsBtn.textContent = "Details";
         detailsBtn.className = "btn btn-info btn-sm";
         detailsBtn.addEventListener("click", function() {
-            showTrendProductDetails(product);
+            showNewCollectionProductDetails(product);
         });
         tdDetails.appendChild(detailsBtn);
         row.appendChild(tdDetails);
@@ -110,7 +110,7 @@ function buildTrendProductsTable(products) {
         deleteBtn.textContent = "Delete";
         deleteBtn.className = "btn btn-danger btn-sm";
         deleteBtn.addEventListener("click", function() {
-            deleteProductFromTrend(product.id);
+            deleteProductFromNewCollection(product.id);
         });
         tdDelete.appendChild(deleteBtn);
         row.appendChild(tdDelete);
@@ -124,11 +124,11 @@ function buildTrendProductsTable(products) {
 
 function createDeleteConfirmModal1() {
     const modalHTML = `
-    <div class="modal fade" id="deleteTrendConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteNewCollectionConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content shadow-lg rounded-4">
                 <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="deleteTrendConfirmModal">Confirm Deletion</h5>
+                    <h5 class="modal-title" id="deleteNewCollectionConfirmModal">Confirm Deletion</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -153,15 +153,15 @@ function createDeleteConfirmModal1() {
 // Create delete confirmation modal
 createDeleteConfirmModal1();
 
-// Add the showProductDetailsTrend function that was missing
-function showTrendProductDetails(product) {
+// Add the showProductDetailsNewCollection function that was missing
+function showNewCollectionProductDetails(product) {
     // Create or get a modal to display product details
     let detailsModal = document.getElementById('productDetailsModal');
     
     if (!detailsModal) {
         // Create the modal if it doesn't exist
         const modalHTML = `
-        <div class="modal fade" id="trendProductDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
+        <div class="modal fade" id="NewCollectionProductDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content shadow-lg rounded-4">
                     <div class="modal-header bg-primary text-white">
@@ -183,7 +183,7 @@ function showTrendProductDetails(product) {
         wrapper.innerHTML = modalHTML;
         document.body.appendChild(wrapper);
         
-        detailsModal = document.getElementById('trendProductDetailsModal');
+        detailsModal = document.getElementById('NewCollectionProductDetailsModal');
     }
     
     // Populate the modal with product details
@@ -231,7 +231,7 @@ function showTrendProductDetails(product) {
     const bsModal = new bootstrap.Modal(detailsModal);
     bsModal.show();
 }
-async function deleteProductFromTrend(productId) {
+async function deleteProductFromNewCollection(productId) {
     // Verify product is valid (if it's a valid ID, not an object or null)
     if (!productId) {
         ShowBootstrapToast("Invalid product ID", "danger");
@@ -243,7 +243,7 @@ async function deleteProductFromTrend(productId) {
     console.log("Product ID to delete:", productId);
 
     // Show the delete confirmation modal
-    const deleteModal = new bootstrap.Modal(document.getElementById("deleteTrendConfirmModal"));
+    const deleteModal = new bootstrap.Modal(document.getElementById("deleteNewCollectionConfirmModal"));
     deleteModal.show();
 
     // Add event listener to the confirmation button
@@ -254,13 +254,13 @@ async function deleteProductFromTrend(productId) {
             showLoader();
 
             // Reference to the product in Firebase
-            const productRef = ref(db, `carousel_4/${productId}`);
+            const productRef = ref(db, `carousel_3/${productId}`);
 
             // Delete the product from Firebase
             await set(productRef, null);
 
             // Reload data and update the UI
-            await LoadTrends();
+            await LoadNewCollections();
 
             // Hide loader
             hideLoader();
@@ -269,7 +269,7 @@ async function deleteProductFromTrend(productId) {
             deleteModal.hide();
 
             // Show success message
-            ShowBootstrapToast("Product removed from trends successfully!", "success");
+            ShowBootstrapToast("Product removed from NewCollections successfully!", "success");
         } catch (error) {
             // Log the error for debugging
             console.error("Error deleting product:", error);
