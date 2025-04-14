@@ -6,6 +6,11 @@
     color: white;
 }
 
+th,
+td {
+    text-align: center !important;
+}
+
 /* Logo styling */
 .navBar .navbar-brand .logo-image {
     width: 40px;
@@ -54,8 +59,9 @@
 .nav-links a:hover {
     background-color: #f4c490;
 }
+
 .nav-links .active a {
-    background-color:  #3c678a;
+    background-color: #3c678a;
     color: white;
 }
 
@@ -110,7 +116,7 @@
         width: 35px;
         height: 35px;
     }
-    
+
 }
 
 /* Main Content */
@@ -125,14 +131,16 @@
 .cardList {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Space between cards */
+    gap: 20px;
+    /* Space between cards */
     justify-content: space-between;
     width: 100%;
 }
 
 /* Individual Card */
 .card {
-    width: calc(33.33% - 20px); /* Adjust width to 3 cards per row with space in between */
+    width: calc(33.33% - 20px);
+    /* Adjust width to 3 cards per row with space in between */
     border-radius: 30px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -170,7 +178,8 @@
 /* Responsive Design */
 @media (max-width: 991px) {
     .card {
-        width: calc(50% - 20px); /* 2 cards per row on medium screens */
+        width: calc(50% - 20px);
+        /* 2 cards per row on medium screens */
     }
 }
 
@@ -180,7 +189,8 @@
     border-collapse: collapse;
 }
 
-.orders th, .orders td {
+.orders th,
+.orders td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
@@ -196,13 +206,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Space between elements */
-    margin: 20px 0; /* Add spacing around the filter */
+    gap: 10px;
+    margin: 20px 0;
     padding: 10px;
-    background-color: #f9f9f9; /* Light background for the filter */
-    border: 1px solid #ddd; /* Subtle border */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .date-filter input[type="date"] {
@@ -215,8 +225,8 @@
 }
 
 .date-filter input[type="date"]:focus {
-    border-color: #345a4f; /* Highlight border on focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add glow effect */
+    border-color: #345a4f;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .date-filter button {
@@ -224,7 +234,7 @@
     font-size: 14px;
     font-weight: bold;
     color: #fff;
-    background-color: #345a4f; /* Primary button color */
+    background-color: #345a4f;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -232,14 +242,15 @@
 }
 
 .date-filter button:hover {
-    background-color: #03550c; /* Darker blue on hover */
-    transform: scale(1.05); /* Slight zoom effect */
+    background-color: #03550c;
+    transform: scale(1.05);
 }
 
 .date-filter button:active {
-    background-color: #03550c; /* Even darker blue on click */
-    transform: scale(1); /* Reset zoom effect */
+    background-color: #03550c;
+    transform: scale(1);
 }
+
 .no-orders-message {
     text-align: center;
     font-size: 18px;
@@ -248,23 +259,22 @@
     margin-top: 20px;
 }
 
-/* تخصيص شكل علامة التحميل */
 .loading-spinner {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* خلفية خفيفة تغطي الصفحة */
-    display: none; /* تكون مخفية في البداية */
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 9999;
 }
 
 .spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1); /* اللون الخارجي */
-    border-top: 4px solid #3498db; /* اللون المتحرك */
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #3498db;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -272,25 +282,30 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .category-list {
     display: flex;
-    flex-wrap: wrap; /* لو عددهم كتير، ينزلوا سطر تاني */
+    flex-wrap: wrap;
     gap: 12px;
     list-style: none;
     padding: 0;
     margin: 0;
-    justify-content: flex-start; /* أو center لو عايزهم في النص */
-  }
-  
-  .category-item {
+    justify-content: flex-start;
+}
+
+.category-item {
     flex: 0 0 auto;
-  }
-  
-  .category-link {
+}
+
+.category-link {
     display: block;
     padding: 12px 16px;
     background: linear-gradient(135deg, #f8f9fa, #e9ecef);
@@ -302,24 +317,25 @@
     transition: all 0.3s ease;
     min-width: 120px;
     text-align: center;
-  }
-  
-  .category-link:hover {
+}
+
+.category-link:hover {
     background: #007bff;
     color: white;
     transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-  
-  .cardHeader, .catHeader {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader,
+.catHeader {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
     color: #179775;
     text-align: center;
-  }
-  
-  .add-category-btn {
+}
+
+.add-category-btn {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
@@ -330,20 +346,20 @@
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
+}
 
-  .add-category-btn:hover {
+.add-category-btn:hover {
     background-color: #0056b3;
-  }
+}
 
-  .category-list {
+.category-list {
     list-style: none;
     padding: 0;
     max-width: 600px;
     margin: 0 auto;
-  }
+}
 
-  .category-item {
+.category-item {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -353,27 +369,27 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  }
+}
 
-  .category-link {
+.category-link {
     color: #007bff;
     font-size: 16px;
     font-weight: bold;
     text-decoration: none;
-  }
+}
 
-  .category-link:hover {
+.category-link:hover {
     text-decoration: underline;
-  }
+}
 
-  .category-actions span {
+.category-actions span {
     cursor: pointer;
     font-size: 18px;
     margin-left: 10px;
     transition: transform 0.2s;
-  }
+}
 
-  .category-item {
+.category-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -402,7 +418,7 @@
     top: 35px;
     right: 10px;
     background: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     list-style: none;
     padding: 0;
@@ -423,6 +439,7 @@
 .dropdown-menu li:hover {
     background-color: #6e6e6e;
 }
+
 .dropdown-menu li {
     display: flex;
     align-items: center;
@@ -434,11 +451,12 @@
 .option-icon {
     font-size: 16px;
 }
+
 #searchDiv {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Push elements to opposite sides */
-    margin-bottom: 20px; /* Add spacing below the search bar */
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 #searchBox {
@@ -459,13 +477,13 @@
 }
 
 #searchDiv .btn-primary:hover {
-    background-color: #022f63; 
-    transform: scale(1.01); /* Slight zoom effect */
+    background-color: #022f63;
+    transform: scale(1.01);
 }
 
 .container h1 {
     text-align: center;
-    color: #179775; /* Green color for the heading */
+    color: #179775;
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
@@ -475,7 +493,7 @@
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #333; /* Dark text color */
+    color: #333;
 }
 
 .container input[type="text"],
@@ -494,8 +512,8 @@
 .container input[type="text"]:focus,
 .container input[type="email"]:focus,
 .container input[type="password"]:focus {
-    border-color: #345a4f; /* Green border on focus */
-    box-shadow: 0 0 5px rgba(4, 151, 36, 0.5); /* Green glow effect */
+    border-color: #345a4f;
+    box-shadow: 0 0 5px rgba(4, 151, 36, 0.5);
 }
 
 .container button[type="submit"] {
@@ -504,7 +522,7 @@
     font-size: 16px;
     font-weight: bold;
     color: #fff;
-    background-color: #345a4f; /* Green button color */
+    background-color: #345a4f;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -512,17 +530,17 @@
 }
 
 .container button[type="submit"]:hover {
-    background-color: #345a4f; /* Darker green on hover */
-    transform: scale(1.05); /* Slight zoom effect */
+    background-color: #345a4f;
+    transform: scale(1.05);
 }
 
 .container button[type="submit"]:active {
-    background-color: #345a4f; /* Even darker green on click */
-    transform: scale(1); /* Reset zoom effect */
+    background-color: #345a4f;
+    transform: scale(1);
 }
 
 .container input::placeholder {
-    color: #aaa; /* Subtle placeholder color */
+    color: #aaa;
     font-style: italic;
 }
 
@@ -531,5 +549,5 @@
     height: 15px;
     border-radius: 50%;
     display: inline-block;
-    background-color: red; /* Default color */
+    background-color: red;
 }

@@ -11,73 +11,76 @@
 </head>
 
 <body>
-    <!-- Toast Container -->
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-        <div id="bootstrapToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto" id="toastTitle">Notification</strong>
-                <small>Just now</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body" id="toastMessage">
-                Message goes here.
+    <div class="container-fluid p-0 m-0">
+        <!-- Toast Container -->
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div id="bootstrapToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto" id="toastTitle">Notification</strong>
+                    <small>Just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" id="toastMessage">
+                    Message goes here.
+                </div>
             </div>
         </div>
-    </div>
-    <nav class="navBar navbar navbar-expand-lg  fixed-top">
-        <div class="d-flex justify-content-between w-100">
-            <!-- Logo -->
-            <a class="navbar-brand d-flex align-items-center" href="#">
-            </a>
-            <div class="name d-none d-md-block mt-3">
-                <p style="font-size: large;font-weight: bold;">Admin Dashboard</p>
-            </div>
-            <!-- User settings and profile -->
-            <div class="user-settings d-flex align-items-center me-4">
-                <a href="./home.html">
-                    <i class="fa-solid fa-right-to-bracket fa-lg"></i>
+        <nav class="navBar navbar navbar-expand-lg  fixed-top">
+            <div class="d-flex justify-content-between w-100">
+                <!-- Logo -->
+                <a class="navbar-brand d-flex align-items-center" href="#">
                 </a>
+                <div class="name d-none d-md-block mt-3">
+                    <p style="font-size: large;font-weight: bold;">Admin Dashboard</p>
+                </div>
+                <!-- User settings and profile -->
+                <div class="user-settings d-flex align-items-center me-4">
+                    <a href="./home.html">
+                        <i class="fa-solid fa-right-to-bracket fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!--Spinner-->
+        <div id="loadingSpinner" class="loading-spinner">
+            <div class="spinner"></div>
+        </div>
+        <!-- Admin Management Bar -->
+        <div class="nav-links container-fluid pt-5 mt-5" style="width: 100%;">
+            <div class="row w-100">
+                <ul class="nav-bar-links text-center  d-flex  list-unstyled p-0 m-0 bg-success-subtle w-100">
+                    <li class="col-3 text-center" style="width: 20%"><a class="nav-link w-100" id="addAdminBtn"
+                            href="#">Add
+                            other Admins</a></li>
+                    <li class="col-2 text-center Productli" style="width: 20%"><a id="productButton"
+                            class="nav-link w-100" href="#">Products</a></li>
+                    <li class="col-2 text-center Orderli" style="width: 20%"><a id="OrderButton" class="nav-link w-100"
+                            href="#">Orders</a></li>
+                    <li class="col-2 text-center Trendli" style="width: 20%"><a id="trendButton" class="nav-link w-100"
+                            href="#">Trending Products</a>
+                    </li>
+                    <li class="col-3 text-center Trendli " style="width: 20%"><a id="NewCollectionButton"
+                            class="nav-link w-100" href="#">New Collection</a></li>
+                </ul>
             </div>
         </div>
-    </nav>
-    <!--Spinner-->
-    <div id="loadingSpinner" class="loading-spinner">
-        <div class="spinner"></div>
+        <div id="CatContainer" class="container mt-5"></div>
+
+
+        <div class="cardHeader" id="cardHeader"></div>
+        <main class="mainContent">
+            <div class="cardList" id="cardList">
+
+            </div>
+        </main>
+
+        <section class="orders">
+            <div id="searchDiv">
+            </div>
+            <div id="tableData"></div>
+        </section>
+
     </div>
-    <!-- Admin Management Bar -->
-    <div class="nav-links container-fluid pt-5 mt-5" style="width: 100%;">
-        <div class="row w-100">
-            <ul class="nav-bar-links text-center  d-flex  list-unstyled p-0 m-0 bg-success-subtle w-100">
-                <li class="col-3 text-center" style="width: 20%"><a class="nav-link w-100" id="addAdminBtn" href="#">Add
-                        other Admins</a></li>
-                <li class="col-2 text-center Productli" style="width: 20%"><a id="productButton" class="nav-link w-100"
-                        href="#">Products</a></li>
-                <li class="col-2 text-center Orderli" style="width: 20%"><a id="OrderButton" class="nav-link w-100"
-                        href="#">Orders</a></li>
-                <li class="col-2 text-center Trendli" style="width: 20%"><a id="trendButton" class="nav-link w-100"
-                        href="#">Trending Products</a>
-                </li>
-                <li class="col-3 text-center Trendli " style="width: 20%"><a id="NewCollectionButton" class="nav-link w-100"
-                        href="#">New Collection</a></li>
-            </ul>
-        </div>
-    </div>
-    <div id="CatContainer" class="container mt-5"></div>
-
-
-    <div class="cardHeader" id="cardHeader"></div>
-    <main class="mainContent">
-        <div class="cardList" id="cardList">
-
-        </div>
-    </main>
-
-
-    <section class="orders">
-        <div id="searchDiv">
-        </div>
-        <div id="tableData"></div>
-    </section>
     <script src="https://kit.fontawesome.com/adec9fca79.js" crossorigin="anonymous"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
@@ -87,13 +90,12 @@
             apiKey: "AIzaSyBCDfTghFj89jNnYM3oz0LSGZU_FEi5s3c",
             authDomain: "iti-2025-e-commerce.firebaseapp.com",
             projectId: "iti-2025-e-commerce",
-            storageBucket: "iti-2025-e-commerce.appspot.com", // لاحظ: دي لازم تكون بدون https
+            storageBucket: "iti-2025-e-commerce.appspot.com",
             messagingSenderId: "90149751365",
             appId: "1:90149751365:web:839d4d987cbcafd36b712c",
-            databaseURL: "https://iti-2025-e-commerce-default-rtdb.firebaseio.com", // دي مهمة
+            databaseURL: "https://iti-2025-e-commerce-default-rtdb.firebaseio.com",
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         window.db = db;
