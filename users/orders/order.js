@@ -92,7 +92,7 @@ function displayOrders(orders) {
     // Create order section with header and tracking bar
     const orderHeaderHTML = `
       <div class="order-section" id="order-${index}">
-        <div class="order-header">
+        <div class="order-header p-3 mb-2"> 
           <h3>Order #${index + 1}</h3>
           <p class="order-date">Date: ${orderDate} ${orderTime}</p>
           <p class="order-status">Status: ${order.orderStatus || order.status || "Unknown"}</p>
@@ -134,7 +134,7 @@ function displayOrders(orders) {
         <hr class="order-divider">
       </div>
     `;
-    payContainer.insertAdjacentHTML("beforeend", paymentHTML);
+    orderItemsContainer.insertAdjacentHTML("beforeend", paymentHTML);
   });
 }
 
