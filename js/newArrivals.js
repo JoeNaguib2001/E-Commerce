@@ -122,7 +122,7 @@ function buildNewCollectionProductsTable(products) {
     container.appendChild(table);
 }
 
-function createDeleteConfirmModal1() {
+function createDeleteConfirmModal2() {
     const modalHTML = `
     <div class="modal fade" id="deleteNewCollectionConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -151,7 +151,7 @@ function createDeleteConfirmModal1() {
 }
 
 // Create delete confirmation modal
-createDeleteConfirmModal1();
+createDeleteConfirmModal2();
 
 // Add the showProductDetailsNewCollection function that was missing
 function showNewCollectionProductDetails(product) {
