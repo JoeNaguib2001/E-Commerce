@@ -25,6 +25,16 @@ function setSignInText() {
         document.querySelector('.nav-link-sign-in').innerText = "Sign In";
     }
 }
+
+function isSignedIn() {
+    if (localStorage.getItem("isSignedIn")) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 setSignInText();
 
 
