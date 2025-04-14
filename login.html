@@ -28,7 +28,7 @@
 
     <div class="outer-container container-fluid p-0">
         <!-- Toast Container -->
-        <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div class="toast-container position-fixed top-0 end-0 p-3 ">
             <div id="bootstrapToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <strong class="me-auto" id="toastTitle">Notification</strong>
@@ -101,15 +101,14 @@
                             <input type="password" id="password" name="password" required class="password"
                                 maxlength="20" onkeyup="checkPasswordStrength()">
                             <i class="fa-solid fa-eye-slash show-hide-pass"></i>
-                            <div id="progress-container"
-                                class="position-absolute d-flex flex-column align-items-center d-none"
-                                style="right: 5px;">
+                            <div id="progress-container" class="position-absolute flex-column align-items-center d-none"
+                                style="right: 5px; display: flex;">
                                 <!-- Strength Text -->
                                 <small id="strength-text" class="text-white"
                                     style="margin-bottom: 2px; font-size: 12px; display: block;">Very
                                     Weak</small>
                                 <!-- Progress Bar Sections -->
-                                <div class="d-flex" style="gap: 2px;">
+                                <div class="d-flex progress-bar-great" style="gap: 2px;">
                                     <div class="progress-segment" style="width: 15px; height: 8px; border-radius: 2px;">
                                     </div>
                                     <div class="progress-segment" style="width: 15px; height: 8px; border-radius: 2px;">
@@ -191,6 +190,11 @@
         const container = document.querySelector(".container");
 
         loginTab.addEventListener("click", () => {
+            const icon = document.querySelector(".fa-circle-check");
+            icon.style.display = "none";
+            const progressBar = document.querySelector("#progress-container");
+            progressBar.style.display = "none";
+
             clearFormInputs();
             slider.style.transform = "translateX(0%)";
             loginTab.style.color = "white";
@@ -204,6 +208,10 @@
         });
 
         signupTab.addEventListener("click", () => {
+            // const progressBar = document.querySelector("#progress-container");
+            // progressBar.style.display = "block";
+
+
             clearFormInputs();
             slider.style.transform = "translateX(100%)";
             signupTab.style.color = "white";
@@ -301,7 +309,7 @@
             else if (currentMode === "signup") {
                 let exists = await userExists(userName.value);
                 if (exists) {
-                    ShowBootstrapToast("This username has already been taken.", "error");
+                    ShowBootstrapToast("This username has already been taken.", "danger");
                     return;
                 }
                 set(ref(db, "users/" + username.value), {
@@ -380,7 +388,10 @@
             if (currentMode === "login") return; // Skip if in login mode
             let password = document.getElementById("password").value;
             let progressContainer = document.getElementById("progress-container");
+            progressContainer.style.display = "block";
+
             let strengthText = document.getElementById("strength-text");
+            strengthText.style.textAlign = "center";
             let segments = document.querySelectorAll(".progress-segment");
 
             let strength = 0;
@@ -472,13 +483,11 @@
                     usernameValidation.innerText = "Username already exists.";
                     usernameValidation.style.color = "red";
                     usernameValidation.style.padding = "10px";
-                    console.log("user exists");
                 }
                 else {
                     usernameValidation.innerText = "Valid Username";
                     usernameValidation.style.color = "green";
                     usernameValidation.style.padding = "10px";
-                    console.log("user doesn't exist");
                 }
 
                 // fetch('./Data/Accounts.json')
