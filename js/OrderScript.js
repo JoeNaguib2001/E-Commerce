@@ -281,8 +281,9 @@ function buildOrderTable(orders) {
                         orderStatus: newStatus
                     });
             
-                    console.log("Status updated successfully");
                     loadOrders(); // reload UI if needed
+                    ShowBootstrapToast(`Order updated  with status: ${newStatus}`, "success");
+
                 } catch (error) {
                     console.error("Error updating order status:", error);
                     ShowBootstrapToast("Failed to update status. Please try again.", "danger");
@@ -442,7 +443,7 @@ async function updateProductStatus(orderId, productId, newStatus) {
                 // Update the order in Firebase
                 await update(orderRef, { order: order.order });
 
-                console.log(`Updated product ${productId} in order ${orderId} with status: ${newStatus}`);
+                ShowBootstrapToast(`Updated product ${productId} in order ${orderId} with status: ${newStatus}`, "success");
             } else {
                 console.error(`Order ${orderId} does not contain a valid product array.`);
             }
