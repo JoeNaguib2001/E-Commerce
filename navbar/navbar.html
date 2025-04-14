@@ -24,7 +24,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid">
         <div class="container-fluid">
             <!-- الشعار -->
-            <a class="navbar-brand" href="home.html" style="font-weight: 100; font-family:Roboto;">
+            <a class="navbar-brand" href="/home.html" style="font-weight: 100; font-family:Roboto;">
                 Joe's Store
             </a>
             <ul class="navbar-nav me-auto">
@@ -40,7 +40,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <!-- مربع البحث -->
                 <form class="d-flex flex-grow-1">
                     <input class="me-4 ms-4 flex-grow-1" id="search-box" type="search"
                         placeholder="What are you looking for?" aria-label="Search">
@@ -48,22 +47,21 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </form>
-                <!-- معلومات المستخدم -->
                 <div class="d-flex align-items-center">
 
                     <span class="me-3 hello-span">Hello, User</span>
 
 
-                    <!-- القائمة المنسدلة للإعدادات -->
+                    <!-- admin dropdown -->
                     <div class="dropdown me-3 admin-dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             style="background: gray !important; color: white !important;">
                             Settings
                         </button>
                         <ul class="dropdown-menu dropdown-menu-start">
-                            <li><a class="dropdown-item" href="./AdminDashboard.html">Admin Dashboard</a></li>
+                            <li><a class="dropdown-item" href="/AdminDashboard.html">Admin Dashboard</a></li>
                             <li>
-                                <hr class="dropdown-divider">   
+                                <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item text-danger login-btn" href="#" onclick="toggleSingedIn()">Sign
                                     In</a></li>
@@ -71,15 +69,15 @@
                     </div>
 
 
-                    <!-- القائمة المنسدلة للإعدادات -->
+                    <!-- user dropdown -->
                     <div class="dropdown me-3 user-dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             style="background: gray !important; color: white !important;">
                             Settings
                         </button>
                         <ul class="dropdown-menu dropdown-menu-start">
-                            <li><a class="dropdown-item" href="./users/orders.html">Orders</a></li>
-                            <li><a class="dropdown-item" href="users/wishlist/wishlists.html">Wish List</a></li>
+                            <li><a class="dropdown-item" href="/users/orders/order.html">Orders</a></li>
+                            <li><a class="dropdown-item" href="/users/wishlist/wishlists.html">Wish List</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -89,13 +87,12 @@
                     </div>
 
                     <!-- Shopping Cart Icon -->
-                    <a class="text-white position-relative me-2" href="./shop.html">
+                    <a class="text-white position-relative me-2" href="/shop.html">
                         <i class="fa-solid fa-warehouse fs-4 text-black"></i>
                     </a>
 
 
-                    <a class="shopping-cart-link text-white position-relative me-2"
-                        href="#">
+                    <a class="shopping-cart-link text-white position-relative me-2" href="/shopping-cart.html">
                         <i class="fa-solid fa-cart-shopping fs-4"></i>
                         <span
                             class="position-absolute  translate-middle badge rounded-pill bg-danger products-count me-5">
@@ -116,7 +113,6 @@
 
     <script src="./js/utilities.js"></script>
 
-    <!-- <script src="./js/all.min.js"></script> -->
 
 
 </body>

@@ -19,7 +19,7 @@ body {
   padding: 10px 20px;
   border-radius: 40px;
   margin: 5px;
-  color: white;
+  /* color: white; */
 }
 
 .logo {
@@ -72,9 +72,11 @@ body {
   font-size: 14px;
   margin-left: 10px;
 }
+
 select option {
   background-color: #a34f2e;
 }
+
 .right-section {
   display: flex;
   align-items: center;
@@ -152,6 +154,7 @@ select option {
 table {
   width: 500px;
 }
+
 .step-container {
   display: flex;
   justify-content: space-between;
@@ -214,6 +217,7 @@ table {
 .step-item.active::after {
   background: #b44d30;
 }
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -223,6 +227,7 @@ table {
     display: none;
   }
 }
+
 .word {
   color: #31578b;
   font-size: 2rem;
@@ -240,124 +245,134 @@ table {
 .letter:nth-child(1) {
   animation-delay: 0s;
 }
+
 .letter:nth-child(2) {
   animation-delay: 0.1s;
 }
+
 .letter:nth-child(3) {
   animation-delay: 0.2s;
 }
+
 .letter:nth-child(4) {
   animation-delay: 0.3s;
 }
+
 .letter:nth-child(5) {
   animation-delay: 0.4s;
 }
+
 .letter:nth-child(6) {
   animation-delay: 0.5s;
 }
+
 .letter:nth-child(7) {
   animation-delay: 0.6s;
 }
+
 .letter:nth-child(8) {
   animation-delay: 0.7s;
 }
+
 .letter:nth-child(9) {
   animation-delay: 0.7s;
 }
+
 .letter:nth-child(10) {
   animation-delay: 0.7s;
 }
+
 .order-box {
-  border: 2px solid #ccc; /* Add a light border */
-  border-radius: 8px; /* Rounded corners */
-  padding: 20px; /* Add padding inside the fieldset */
-  margin-bottom: 20px; /* Add spacing between orders */
-  background-color: #f9f9f9; /* Light background color */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .order-box img {
   display: block;
-  margin: 0 auto 15px; /* Center the image and add spacing below */
-  max-width: 100%; /* Ensure the image is responsive */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 8px; /* Rounded corners for the image */
+  margin: 0 auto 15px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
 .order-box h3 {
-  font-size: 1.5em; /* Larger font size for the order ID */
-  color: #333; /* Dark text color */
-  text-align: center; /* Center the order ID */
-  margin-bottom: 10px; /* Add spacing below */
+  font-size: 1.5em;
+  color: #333;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .order-box p {
-  font-size: 1em; /* Standard font size for details */
-  color: #555; /* Slightly lighter text color */
-  margin: 5px 0; /* Add spacing between paragraphs */
+  font-size: 1em;
+  color: #555;
+  margin: 5px 0;
 }
 
 .order-box hr {
   border: none;
-  border-top: 1px solid #ddd; /* Light horizontal line */
-  margin: 15px 0; /* Add spacing around the line */
+  border-top: 1px solid #ddd;
+  margin: 15px 0;
 }
 
 .order-box select {
-  width: 100%; /* Full width dropdown */
-  padding: 10px; /* Add padding inside the dropdown */
-  font-size: 1em; /* Standard font size */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 4px; /* Rounded corners */
-  margin-top: 10px; /* Add spacing above */
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 10px;
 }
 
 .order-box textarea {
-  width: 100%; /* Full width textarea */
-  padding: 10px; /* Add padding inside the textarea */
-  font-size: 1em; /* Standard font size */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 4px; /* Rounded corners */
-  margin-top: 10px; /* Add spacing above */
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 10px;
 }
 
 .order-box button {
   display: inline-block;
-  padding: 10px 20px; /* Add padding inside the button */
-  font-size: 1em; /* Standard font size */
-  color: #fff; /* White text color */
-  background-color: #007bff; /* Blue background color */
-  border: none; /* Remove border */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  margin-top: 10px; /* Add spacing above */
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 .order-box button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
 .order-box .order-items {
   display: flex;
-  flex-wrap: wrap; /* Wrap items to the next line if needed */
-  gap: 15px; /* Add spacing between items */
-  margin-top: 15px; /* Add spacing above */
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
 }
 
 .order-box .item {
-  flex: 1 1 calc(33.333% - 15px); /* Three items per row */
-  box-sizing: border-box; /* Include padding and border in width */
-  text-align: center; /* Center-align item content */
+  flex: 1 1 calc(33.333% - 15px);
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .order-box .item img {
-  max-width: 100%; /* Ensure the image is responsive */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 8px; /* Rounded corners for the image */
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
 .order-box .item p {
-  margin: 5px 0; /* Add spacing between item details */
-  font-size: 0.9em; /* Slightly smaller font size for item details */
-  color: #555; /* Slightly lighter text color */
+  margin: 5px 0;
+  font-size: 0.9em;
+  color: #555;
 }

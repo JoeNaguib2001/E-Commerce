@@ -9,6 +9,7 @@
 
 // import { searchProducts } from "../js/shop.js";
 import { ref, child, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+import { searchProducts } from "../js/shop.js";
 
 
 // Access the globally initialized database
@@ -25,7 +26,7 @@ export async function loadNavbar() {
             document.body.prepend(navbarElement);
         }
 
-        const response = await fetch("navbar/navbar.html");
+        const response = await fetch("/navbar/navbar.html");
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.text();
@@ -104,7 +105,7 @@ function updateSignButton() {
             button.addEventListener("click", toggleSingedIn);
         } else {
             button.innerHTML = "Sign In";
-            button.addEventListener("click", () => window.location.href = "login.html");
+            button.addEventListener("click", () => window.location.href = "/login.html");
         }
     });
     if (signButton) {
