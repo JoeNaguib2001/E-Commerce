@@ -4,6 +4,10 @@ h3 {
   margin-bottom: 0;
   margin-left: 350px;
 }
+body {
+  padding: 0 20px;
+  background-color: rgb(213, 195, 195);
+}
 
 .order-box {
   width: 90%; /* Use percentage for width */
@@ -69,7 +73,7 @@ button {
 }
 
 button:hover {
-  background-color: #f0713e; /* Change color on hover */
+  background-color: rgb(152, 109, 109); /* Change color on hover */
   transform: scale(1.1); /* Scale up the button */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: white; /* Add a shadow effect */
@@ -88,7 +92,7 @@ select {
 
 select:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #f0713e;
+  background-color: rgb(152, 109, 109);
   color: white;
   border: none;
 }

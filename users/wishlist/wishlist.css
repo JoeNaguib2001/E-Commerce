@@ -9,9 +9,10 @@
 }
 
 body {
-  background-color: #eaeded;
+  background-color: rgb(213, 195, 195);
   font-family: sans-serif;
-  margin-left: 300px;
+  margin-left: 150px;
+  padding: 0 20px;
 }
 header {
   display: flex;
@@ -29,7 +30,7 @@ header .iconCart {
   gap: 20px;
 }
 .list-product .item {
-  background-color: #a34f2e;
+  background-color: rgb(152, 109, 109);
   padding: 20px;
   border-radius: 20px;
 }
@@ -49,7 +50,7 @@ div {
   font-size: medium;
 }
 .list-product .item button {
-  background-color: #763d27;
+  background-color: rgb(141, 93, 93);
   color: #eee;
   padding: 5px 10px;
   border-radius: 20px;
@@ -136,7 +137,7 @@ body .showCart .container {
 }
 
 .word {
-  color: #a34f2e;
+  color: rgb(152, 109, 109);
   font-size: 2rem;
   font-weight: bold;
   display: inline-block;
