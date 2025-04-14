@@ -452,7 +452,7 @@ async function filterProductsByCategory(categoryName) {
         const dbRef = ref(db);
         let snapshot;
 
-        if (categoryName.toLowerCase() === 'all') {
+        if (categoryName.toLowerCase() === 'all categories') {
             // Fetch all products if 'all' is selected
             snapshot = await get(child(dbRef, `products/`));
         } else {
@@ -464,7 +464,7 @@ async function filterProductsByCategory(categoryName) {
             const userData = snapshot.val();
 
             // Filter products by category if not 'all'
-            const filteredProducts = categoryName.toLowerCase() === 'all'
+            const filteredProducts = categoryName.toLowerCase() === 'all categories'
                 ? Object.values(userData)
                 : Object.values(userData).filter(product =>
                     product.category && product.category.toLowerCase() === categoryName.toLowerCase()
