@@ -74,7 +74,7 @@ const db = window.db;
 }
 });
 
-function addAdmins() {
+ function addAdmins() {
     document.getElementById("addAdminForm").addEventListener("submit", function (event) {
         event.preventDefault(); // Prevent page reload
 
@@ -83,7 +83,11 @@ function addAdmins() {
         const fullName = document.getElementById("adminFullName").value.trim();
         const password = document.getElementById("adminPassword").value.trim();
         const confirmPassword = document.getElementById("adminConfirmPassword").value.trim();
-
+        
+        if ( userExists(username)) {
+            ShowBootstrapToast("User already exists. Please sign in instead.", "danger");
+            return;
+        }
         // Validation for Full Name
         if (!fullName || fullName.length < 6) {
             ShowBootstrapToast("Full Name must be at least 6 characters long.", "danger");
@@ -210,3 +214,13 @@ function clearFormInputs() {
         }
     })
     };
+    async function userExists(username) {
+        const dbRef = ref(db);
+        try {
+            const snapshot = await get(child(dbRef, `users/${username}`));
+            return snapshot.exists();
+        } catch (error) {
+            console.error("Error checking username:", error);
+            return true; // احتياطي لو فيه خطأ نعتبره موجود
+        }
+    }
