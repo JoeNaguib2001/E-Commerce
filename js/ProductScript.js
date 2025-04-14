@@ -182,8 +182,9 @@ async function editCategory(cat) {
                 bootstrap.Modal.getInstance(document.getElementById('categoryModal')).hide();
                 
                 // Reset the form and button handler
-                document.getElementById("categoryForm").reset();
-                saveBtn.onclick = originalHandler;
+                document.getElementById("categoryNameInput").value = "";
+                document.getElementById("categoryDescInput").value = "";
+                                saveBtn.onclick = originalHandler;
                 saveBtn.textContent = "Create";
 
                 hideLoader();
@@ -228,7 +229,8 @@ async function CreateCategoriesUi() {
     // Show modal when clicking the button
     addNewBtn.addEventListener("click", () => {
         // Reset the form and button handler
-        document.getElementById("categoryForm") && document.getElementById("categoryForm").reset();
+        document.getElementById("categoryNameInput").value = "";
+        document.getElementById("categoryDescInput").value = "";
         const saveBtn = document.getElementById("saveCategoryBtn");
         if (saveBtn) {
             saveBtn.textContent = "Create";
@@ -244,7 +246,10 @@ async function CreateCategoriesUi() {
                     
                     // Close modal and reset form
                     bootstrap.Modal.getInstance(document.getElementById('categoryModal')).hide();
-                    document.getElementById("categoryForm").reset();
+                    
+                    document.getElementById("categoryNameInput").value = "";
+                    document.getElementById("categoryDescInput").value = "";
+
                 }
             };
         }
