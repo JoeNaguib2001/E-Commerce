@@ -9,6 +9,9 @@ body {
   font-family: sans-serif;
   background-color: rgb(213, 195, 195) !important;
   /* padding: 0 20px; */
+  padding: 0 20px;
+  color: white !important;
+  background-color: gray !important;
 }
 
 /* .header {
@@ -369,6 +372,7 @@ table {
   height: auto;
   border-radius: 8px;
 }
+
 .order-box .item p {
   margin: 5px 0;
   font-size: 0.9em;
