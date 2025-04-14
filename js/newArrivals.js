@@ -138,7 +138,7 @@ function createDeleteConfirmModal2() {
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn1">Delete</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn2">Delete</button>
                 </div>
             </div>
         </div>
@@ -249,8 +249,8 @@ async function deleteProductFromNewCollection(productId) {
     deleteModal.show();
 
     // Add event listener to the confirmation button
-    const confirmDeleteBtn1 = document.getElementById("confirmDeleteBtn1");
-    confirmDeleteBtn1.addEventListener("click", async function () {
+    const confirmDeleteBtn2 = document.getElementById("confirmDeleteBtn2");
+    confirmDeleteBtn2.addEventListener("click", async function () {
         try {
             // Show loader
             showLoader();
