@@ -1,47 +1,34 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test</title>
-    <link rel="stylesheet" href="order.css" />
-    <!-- Font Awesome CDN -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../css//bootstrap.min.css" />
-    <style>
-      i {
-        color: #000;
-      }
-    </style>
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test</title>
+  <link rel="stylesheet" href="order.css" />
+  <!-- Font Awesome CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css//bootstrap.min.css" />
+  <style>
+    i {
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
     <div class="toast-container position-fixed top-0 end-0 p-3">
-      <div
-        id="bootstrapToast"
-        class="toast"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
+      <div id="bootstrapToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <strong class="me-auto" id="toastTitle">Notification</strong>
           <small>Just now</small>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body text-dark" id="toastMessage">
           Message goes here.
         </div>
       </div>
     </div>
-
     <h1>Order Status</h1>
     <div class="step-container">
       <div class="step-item">
@@ -61,7 +48,6 @@
     <div class="order-meta">
       <h2><span id="order-date"></span></h2>
     </div>
-
     <div class="items" id="items"></div>
 
     <section class="summary">
@@ -70,9 +56,13 @@
     </section>
     <div id="pay"></div>
 
-    <script src="../../navbar/navbar.js" type="module"></script>
-    <script src="order.js" type="module"></script>
-    <script src="../../js/utilities.js"></script>
-    <script src="../../js/bootstrap.bundle.min.js"></script>
-  </body>
+  </div>
+
+
+  <script src="../../navbar/navbar.js" type="module"></script>
+  <script src="order.js" type="module"></script>
+  <script src="../../js/utilities.js"></script>
+  <script src="../../js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
