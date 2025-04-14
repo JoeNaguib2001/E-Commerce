@@ -44,49 +44,6 @@ function hideLoader() {
 
 
 let allOrders = []; 
-
-// async function loadOrders() {
-//     try {
-//             showLoader();
-
-//         const response = await fetch('./Data/Orders.json');
-        
-//         if (!response.ok) {
-//             throw new Error('Failed to fetch orders data');
-//         }
-//         const data = await response.json(); 
-
-//         const processedOrders = data.map(order => ({
-//             id: order.orderId,
-//             userName: order.userName,
-//             orderDate: order.orderDate,
-//             estimatedDelivery: order.estimatedDelivery,
-//             paymentMethod: order.paymentMethod,
-//             totalPrice: order.totalPrice,
-//             orderStatus: order.orderStatus,
-//             order: order.order 
-//         }));
-
-//         for (let item of processedOrders) {
-//             allOrders.push(item);
-//         }
-//         let searchDiv = document.getElementById("searchDiv");
-//         searchDiv.innerHTML = "";
-//         createDateFilter();
-
-//         console.log(processedOrders);
-//         const CatContainer = document.getElementById("CatContainer");
-//          CatContainer.innerHTML = "";
-//         createOrderCardModal(processedOrders); // تحديث البطاقات
-//         buildOrderTable(processedOrders);
-//         hideLoader();
-//     } catch (error) {
-//         console.error('Failed to load orders:', error);
-//         alert("There was an error loading the orders. Please try again later.");
-//         hideLoader();
-
-//     }
-// }
 async function loadOrders() {
     const dbRef = ref(db);
 
@@ -132,12 +89,12 @@ async function loadOrders() {
 
             hideLoader();
         } else {
-            ShowBootstrapToast("No orders found in the database.", "error")
+            ShowBootstrapToast("No orders found in the database.", "danger")
            hideLoader();
         }
     } catch (error) {
         console.error("Failed to load orders:", error);
-        alert("There was an error loading the orders. Please try again later.");
+        ShowBootstrapToast("There was an error loading the orders. Please try again later.", "danger");
         hideLoader();
     }
 }
@@ -232,37 +189,11 @@ function createDateFilter() {
                 buildOrderTable(filteredOrders);
             }
         } else {
-            alert("Please select both start and end dates.");
+            ShowBootstrapToast("Please select both start and end dates.", "danger");
         }
     });
 }
 
-
-// document.addEventListener("DOMContentLoaded", function () {
-//     createDateFilter();
-//     const searchBtn = document.getElementById("searchBtn");
-//     if (searchBtn) {
-//         searchBtn.addEventListener("click", function () {
-//             console.log("Search button clicked");
-//             const startDate = document.getElementById("startDate").value;
-//             const endDate = document.getElementById("endDate").value;
-
-//             if (startDate && endDate) {
-//                 const filteredOrders = filterOrdersByDate(allOrders, startDate, endDate);
-
-//                 if (filteredOrders.length === 0) {
-//                     showNoOrdersMessage();
-//                 } else {
-//                     buildOrderTable(filteredOrders);
-//                 }
-//             } else {
-//                 alert("Please select both start and end dates.");
-//             }
-//         });
-//     } else {
-//         console.error("Search button with id 'searchBtn' not found in the DOM.");
-//     }
-// });
 
 function filterOrdersByDate(orders, startDate, endDate) {
     return orders.filter(order => {
@@ -354,7 +285,7 @@ function buildOrderTable(orders) {
                     loadOrders(); // reload UI if needed
                 } catch (error) {
                     console.error("Error updating order status:", error);
-                    alert("Failed to update status. Please try again.");
+                    ShowBootstrapToast("Failed to update status. Please try again.", "danger");
                 }
             });
 

@@ -47,8 +47,8 @@ const db = window.db;
                 <br>
     
                 <label for="adminPassword">Password:</label>
-                <div class="d-flex align-items-center">
-                    <input type="password" id="adminPassword" required>
+               <div class="d-flex align-items-center">
+                    <input type="password" id="adminPassword" class="form-control password" required>
                 </div>
                 <br>
     
@@ -73,6 +73,7 @@ const db = window.db;
     this.body.appendChild(hideInfoWarning); 
 }
 });
+
 function addAdmins() {
     document.getElementById("addAdminForm").addEventListener("submit", function (event) {
         event.preventDefault(); // Prevent page reload
@@ -84,21 +85,26 @@ function addAdmins() {
         const confirmPassword = document.getElementById("adminConfirmPassword").value.trim();
 
         // Validation for Full Name
-        if (!fullName || fullName.length < 3) {
-            alert("Full Name must be at least 3 characters long.");
+        if (!fullName || fullName.length < 6) {
+            ShowBootstrapToast("Full Name must be at least 6 characters long.", "danger");
+
             return;
         }
 
         // Validation for Username
-        if (!username || username.length < 3 || /\s/.test(username)) {
-            alert("Username must be at least 3 characters long and should not contain spaces.");
+        if (!username || username.length < 6 || /\s/.test(username)) {
+            ShowBootstrapToast("Username must be at least 6 characters long and should not contain spaces.", "danger");
+            return;
+        }
+        if (!/^[a-zA-Z0-9]+$/.test(username)) {
+            ShowBootstrapToast("Username can only contain letters and numbers.", "danger");
             return;
         }
 
         // Validation for Email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
-            alert("Please enter a valid email address.");
+            ShowBootstrapToast("Please enter a valid email address.", "danger");
             return;
         }
 
@@ -106,23 +112,23 @@ function addAdmins() {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/;
 
         if (!password) {
-            alert("Password cannot be empty.");
+            ShowBootstrapToast("Password cannot be empty.", "danger");
             return;
         }
 
         if (password.length < 6) {
-            alert("Password must be at least 6 characters long.");
+            ShowBootstrapToast("Password must be at least 6 characters long.", "danger");
             return;
         }
 
         if (!passwordRegex.test(password)) {
-            alert("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+            ShowBootstrapToast("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.", "danger");
             return;
         }
 
         // Confirm Password Validation
         if (password !== confirmPassword) {
-            alert("Passwords do not match. Please confirm your password.");
+            ShowBootstrapToast("Passwords do not match. Please confirm your password.", "danger");
             return;
         }
 
@@ -136,27 +142,33 @@ function addAdmins() {
 
         set(ref(db, "users/" + username), userData)
             .then(() => {
-                alert("You added a new admin successfully!");
+                ShowBootstrapToast("You added a new admin successfully!", "success");
                 // Clear fields
                 document.getElementById("addAdminForm").reset();
                 resetValidationIndicators(); // Reset validation indicators
             })
             .catch((error) => {
                 console.error("Error:", error);
-                alert(error.message + " Please try again.");
+                ShowBootstrapToast(error.message + " Please try again.", "danger");
             });
 
         // Optional debug logging
         console.log("Admin data:", userData);
     });
-
+    clearFormInputs(); // Clear all input fields
     // Add validation indicators for each field
-    addValidationIndicators("adminFullName", value => value.length >= 3);
-    addValidationIndicators("adminUsername", value => value.length >= 3 && !/\s/.test(value));
+    addValidationIndicators("adminFullName", value => value.length >= 6 );
+    addValidationIndicators("adminUsername", value => value.length >= 6 && !/\s/.test(value));
     addValidationIndicators("adminEmail", value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
     addValidationIndicators("adminPassword", value => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/.test(value));
     addValidationIndicators("adminConfirmPassword", value => value === document.getElementById("adminPassword").value.trim());
 }
+// document.getElementById("adminUsername").addEventListener("keypress", function (event) {
+//     if (event.key === " ") {
+//         event.preventDefault();
+//         ShowBootstrapToast("Spaces are not allowed in the username.", "danger");
+//     }
+// });
 function addValidationIndicators(fieldId, validationFn) {
     const field = document.getElementById(fieldId);
     const indicator = document.createElement("span");
@@ -189,3 +201,12 @@ function resetValidationIndicators() {
         indicator.style.backgroundColor = "red";
     });
 }
+
+function clearFormInputs() {
+    // Clear all input fields
+    document.querySelectorAll("input").forEach(input => {
+        if (input.type === "text" || input.type === "email" || input.type === "password") {
+            input.value = "";
+        }
+    })
+    };

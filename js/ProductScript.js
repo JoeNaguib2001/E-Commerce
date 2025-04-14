@@ -1074,7 +1074,9 @@ function CreateSearchFilter() {
                     </div>
                     <div class="col-md-6">
                       <label for="newProductCategory" class="form-label">Category</label>
-                      <input type="text" class="form-control" id="newProductCategory" required>
+                        <select class="form-select" id="newProductCategory" required>
+                            <option value="" disabled selected>Select a category</option>
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <label for="newProductImageFile" class="form-label">Upload Image</label>
@@ -1111,6 +1113,31 @@ function CreateSearchFilter() {
         div.innerHTML = modalHTML;
         document.body.appendChild(div);
     }
+    async function populateCategoryDropdown() {
+        const categoryDropdown = document.getElementById("newProductCategory");
+        categoryDropdown.innerHTML = '<option value="" disabled selected>Select a category</option>'; // Reset dropdown
+    
+        try {
+            const dbRef = ref(db, "categories");
+            const snapshot = await get(dbRef);
+    
+            if (snapshot.exists()) {
+                const categories = Object.values(snapshot.val());
+                categories.forEach(category => {
+                    const option = document.createElement("option");
+                    option.value = category.name; // Use the category name as the value
+                    option.textContent = category.name; // Display the category name
+                    categoryDropdown.appendChild(option);
+                });
+            } else {
+                console.warn("No categories found in Firebase.");
+                ShowBootstrapToast("No categories found in Firebase.", "warning");
+            }
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+            ShowBootstrapToast("Failed to fetch categories. Please try again later.", "danger");
+        }
+    }
     // 5. Add event listener for the "Add New Product" button
     addNewProductBtn.addEventListener("click", async () => {
         let addProductModal = document.getElementById("addProductModal");
@@ -1118,6 +1145,9 @@ function CreateSearchFilter() {
             createAddProductModal();
             addProductModal = document.getElementById("addProductModal");
         }
+    
+        // Populate the category dropdown
+        await populateCategoryDropdown();
     
         const modal = new bootstrap.Modal(addProductModal);
         modal.show();
@@ -1127,7 +1157,7 @@ function CreateSearchFilter() {
             const title = document.getElementById("newProductTitle").value.trim();
             const price = parseFloat(document.getElementById("newProductPrice").value);
             const description = document.getElementById("newProductDescription").value.trim();
-            const category = document.getElementById("newProductCategory").value.trim();
+            const category = document.getElementById("newProductCategory").value; // Get selected category
             const quantity = parseInt(document.getElementById("newProductQuantity").value);
             const rating = {
                 rate: parseFloat(document.getElementById("newProductRating").value),
@@ -1137,14 +1167,14 @@ function CreateSearchFilter() {
             const imageFile = document.getElementById("newProductImageFile").files[0]; // Get the uploaded file
     
             if (!title || !price || !description || !category || !imageFile || isNaN(quantity) || isNaN(rating.rate) || isNaN(rating.count)) {
-                alert("Please fill in all fields correctly.");
+                ShowBootstrapToast("Please fill in all fields correctly.", "danger");
                 return;
             }
     
             try {
                 showLoader();
     
-                // Upload the image to Imgur
+                // Upload the image to Cloudinary
                 const imageUrl = await uploadImageToCloudinary(imageFile);
     
                 // Fetch existing products to determine the next ID
@@ -1165,7 +1195,7 @@ function CreateSearchFilter() {
                     price,
                     description,
                     category,
-                    image: imageUrl, // Use the Imgur image URL
+                    image: imageUrl, // Use the Cloudinary image URL
                     quantity,
                     rating
                 };
@@ -1176,10 +1206,10 @@ function CreateSearchFilter() {
                 document.getElementById("addProductForm").reset();
                 bootstrap.Modal.getInstance(addProductModal).hide();
                 loadProducts();
-                alert("Product added successfully!");
+                ShowBootstrapToast("Product added successfully!", "success");
             } catch (error) {
                 console.error("Error adding product:", error);
-                alert("Failed to add product. Please try again later.");
+                ShowBootstrapToast("Failed to add product. Please try again later.", "danger");
             } finally {
                 hideLoader();
             }
