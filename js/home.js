@@ -25,6 +25,16 @@ function setSignInText() {
         document.querySelector('.nav-link-sign-in').innerText = "Sign In";
     }
 }
+
+function isSignedIn() {
+    if (localStorage.getItem("isSignedIn")) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 setSignInText();
 
 
@@ -52,18 +62,18 @@ const db = getDatabase();
 function loadThirdCarousel() {
     const firstCarouselToFill = document.querySelector(".first-carousel-to-fill");
     const firstCarouselIndicators = document.querySelector(".first-carousel-indicators");
-    const dbRef = ref(db, 'products');
-    // const dbRef = ref(db, 'carousel_3');
+    // const dbRef = ref(db, 'products');
+    const dbRef = ref(db, 'carousel_3');
 
 
     get(dbRef)
         .then(snapshot => {
             if (snapshot.exists()) {
-                const data = Object.values(snapshot.val()).filter(product => product.title.includes("carousel_3"));
-                data.forEach((item, index) => {
+                const addData = Object.values(snapshot.val());
+                // const data = Object.values(snapshot.val()).filter(product => product.title.includes("carousel_3"));
+                addData.forEach((item, index) => {
                     const carouselItem = createThirdCarouselItem(item, index === 0);
                     const carouselIndicator = createThirdCarouselIndicator(index, index === 0);
-
                     firstCarouselIndicators.appendChild(carouselIndicator);
                     firstCarouselToFill.appendChild(carouselItem);
                 });

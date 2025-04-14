@@ -190,15 +190,7 @@
     background: #345a4f;
     color: white;
 }
-.orders .btn{
-    color: white;
-    background-color: #5A4634;
-}
-.orders .btn:hover{
-    color: white;
-    background-color: #f79a49;
-    transform: scale(1.01); /* Slight zoom effect */
-}
+
 
 .date-filter {
     display: flex;
@@ -467,7 +459,7 @@
 }
 
 #searchDiv .btn-primary:hover {
-    background-color: #f79a49; 
+    background-color: #022f63; 
     transform: scale(1.01); /* Slight zoom effect */
 }
 

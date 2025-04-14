@@ -54,7 +54,7 @@ async function loadProducts() {
         hideLoader();
     } catch (error) {
         console.error('Failed to load products:', error);
-        alert("There was an error loading the products. Please try again later.");
+        ShowBootstrapToast("Failed to load products.", "danger");   
         hideLoader();
     }
 }
@@ -297,7 +297,7 @@ async function CreateCategoriesUi() {
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete this category? This action cannot be undone.</p>
+                        <p>Are you sure you want to delete this ? This action cannot be undone.</p>
                     </div>
                     <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -324,7 +324,7 @@ async function CreateCategoriesUi() {
     async function addCategoryToFirebase(name, description) {
         // Check for data
         if (!name || !description) {
-            alert("Please provide both name and description.");
+            ShowBootstrapToast("Please provide both name and description.", "danger");  
             return;
         }
     
@@ -349,8 +349,7 @@ async function CreateCategoriesUi() {
             // Return the new category data
             return { id: myGuid, name, description };
         } catch (error) {
-            console.error("Error saving category:", error);
-            alert("Failed to add category: " + error.message);
+            ShowBootstrapToast("Failed to add category. Please try again later.", "danger");    
             hideLoader();
             return null;
         }
@@ -478,7 +477,7 @@ async function filterProductsByCategory(categoryName) {
         hideLoader();
     } catch (error) {
         console.error("Error filtering products by category:", error);
-        alert("Failed to filter products. Please try again later.");
+        ShowBootstrapToast("Failed to filter products. Please try again later.", "danger"); 
         hideLoader();
     }
 }
@@ -681,7 +680,7 @@ async function showProductDetails(product) {
         modal.show();
     } catch (error) {
         console.error("Error fetching product details:", error);
-        alert("Failed to load product details. Please try again later.");
+        ShowBootstrapToast("Failed to load product details. Please try again later.", "danger");    
         hideLoader();
     }
 }
@@ -710,10 +709,9 @@ async function AddProductToTrendInDataBase(product) {
         hideLoader();
 
         // Show success message
-        alert(`Product "${product.title}" has been added to the trending carousel successfully!`);
+        ShowBootstrapToast(`Product "${product.title}" has been added to the trending carousel successfully!`, "success");  
     } catch (error) {
-        console.error("Error adding product to trending carousel:", error);
-        alert("Failed to add product to the trending carousel. Please try again later.");
+        ShowBootstrapToast("Failed to add product to the trending carousel. Please try again later.", "danger");    
         hideLoader();
     }
 }
@@ -742,10 +740,9 @@ async function AddProductToNewCollectionInDataBase(product) {
         hideLoader();
 
         // Show success message
-        alert(`Product "${product.title}" has been added to the trending carousel successfully!`);
+        ShowBootstrapToast("Product added to the new collection successfully!", "success"); 
     } catch (error) {
-        console.error("Error adding product to trending carousel:", error);
-        alert("Failed to add product to the trending carousel. Please try again later.");
+        ShowBootstrapToast("Failed to add product to the trending carousel. Please try again later.", "danger");    
         hideLoader();
     }
 }
@@ -797,8 +794,8 @@ async function editProduct(product) {
             await saveProductChanges();
         };
     } catch (error) {
-        console.error("Error preparing product for edit:", error);
-        alert("Failed to load product for editing. Please try again later.");
+    
+        ShowBootstrapToast("Failed to load product for editing. Please try again later.", "danger");
         hideLoader();
     }
 }
@@ -838,42 +835,55 @@ async function saveProductChanges() {
         hideLoader();
 
         // Show success message
-        alert("Product updated successfully!");
+        ShowBootstrapToast("Product updated successfully!", "success");
     } catch (error) {
-        console.error("Error updating product:", error);
-        alert("Failed to update product. Please try again later.");
+        ShowBootstrapToast("Failed to update product. Please try again later.", "danger");
         hideLoader();
     }
 }
 async function deleteProduct(productId) {
     // Confirm deletion from the user
-    if (!confirm("Are you sure you want to delete this product?")) {
-        return;
-    }
+          
+                // Show delete confirmation modal
+                const deleteConfirmModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+                deleteConfirmModal.show();
+                
+                // Set up delete confirmation handler
+                const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+                if (confirmDeleteBtn) {
+                    confirmDeleteBtn.onclick = async () => {
 
-    try {
-        // Show loader
-        showLoader();
 
-        // Reference to the product in Firebase
-        const productRef = ref(db, `products/${productId}`);
+                        try {
+                            // Show loader
+                            showLoader();
+                    
+                            // Reference to the product in Firebase
+                            const productRef = ref(db, `products/${productId}`);
+                    
+                            // Delete the product from Firebase
+                            await set(productRef, null);
+                    
+                            // Reload data and update the UI
+                            loadProducts();
+                    
+                            // Hide loader
+                            hideLoader();
+                    
+                            // Show success message
+                            ShowBootstrapToast("Product deleted successfully!", "success");
+                        } catch (error) {
+                            console.error("Error deleting product:", error);
+                            ShowBootstrapToast("Failed to delete product. Please try again later.", "danger");  
+                            hideLoader();
+                        }
 
-        // Delete the product from Firebase
-        await set(productRef, null);
 
-        // Reload data and update the UI
-        loadProducts();
 
-        // Hide loader
-        hideLoader();
+                        bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal')).hide();
+                    };
+                }
 
-        // Show success message
-        alert("Product deleted successfully!");
-    } catch (error) {
-        console.error("Error deleting product:", error);
-        alert("Failed to delete product. Please try again later.");
-        hideLoader();
-    }
 }
 
 // إنشاء مودال تفاصيل المنتج
