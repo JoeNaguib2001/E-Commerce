@@ -668,6 +668,12 @@ async function showProductDetails(product) {
                 AddProductToTrendInDataBase(productDetails);
             });
         }
+        const newCollectionBtn = document.querySelector(".newCollectionBts");
+        if (newCollectionBtn) {
+            newCollectionBtn.addEventListener("click", function () {
+                AddProductToNewCollectionInDataBase(productDetails);
+            });
+        }
         hideLoader();
 
         // Show the modal
@@ -685,15 +691,44 @@ async function AddProductToTrendInDataBase(product) {
         // Show loader
         showLoader();
 
-        // Generate a unique ID for the product in the carousel
-        const trendProductId = generateSimpleGUID();
 
         // Reference to the carousel_2 node in Firebase
-        const carouselRef = ref(db, `carousel_4/${trendProductId}`);
+        const carouselRef = ref(db, `carousel_4/${product.id}`);
 
         // Add the product to the carousel_2 database
         await set(carouselRef, {
-            id: trendProductId,
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            description: product.description,
+            category: product.category,
+            image: product.image,
+            rating: product.rating
+        });
+
+        // Hide loader
+        hideLoader();
+
+        // Show success message
+        alert(`Product "${product.title}" has been added to the trending carousel successfully!`);
+    } catch (error) {
+        console.error("Error adding product to trending carousel:", error);
+        alert("Failed to add product to the trending carousel. Please try again later.");
+        hideLoader();
+    }
+}
+
+async function AddProductToNewCollectionInDataBase(product) {
+    try {
+        // Show loader
+        showLoader();
+
+     
+      // Reference to the carousel_2 node in Firebase
+      const carouselRef = ref(db, `carousel_3/${product.id}`);
+
+      // Add the product to the carousel_2 database
+      await set(carouselRef, {
             id: product.id,
             title: product.title,
             price: product.price,
@@ -867,11 +902,12 @@ function createProductModal() {
           </div>
           <div class="modal-footer bg-light">
               <button type="button" class="btn btn-secondary px-4 trendBts" data-bs-dismiss="modal">Add To Trend</button>
+              <button type="button" class="btn btn-secondary px-4 newCollectionBts" data-bs-dismiss="modal">Add To New Collection</button>
 
             <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
-      </div>
+      </div>س
     </div>`;
 
     const div = document.createElement("div");

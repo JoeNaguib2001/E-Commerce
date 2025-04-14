@@ -1,0 +1,172 @@
+/* General Styles */
+h3 {
+  display: inline-block;
+  margin-bottom: 0;
+  margin-left: 350px;
+}
+
+.order-box {
+  width: 90%; /* Use percentage for width */
+  max-width: 600px; /* Set a maximum width */
+  height: auto; /* Adjust height dynamically */
+  margin: 20px auto; /* Center the fieldset horizontally */
+  border: 2px solid #ccc; /* Add a light border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Add padding inside the fieldset */
+  background-color: #f9f9f9; /* Light background color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.order-box img {
+  max-width: 100%; /* Ensure the image doesn't exceed its container */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px; /* Rounded corners */
+}
+
+.order-details {
+  flex: 1;
+  min-width: 200px;
+}
+
+#date {
+  color: rgb(95, 88, 88);
+}
+
+fieldset {
+  position: relative;
+}
+
+p {
+  align-items: center;
+  align-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.review-actions {
+  display: flex; /* Use flexbox for horizontal alignment */
+  align-items: center; /* Align items vertically in the center */
+  gap: 10px; /* Add spacing between the select and button */
+  margin-top: 10px; /* Add some spacing above the container */
+}
+
+textarea {
+  width: 100%; /* Make textarea take full width */
+  height: 150px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  border: none;
+}
+
+button:hover {
+  background-color: #f0713e; /* Change color on hover */
+  transform: scale(1.1); /* Scale up the button */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white; /* Add a shadow effect */
+}
+
+select {
+  padding: 10px;
+  font-size: 13px;
+  border-radius: 6px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f1f1f1;
+}
+
+select:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f0713e;
+  color: white;
+  border: none;
+}
+
+option {
+  background-color: white;
+  padding: 10px;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+option:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.02);
+}
+
+/* Responsive Styles */
+
+/* For small screens (max-width: 600px) */
+@media (max-width: 600px) {
+  .order-box {
+    width: 100%; /* Make the fieldset take full width */
+    padding: 15px; /* Reduce padding */
+  }
+
+  .order-box img {
+    width: 80px; /* Reduce image size */
+  }
+
+  .review-actions {
+    flex-direction: column; /* Stack the dropdown and button vertically */
+    align-items: flex-start; /* Align items to the left */
+  }
+
+  textarea {
+    height: 120px; /* Adjust height */
+  }
+
+  button {
+    width: 100%; /* Make buttons take full width */
+    margin-top: 10px; /* Add spacing between buttons */
+  }
+
+  h3 {
+    font-size: 18px; /* Reduce font size for headings */
+  }
+
+  p {
+    font-size: 14px; /* Reduce font size for paragraphs */
+  }
+}
+
+/* For medium screens (max-width: 900px) */
+@media (max-width: 900px) {
+  .order-box {
+    width: 90%; /* Slightly reduce width */
+    margin: 10px auto; /* Adjust margin */
+  }
+
+  .order-box img {
+    width: 90px; /* Adjust image size */
+  }
+
+  .review-actions {
+    gap: 5px; /* Reduce spacing between elements */
+  }
+}
+
+/* For large screens (min-width: 1200px) */
+@media (min-width: 1200px) {
+  .order-box {
+    max-width: 800px; /* Increase maximum width for large screens */
+  }
+
+  .review-actions {
+    gap: 15px; /* Increase spacing between elements */
+  }
+
+  textarea {
+    height: 200px; /* Increase textarea height */
+  }
+}

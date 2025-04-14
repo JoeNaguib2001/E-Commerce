@@ -53,6 +53,8 @@ function loadThirdCarousel() {
     const firstCarouselToFill = document.querySelector(".first-carousel-to-fill");
     const firstCarouselIndicators = document.querySelector(".first-carousel-indicators");
     const dbRef = ref(db, 'products');
+    // const dbRef = ref(db, 'carousel_3');
+
 
     get(dbRef)
         .then(snapshot => {
@@ -180,17 +182,17 @@ loadThirdCarousel();
 function loadFourthCarousel() {
     const secondCarouselToFill = document.querySelector(".second-carousel-to-fill");
     const secondCarouselIndicators = document.querySelector(".second-carousel-indicators");
-    const dbRef = ref(db, 'products');
+    // const dbRef = ref(db, 'products');
+    const dbRef = ref(db, 'carousel_4');
+
 
     get(dbRef)
         .then(snapshot => {
             if (snapshot.exists()) {
-                const allProducts = Object.values(snapshot.val());
-                const data = allProducts.filter(product => product.title.includes("carousel_4"));
-
-                for (let i = 0; i < data.length; i += 2) {
-                    const product1 = data[i];
-                    const product2 = data[i + 1];
+                const carousel_4_products = Object.values(snapshot.val());
+                for (let i = 0; i < carousel_4_products.length; i += 2) {
+                    const product1 = carousel_4_products[i];
+                    const product2 = carousel_4_products[i + 1];
 
                     const carouselItem = document.createElement('div');
                     const carouselIndicator = document.createElement('button');
@@ -319,7 +321,7 @@ function loadFifthCarousel() {
                                         </i>
                                         <img src="${item.image}" alt="${item.alt}">
                                         <div class="product-info text-center">
-                                            <span style="font-weight:100; font-size:20px !important">${ item.title.substring(item.title.indexOf(" ") + 1) }</span><br>
+                                            <span style="font-weight:100; font-size:20px !important">${item.title.substring(item.title.indexOf(" ") + 1)}</span><br>
                                             <span style="font-weight:100; font-size:20px  !important">${item.price}.00 EGP</span>
                                             <button class="add-to-cart-btn" data-product='${JSON.stringify(item)}'
                                                 style="font-weight:100; font-size:20px !important; background-color:orange !important;
