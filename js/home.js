@@ -333,7 +333,7 @@ function loadFifthCarousel() {
                                         <div class="product-info text-center">
                                             <span style="font-weight:100; font-size:20px !important">${item.title.substring(item.title.indexOf(" ") + 1)}</span><br>
                                             <span style="font-weight:100; font-size:20px  !important">${item.price}.00 EGP</span>
-                                            <button class="add-to-cart-btn" data-product='${JSON.stringify(item)}'
+                                            <button class="add-to-cart-btn" data-product='${JSON.stringify(item).replace(/'/g, "&apos;")}'
                                                 style="font-weight:100; font-size:20px !important; background-color:orange !important;
                                                 padding:10px; display:block; border-radius:20px; margin-top:10px !important">
                                                 Add To Cart
@@ -344,6 +344,7 @@ function loadFifthCarousel() {
                             `).join('')}
                         </div>
                     `;
+
 
                     const buttons = carouselItem.querySelectorAll('.add-to-cart-btn');
                     buttons.forEach(button => {
