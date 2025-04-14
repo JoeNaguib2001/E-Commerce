@@ -8,21 +8,9 @@ body {
   margin: 0;
   font-family: sans-serif;
   background-color: rgb(213, 195, 195) !important;
-  /* padding: 0 20px; */
-  padding: 0 20px;
-  color: white !important;
-  background-color: gray !important;
-}
 
-/* .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #a34f2e;
-  padding: 10px 20px;
-  border-radius: 40px;
-  margin: 5px;
-  /* color: white;} */
+  color: white !important;
+}
 
 .logo {
   display: flex;
