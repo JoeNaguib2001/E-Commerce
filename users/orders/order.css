@@ -7,8 +7,9 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background-color: #fefcf7;
-  padding: 30px;
+  padding: 0 20px;
+  color: white !important;
+  background-color: gray !important;
 }
 
 .header {
