@@ -1,6 +1,8 @@
 import { ref, push, child, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 const db = window.db;
 document.getElementById("NewCollectionButton").addEventListener("click", function () {
+    console.log("NewCollectionButton clicked"); 
+
     LoadNewCollections();
 });
 
@@ -24,6 +26,7 @@ async function LoadNewCollections() {
             image: product.image,
             rating: product.rating
         }));
+        console.log("Processed Products:", processedProducts); // Log the processed products    
         const CatContainer = document.getElementById("CatContainer");
         if (CatContainer) CatContainer.innerHTML = ""; // تفريغ الديف ده
         
