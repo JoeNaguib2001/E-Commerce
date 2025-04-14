@@ -237,6 +237,25 @@ async function CreateCategoriesUi() {
             saveBtn.onclick = async () => {
                 const name = document.getElementById("categoryNameInput").value.trim();
                 const desc = document.getElementById("categoryDescInput").value.trim();
+                
+    let valid = true;
+
+    if (!name) {
+        document.getElementById('categoryNameError').style.display = 'block';
+        valid = false;
+    } else {
+        document.getElementById('categoryNameError').style.display = 'none';
+    }
+
+    if (!desc) {
+        document.getElementById('categoryDescError').style.display = 'block';
+        valid = false;
+    } else {
+        document.getElementById('categoryDescError').style.display = 'none';
+    }
+
+    if (valid) {
+    
             
                 const newCategory = await addCategoryToFirebase(name, desc);
             
@@ -256,6 +275,7 @@ async function CreateCategoriesUi() {
         
         const modal = new bootstrap.Modal(document.getElementById('categoryModal'));
         modal.show();
+    }
     });
 
     function createCategoryModal() {
@@ -271,10 +291,13 @@ async function CreateCategoriesUi() {
                         <div class="mb-3">
                             <label for="categoryNameInput" class="form-label fw-bold">Category Name</label>
                             <input type="text" class="form-control" id="categoryNameInput" placeholder="Enter category name">
+                         <span id="categoryNameError" class="text-danger" style="display:none;">Please enter a valid category name.</span>
                         </div>
                         <div class="mb-3">
                             <label for="categoryDescInput" class="form-label fw-bold">Description</label>
                             <input type="text" class="form-control" id="categoryDescInput" placeholder="Enter description">
+                    <span id="categoryDescError" class="text-danger" style="display:none;">Please enter a valid description.</span>
+
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
@@ -285,7 +308,6 @@ async function CreateCategoriesUi() {
             </div>
         </div>`;
     
-        // التحقق مما إذا كان المودال موجودًا بالفعل
         if (!document.getElementById('categoryModal')) {
             const wrapper = document.createElement("div");
             wrapper.innerHTML = modalHTML;
