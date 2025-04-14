@@ -161,11 +161,11 @@ function showTrendProductDetails(product) {
     if (!detailsModal) {
         // Create the modal if it doesn't exist
         const modalHTML = `
-        <div class="modal fade" id="trendProductDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
+        <div class="modal fade" id="trendProductDetailsModal1" tabindex="-1" aria-labelledby="productDetailsModalLabel1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content shadow-lg rounded-4">
                     <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="productDetailsModalLabel">Product Details</h5>
+                        <h5 class="modal-title" id="productDetailsModalLabel1">Product Details</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="productDetailsContent1">
@@ -183,7 +183,7 @@ function showTrendProductDetails(product) {
         wrapper.innerHTML = modalHTML;
         document.body.appendChild(wrapper);
         
-        detailsModal = document.getElementById('trendProductDetailsModal');
+        detailsModal = document.getElementById('trendProductDetailsModal1');
     }
     
     // Populate the modal with product details
