@@ -25,21 +25,43 @@ const db = window.db;
         }
 
         CatContainer.innerHTML = `
-            <div class="container mt-5">
-                <h1>Add New Admin</h1>
-                <form id="addAdminForm">
-                    <label for="adminFullName">Full Name:</label>
-                    <input type="text" id="adminFullName" required><br><br>
-                    <label for="adminUsername">Username:</label>
-                    <input type="text" id="adminUsername" required><br><br>
-                    <label for="adminEmail">Email:</label>
-                    <input type="email" id="adminEmail" required><br><br>
-                    <label for="adminPassword">Password:</label>
-                    <input type="password" id="adminPassword" required><br><br>
-                    <button type="submit">Add Admin</button>
-                </form>
-            </div>
-        `;
+        <div class="container mt-5">
+            <h1>Add New Admin</h1>
+            <form id="addAdminForm">
+                <label for="adminFullName">Full Name:</label>
+                <div class="d-flex align-items-center">
+                    <input type="text" id="adminFullName" required>
+                </div>
+                <br>
+    
+                <label for="adminUsername">Username:</label>
+                <div class="d-flex align-items-center">
+                    <input type="text" id="adminUsername" required>
+                </div>
+                <br>
+    
+                <label for="adminEmail">Email:</label>
+                <div class="d-flex align-items-center">
+                    <input type="email" id="adminEmail" required>
+                </div>
+                <br>
+    
+                <label for="adminPassword">Password:</label>
+                <div class="d-flex align-items-center">
+                    <input type="password" id="adminPassword" required>
+                </div>
+                <br>
+    
+                <label for="adminConfirmPassword">Confirm Password:</label>
+                <div class="d-flex align-items-center">
+                    <input type="password" id="adminConfirmPassword" required>
+                </div>
+                <br>
+    
+                <button type="submit">Add Admin</button>
+            </form>
+        </div>
+    `;
 
         addAdmins();
 }else{
@@ -59,6 +81,7 @@ function addAdmins() {
         const username = document.getElementById("adminUsername").value.trim();
         const fullName = document.getElementById("adminFullName").value.trim();
         const password = document.getElementById("adminPassword").value.trim();
+        const confirmPassword = document.getElementById("adminConfirmPassword").value.trim();
 
         // Validation for Full Name
         if (!fullName || fullName.length < 3) {
@@ -80,7 +103,7 @@ function addAdmins() {
         }
 
         // Validation for Password
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/;
 
         if (!password) {
             alert("Password cannot be empty.");
@@ -97,6 +120,12 @@ function addAdmins() {
             return;
         }
 
+        // Confirm Password Validation
+        if (password !== confirmPassword) {
+            alert("Passwords do not match. Please confirm your password.");
+            return;
+        }
+
         const userData = {
             fullName: fullName,
             userName: username,
@@ -110,6 +139,7 @@ function addAdmins() {
                 alert("You added a new admin successfully!");
                 // Clear fields
                 document.getElementById("addAdminForm").reset();
+                resetValidationIndicators(); // Reset validation indicators
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -118,5 +148,44 @@ function addAdmins() {
 
         // Optional debug logging
         console.log("Admin data:", userData);
+    });
+
+    // Add validation indicators for each field
+    addValidationIndicators("adminFullName", value => value.length >= 3);
+    addValidationIndicators("adminUsername", value => value.length >= 3 && !/\s/.test(value));
+    addValidationIndicators("adminEmail", value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
+    addValidationIndicators("adminPassword", value => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/.test(value));
+    addValidationIndicators("adminConfirmPassword", value => value === document.getElementById("adminPassword").value.trim());
+}
+function addValidationIndicators(fieldId, validationFn) {
+    const field = document.getElementById(fieldId);
+    const indicator = document.createElement("span");
+
+    // Add classes and styles for the indicator
+    indicator.className = "validation-indicator";
+    indicator.style.marginLeft = "10px";
+    indicator.style.marginBottom = "10px";
+    indicator.style.width = "20px";
+    indicator.style.height = "20px";
+    indicator.style.borderRadius = "50%";
+    indicator.style.display = "inline-block";
+    indicator.style.backgroundColor = "red"; // Default to red
+
+    // Insert the indicator beside the input field
+    field.parentNode.insertBefore(indicator, field.nextSibling);
+
+    // Add event listener for real-time validation
+    field.addEventListener("input", () => {
+        if (validationFn(field.value.trim())) {
+            indicator.style.backgroundColor = "green"; // Valid input
+        } else {
+            indicator.style.backgroundColor = "red"; // Invalid input
+        }
+    });
+}
+function resetValidationIndicators() {
+    const indicators = document.querySelectorAll(".validation-indicator");
+    indicators.forEach(indicator => {
+        indicator.style.backgroundColor = "red";
     });
 }

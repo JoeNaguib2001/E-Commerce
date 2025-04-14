@@ -533,3 +533,11 @@
     color: #aaa; /* Subtle placeholder color */
     font-style: italic;
 }
+
+.validation-indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: red; /* Default color */
+}

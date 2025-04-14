@@ -1109,7 +1109,7 @@ function CreateSearchFilter() {
                 showLoader();
     
                 // Upload the image to Imgur
-                const imageUrl = await uploadImageToImgur(imageFile);
+                const imageUrl = await uploadImageToCloudinary(imageFile);
     
                 // Fetch existing products to determine the next ID
                 const dbRef = ref(db, "products");
@@ -1149,56 +1149,34 @@ function CreateSearchFilter() {
             }
         };
     });
-    // async function uploadImageToImgur(imageFile) {
-    //     const clientId = "3f84b48e9b317be"; 
-    //     const formData = new FormData();
-    //     formData.append("image", imageFile);
+    async function uploadImageToCloudinary(imageFile) {
+        const cloudName = "dogb1ikup"; // Replace with your Cloudinary Cloud Name
+        const uploadPreset = "unsigned_preset"; // Replace with your Cloudinary Upload Preset
     
-    //     try {
-    //         const response = await fetch("https://api.imgur.com/3/image", {
-    //             method: "POST",
-    //             headers: {
-    //                 Authorization: `Client-ID ${clientId}`
-    //             },
-    //             body: formData
-    //         });
+        const formData = new FormData();
+        formData.append("file", imageFile);
+        formData.append("upload_preset", uploadPreset);
     
-    //         if (!response.ok) {
-    //             throw new Error("Failed to upload image to Imgur");
-    //         }
+        try {
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                method: "POST",
+                body: formData
+            });
     
-    //         const data = await response.json();
-    //         return data.data.link; // Return the URL of the uploaded image
-    //     } catch (error) {
-    //         console.error("Error uploading image to Imgur:", error);
-    //         throw error;
-    //     }
-    // }
-//     async function uploadImageToPostImage(imageFile) {
-//         const apiKey = "YOUR_POSTIMAGE_API_KEY"; // Replace with your PostImage API key
-//         const formData = new FormData();
-//         formData.append("key", apiKey); // Add the API key
-//         formData.append("image", imageFile); // Add the image file
+            const data = await response.json();
+            console.log("Cloudinary API Response:", data); // Debugging log
     
-//         try {
-//             const response = await fetch("https://api.postimages.org/1/upload", {
-//                 method: "POST",
-//                 body: formData
-//             });
+            if (!response.ok) {
+                throw new Error(data.error.message || "Failed to upload image to Cloudinary");
+            }
     
-//             const data = await response.json();
-//             console.log("PostImage API Response:", data); // Debugging log
-    
-//             if (!response.ok || !data.success) {
-//                 throw new Error(data.error.message || "Failed to upload image to PostImage");
-//             }
-    
-//             return data.data.url; // Return the direct URL of the uploaded image
-//         } catch (error) {
-//             console.error("Error uploading image to PostImage:", error);
-//             throw error;
-//         }
-//     }
+            return data.secure_url; // Return the secure URL of the uploaded image
+        } catch (error) {
+            console.error("Error uploading image to Cloudinary:", error);
+            throw error;
+        }
+    }
+
 }
 
 function generateSimpleGUID() {
